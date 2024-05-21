@@ -1,16 +1,16 @@
-import { OrbitControls, Float } from "@react-three/drei"
-import { Perf } from "r3f-perf"
-import { useLoader, useThree } from "@react-three/fiber"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
-import { useRef, useEffect, Suspense } from "react"
-import { gsap } from "gsap"
-import { useGSAP } from "@gsap/react"
-import { ScrollTrigger } from "gsap/all"
-gsap.registerPlugin(ScrollTrigger)
+import { OrbitControls, Float } from "@react-three/drei";
+import { Perf } from "r3f-perf";
+import { useLoader, useThree } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import React, { useRef, useEffect, Suspense } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
-  const model = useLoader(GLTFLoader, "./rubber_duck/scene.gltf")
-  const modelRef = useRef()
+  const model = useLoader(GLTFLoader, "./rubber_duck/scene.gltf");
+  const modelRef = useRef();
 
   useGSAP(() => {
     if (model) {
@@ -23,7 +23,7 @@ export default function Experience() {
         },
         y: modelRef.current.rotation.y + Math.PI * 2,
         x: 6,
-      })
+      });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
           trigger: "#s1",
@@ -34,7 +34,7 @@ export default function Experience() {
         },
         z: 2,
         y: -2,
-      })
+      });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
           trigger: "#s3",
@@ -43,7 +43,7 @@ export default function Experience() {
           scrub: 1,
         },
         x: window.innerWidth / 500,
-      })
+      });
       gsap.to(modelRef.current.rotation, {
         scrollTrigger: {
           trigger: "#s3",
@@ -52,9 +52,9 @@ export default function Experience() {
           scrub: 1,
         },
         y: 5.5,
-      })
+      });
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -72,5 +72,5 @@ export default function Experience() {
         </Suspense>
       </orthographicCamera>
     </>
-  )
+  );
 }

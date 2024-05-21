@@ -1,29 +1,29 @@
-import { Canvas } from "@react-three/fiber"
-import Experience from "./components/Experience"
-import { useGSAP } from "@gsap/react"
-import { useEffect, useRef, useState } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/all"
-gsap.registerPlugin(ScrollTrigger)
+import { Canvas } from "@react-three/fiber";
+import Experience from "./components/Experience";
+import { useGSAP } from "@gsap/react";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const canvasRef = useRef()
-  const circleRef = useRef()
-  const s1Ref = useRef()
-  const s2Ref = useRef()
-  const s3Ref = useRef()
+  const canvasRef = useRef();
+  const circleRef = useRef();
+  const s1Ref = useRef();
+  const s2Ref = useRef();
+  const s3Ref = useRef();
 
   useGSAP(() => {
     gsap.to(canvasRef.current, {
       opacity: 1,
       duration: 3,
       ease: "power1.inOut",
-    })
+    });
     gsap.to(s1Ref.current, {
       opacity: 1,
       duration: 3,
       ease: "power1.inOut",
-    })
+    });
     gsap.to(s2Ref.current, {
       scrollTrigger: {
         trigger: "#s2",
@@ -32,7 +32,7 @@ function App() {
         scrub: 1,
       },
       opacity: 1,
-    })
+    });
     gsap.to(s3Ref.current, {
       scrollTrigger: {
         trigger: "#s3",
@@ -41,7 +41,7 @@ function App() {
         scrub: 1,
       },
       opacity: 1,
-    })
+    });
     gsap.to(circleRef.current, {
       scrollTrigger: {
         trigger: "#s4",
@@ -51,8 +51,8 @@ function App() {
       },
       y: "-100%",
       scale: 1.5,
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <main className="overflow-x-hidden">
@@ -80,7 +80,7 @@ function App() {
           <button
             className="p-4 bg-gray-300"
             onClick={() => {
-              console.log("click")
+              console.log("click");
             }}
           >
             CLICK
@@ -100,7 +100,7 @@ function App() {
           <button
             className="p-4 bg-gray-300"
             onClick={() => {
-              console.log("click")
+              console.log("click");
             }}
           >
             CLICK
@@ -128,7 +128,7 @@ function App() {
             <button
               className="p-4 bg-gray-300"
               onClick={() => {
-                console.log("click")
+                console.log("click");
               }}
             >
               CLICK
@@ -146,7 +146,7 @@ function App() {
         </Canvas>
       </div>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
