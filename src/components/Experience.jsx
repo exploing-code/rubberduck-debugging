@@ -66,7 +66,7 @@ export default function Experience({ duck }) {
         <Suspense fallback={<h1>Loading...</h1>}>
           <Float speed={1} floatIntensity={-1}>
             <mesh ref={modelRef}>
-              <primitive object={model.scene} scale={0.3} position-y={-1} />
+              <primitive object={model.scene} scale={1} position-y={-1} />
             </mesh>
           </Float>
         </Suspense>

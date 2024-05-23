@@ -60,7 +60,7 @@ function App() {
   const ducks = [
     {
       name: 'rubberDuck',
-      path: './rubber_duck/scene.gltf',
+      path: './demon_duckling/scene.gltf',
       primaryClr: '#99A585',
       secondaryClr: '#F5D02A',
       thirdClr: '#E57C2B',
