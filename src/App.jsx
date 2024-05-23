@@ -4,6 +4,8 @@ import { useGSAP } from '@gsap/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { GoTriangleRight } from 'react-icons/go';
+import { GoTriangleLeft } from 'react-icons/go';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,7 +79,7 @@ function App() {
       path: './ducksaw/scene.gltf',
       primaryClr: '#4E94CE',
       secondaryClr: '#F1F3C3',
-      thirdClr: '#A7E22E',
+      thirdClr: '#DFC34D',
     },
   ];
 
@@ -94,10 +96,11 @@ function App() {
         id='s1'
       >
         <div
-          className='relative flex flex-col items-center z-[2] text-[14rem]'
+          className='relative  flex flex-col items-center  text-[14rem]'
           ref={s1Ref}
         >
           <h1
+            className='relative'
             style={{
               color: ducks[activeDuck].secondaryClr,
             }}
@@ -105,7 +108,7 @@ function App() {
             RUBBER DUCK
           </h1>
           <h1
-            className='absolute top-0 translate-y-[35rem] text-[16rem]'
+            className='absolute z-10 top-0 translate-y-[35rem] text-[17rem]'
             style={{
               color: ducks[activeDuck].secondaryClr,
             }}
@@ -116,7 +119,7 @@ function App() {
       </div>
 
       <section
-        className=' flex-col flex pt-[2rem] justify-between bg-white'
+        className=' flex-col flex pt-[2rem] justify-between relative z-[1000]'
         id='s2'
       >
         <div
@@ -130,28 +133,34 @@ function App() {
           >
             Are you stuck? Choose a duck!
           </p>
-          <div className='flex w-full justify-between'>
+          <div className='flex relative w-full justify-between z-[1000]'>
             <button
-              style={{
-                backgroundColor: ducks[activeDuck].thirdClr,
-              }}
-              className='p-4 '
+              className='p-4'
               onClick={() => {
-                setActiveDuck((prev) => prev - 1);
+                setActiveDuck((prev) =>
+                  prev - 1 < 0 ? ducks.length - 1 : prev - 1
+                );
               }}
             >
-              LEFT
+              <GoTriangleLeft
+                className='text-[15rem]'
+                style={{
+                  fill: ducks[activeDuck].thirdClr,
+                }}
+              />
             </button>
             <button
-              style={{
-                backgroundColor: ducks[activeDuck].thirdClr,
-              }}
               className='p-4 '
               onClick={() => {
-                setActiveDuck((prev) => prev + 1);
+                setActiveDuck((prev) => (prev + 1) % ducks.length);
               }}
             >
-              RIGHT
+              <GoTriangleRight
+                className='text-[15rem]'
+                style={{
+                  fill: ducks[activeDuck].thirdClr,
+                }}
+              />
             </button>
           </div>
           <p
@@ -291,7 +300,10 @@ function App() {
 
       <div ref={canvasRef} className=' fixed top-0 left-0 h-full w-full z-[1]'>
         <Canvas>
-          <Experience duck={ducks[activeDuck].path} />
+          <Experience
+            duck={ducks[activeDuck].path}
+            size={ducks[activeDuck].size}
+          />
         </Canvas>
       </div>
     </main>

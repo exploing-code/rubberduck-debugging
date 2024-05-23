@@ -7,6 +7,9 @@
   src: url('public/fonts/Modak-Regular.ttf');
 }
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: 'Courier New', Courier, monospace;
 }

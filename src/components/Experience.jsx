@@ -33,9 +33,17 @@ export default function Experience({ duck }) {
           end: 'bottom center',
           scrub: 1,
         },
-        z: 2,
-        y: -2,
+        z: -3,
       });
+      gsap.to(modelRef.current.position, {
+        scrollTrigger: {
+          trigger: '#s2',
+          start: 'top top',
+          pin: true,
+          scrub: 1,
+        },
+      });
+
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
           trigger: '#s3',
@@ -71,13 +79,13 @@ export default function Experience({ duck }) {
       ca
       {/* <Perf position="top-left" /> */}
       {/* <OrbitControls makeDefault /> */}
-      <perspectiveCamera position={[0, 0, 0]}>
+      <perspectiveCamera position={[0, 0.5, 0]}>
         <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
         <ambientLight intensity={1.5} />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Float speed={1} floatIntensity={-1}>
             <mesh ref={modelRef}>
-              <primitive object={model.scene} scale={0.01} position-y={-1} />
+              <primitive object={model.scene} scale={1} position-y={-1} />
             </mesh>
           </Float>
         </Suspense>

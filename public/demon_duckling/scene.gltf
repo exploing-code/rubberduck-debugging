@@ -1,102 +1,24 @@
 {
-  "accessors": [
-    {
-      "bufferView": 2,
-      "componentType": 5126,
-      "count": 44863,
-      "max": [
-        2.767116069793701,
-        2.6050684452056885,
-        3.8131520748138428
-      ],
-      "min": [
-        -2.763627052307129,
-        -2.559028387069702,
-        -1.1504071950912476
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 538356,
-      "componentType": 5126,
-      "count": 44863,
-      "max": [
-        0.9999733567237854,
-        0.9999657869338989,
-        0.9999960660934448
-      ],
-      "min": [
-        -0.9999406933784485,
-        -0.9999971985816956,
-        -0.9999967813491821
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 1,
-      "componentType": 5126,
-      "count": 44863,
-      "max": [
-        0.9992781281471252,
-        0.9904966950416565
-      ],
-      "min": [
-        0.0007218718528747559,
-        0.0007218420505523682
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 235200,
-      "type": "SCALAR"
-    }
-  ],
   "asset": {
-    "extras": {
-      "author": "Pichael Productions (https://sketchfab.com/Pichael3000)",
-      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/demon-duckling-f753ac1bb0e946c5a8352d6be63a60bd",
-      "title": "Demon Duckling"
-    },
-    "generator": "Sketchfab-14.77.0",
+    "generator": "Khronos glTF Blender I/O v4.1.63",
     "version": "2.0"
   },
-  "bufferViews": [
+  "scene": 0,
+  "scenes": [
     {
-      "buffer": 0,
-      "byteLength": 940800,
-      "name": "floatBufferViews",
-      "target": 34963
-    },
-    {
-      "buffer": 0,
-      "byteLength": 358904,
-      "byteOffset": 940800,
-      "byteStride": 8,
-      "name": "floatBufferViews",
-      "target": 34962
-    },
-    {
-      "buffer": 0,
-      "byteLength": 1076712,
-      "byteOffset": 1299704,
-      "byteStride": 12,
-      "name": "floatBufferViews",
-      "target": 34962
+      "name": "Scene",
+      "nodes": [0]
     }
   ],
-  "buffers": [
+  "nodes": [
     {
-      "byteLength": 2376416,
-      "uri": "scene.bin"
-    }
-  ],
-  "images": [
-    {
-      "uri": "textures/Material.001_baseColor.png"
+      "mesh": 0,
+      "name": "Duckstage2.1_Material.001_0",
+      "rotation": [-0.6240622997283936, 0, 0, 0.7813745737075806],
+      "scale": [0.9517220854759216, 0.951722264289856, 0.9517221450805664],
+      "translation": [
+        0.01439337246119976, 0.17508503794670105, 0.006916522979736328
+      ]
     }
   ],
   "materials": [
@@ -107,8 +29,8 @@
         "baseColorTexture": {
           "index": 0
         },
-        "metallicFactor": 0.0,
-        "roughnessFactor": 0.8211145618000169
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8211145401000977
       }
     }
   ],
@@ -118,115 +40,13 @@
       "primitives": [
         {
           "attributes": {
-            "NORMAL": 1,
             "POSITION": 0,
+            "NORMAL": 1,
             "TEXCOORD_0": 2
           },
           "indices": 3,
-          "material": 0,
-          "mode": 4
+          "material": 0
         }
-      ]
-    }
-  ],
-  "nodes": [
-    {
-      "children": [
-        1
-      ],
-      "matrix": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        2.220446049250313e-16,
-        -1.0,
-        0.0,
-        0.0,
-        1.0,
-        2.220446049250313e-16,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "Sketchfab_model"
-    },
-    {
-      "children": [
-        2
-      ],
-      "matrix": [
-        0.009999999776482582,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.009999999776482582,
-        0.0,
-        0.0,
-        -0.009999999776482582,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "c2a33cdbcb254b93867e46da18250a79.fbx"
-    },
-    {
-      "children": [
-        3
-      ],
-      "name": "RootNode"
-    },
-    {
-      "children": [
-        4
-      ],
-      "matrix": [
-        1.2696847858477208e-06,
-        -3.224864917884514e-15,
-        -29.04700088500974,
-        0.0,
-        -29.047000885009712,
-        -1.2696847858477208e-06,
-        -1.2696847874601533e-06,
-        0.0,
-        -1.2696847874601533e-06,
-        29.04700088500974,
-        -5.804756852192125e-14,
-        0.0,
-        -6.374572602359154e-15,
-        -28.70852279663086,
-        314.5119323730469,
-        1.0
-      ],
-      "name": "Duckstage2.1"
-    },
-    {
-      "mesh": 0,
-      "name": "Duckstage2.1_Material.001_0"
-    }
-  ],
-  "samplers": [
-    {
-      "magFilter": 9729,
-      "minFilter": 9987,
-      "wrapS": 10497,
-      "wrapT": 10497
-    }
-  ],
-  "scene": 0,
-  "scenes": [
-    {
-      "name": "Sketchfab_Scene",
-      "nodes": [
-        0
       ]
     }
   ],
@@ -234,6 +54,79 @@
     {
       "sampler": 0,
       "source": 0
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/png",
+      "name": "Material.001_baseColor",
+      "uri": "textures/Material_001_baseColor.png"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 44867,
+      "max": [2.76531982421875, 2.6298270225524902, 2.953375816345215],
+      "min": [-2.76542329788208, -2.5342698097229004, -2.010183334350586],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 44867,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 44867,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 235200,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 538404,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 538404,
+      "byteOffset": 538404,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 358936,
+      "byteOffset": 1076808,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 470400,
+      "byteOffset": 1435744,
+      "target": 34963
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1906144,
+      "uri": "scene.bin"
     }
   ]
 }
