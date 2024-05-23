@@ -6,6 +6,7 @@ import React, { useRef, useEffect, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience({ duck }) {
@@ -53,24 +54,34 @@ export default function Experience({ duck }) {
         },
         y: 5.5,
       });
+      gsap.to(modelRef.current.position, {
+        scrollTrigger: {
+          trigger: '#s6',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+        x: 0,
+      });
     }
   }, []);
 
   return (
     <>
+      ca
       {/* <Perf position="top-left" /> */}
       {/* <OrbitControls makeDefault /> */}
-      <orthographicCamera>
+      <perspectiveCamera position={[0, 0, 0]}>
         <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
         <ambientLight intensity={1.5} />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Float speed={1} floatIntensity={-1}>
             <mesh ref={modelRef}>
-              <primitive object={model.scene} scale={1} position-y={-1} />
+              <primitive object={model.scene} scale={0.01} position-y={-1} />
             </mesh>
           </Float>
         </Suspense>
-      </orthographicCamera>
+      </perspectiveCamera>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { Path } from 'three';
+
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
@@ -14,55 +14,55 @@ function App() {
   const s2Ref = useRef();
   const s3Ref = useRef();
 
-  useGSAP(() => {
-    gsap.to(canvasRef.current, {
-      opacity: 1,
-      duration: 3,
-      ease: 'power1.inOut',
-    });
-    gsap.to(s1Ref.current, {
-      opacity: 1,
-      duration: 3,
-      ease: 'power1.inOut',
-    });
-    gsap.to(s2Ref.current, {
-      scrollTrigger: {
-        trigger: '#s2',
-        start: 'top center',
-        end: 'bottom bottom',
-        scrub: 1,
-      },
-      opacity: 1,
-    });
-    gsap.to(s3Ref.current, {
-      scrollTrigger: {
-        trigger: '#s3',
-        start: 'top center',
-        end: 'bottom bottom',
-        scrub: 1,
-      },
-      opacity: 1,
-    });
-    gsap.to(circleRef.current, {
-      scrollTrigger: {
-        trigger: '#s4',
-        start: 'top center+=30%',
-        end: 'bottom bottom',
-        scrub: 1,
-      },
-      y: '-100%',
-      scale: 1.5,
-    });
-  }, []);
+  //   useGSAP(() => {
+  //     gsap.to(canvasRef.current, {
+  //       opacity: 1,
+  //       duration: 3,
+  //       ease: 'power1.inOut',
+  //     });
+  //     gsap.to(s1Ref.current, {
+  //       opacity: 1,
+  //       duration: 3,
+  //       ease: 'power1.inOut',
+  //     });
+  //     gsap.to(s2Ref.current, {
+  //       scrollTrigger: {
+  //         trigger: '#s2',
+  //         start: 'top center',
+  //         end: 'bottom bottom',
+  //         scrub: 1,
+  //       },
+  //       opacity: 1,
+  //     });
+  //     gsap.to(s3Ref.current, {
+  //       scrollTrigger: {
+  //         trigger: '#s3',
+  //         start: 'top center',
+  //         end: 'bottom bottom',
+  //         scrub: 1,
+  //       },
+  //       opacity: 1,
+  //     });
+  //     gsap.to(circleRef.current, {
+  //       scrollTrigger: {
+  //         trigger: '#s4',
+  //         start: 'top center+=30%',
+  //         end: 'bottom bottom',
+  //         scrub: 1,
+  //       },
+  //       y: '-100%',
+  //       scale: 1.5,
+  //     });
+  //   }, []);
 
   const [activeDuck, setActiveDuck] = useState(0);
 
   const ducks = [
     {
       name: 'rubberDuck',
-      path: './demon_duckling/scene.gltf',
+      path: './rubber_duck/scene.gltf',
       primaryClr: '#99A585',
-      secondaryClr: '#F5D02A',
+      secondaryClr: 'black',
       thirdClr: '#E57C2B',
     },
     {
@@ -89,71 +89,179 @@ function App() {
       }}
     >
       <div
-        className={`h-[400vh] w-[100vw] border-[1rem]  flex justify-center pt-[2rem]'
-        id='s1`}
+        className={`h-[300vh] w-[100vw] flex justify-center pt-[2rem]'
+        `}
+        id='s1'
       >
         <div
-          className='relative flex flex-col items-center opacity-0 z-[2]'
+          className='relative flex flex-col items-center z-[2] text-[14rem]'
           ref={s1Ref}
         >
           <h1
             style={{
               color: ducks[activeDuck].secondaryClr,
             }}
-            className='text-[4rem] font-bold'
           >
-            FIRST SECTION
+            RUBBER DUCK
+          </h1>
+          <h1
+            className='absolute top-0 translate-y-[35rem] text-[16rem]'
+            style={{
+              color: ducks[activeDuck].secondaryClr,
+            }}
+          >
+            DEBUGGING
           </h1>
         </div>
       </div>
 
       <section
-        className='h-lvh border flex-col flex items-center pt-[2rem]'
+        className=' flex-col flex pt-[2rem] justify-between bg-white'
         id='s2'
       >
         <div
-          className='relative flex flex-col items-center opacity-0 z-[2]'
+          className='relative flex flex-col items-center justify-between p-[5rem] z-[2] h-screen w-screen '
           ref={s2Ref}
         >
-          <h1
+          <p
             style={{
               color: ducks[activeDuck].secondaryClr,
             }}
-            className='text-[4rem] font-bold'
           >
-            SECOND SECTION
-          </h1>
-          <button
+            Are you stuck? Choose a duck!
+          </p>
+          <div className='flex w-full justify-between'>
+            <button
+              style={{
+                backgroundColor: ducks[activeDuck].thirdClr,
+              }}
+              className='p-4 '
+              onClick={() => {
+                setActiveDuck((prev) => prev - 1);
+              }}
+            >
+              LEFT
+            </button>
+            <button
+              style={{
+                backgroundColor: ducks[activeDuck].thirdClr,
+              }}
+              className='p-4 '
+              onClick={() => {
+                setActiveDuck((prev) => prev + 1);
+              }}
+            >
+              RIGHT
+            </button>
+          </div>
+          <p
             style={{
-              backgroundColor: ducks[activeDuck].thirdClr,
-            }}
-            className='p-4 '
-            onClick={() => {
-              setActiveDuck((prev) => prev + 1);
-              console.log('click');
+              color: ducks[activeDuck].secondaryClr,
             }}
           >
-            CLICK
-          </button>
+            {ducks[activeDuck].name}
+          </p>
         </div>
       </section>
 
       <section
-        className='h-[100vh] border flex items-center flex-col pt-[2rem]'
+        className='h-[200vh]  flex items-start flex-col pt-[2rem] justify-center'
         id='s3'
       >
-        <div
-          className='relative flex flex-col items-center opacity-0 z-[2]'
-          ref={s3Ref}
+        <p
+          className='max-w-[30rem] ml-[15%]'
+          style={{
+            color: ducks[activeDuck].secondaryClr,
+          }}
         >
-          <h1
+          Now that you have chosen a duck it’s time to try your debugging luck!
+        </p>
+      </section>
+      <section
+        className='h-[200vh]  flex items-start flex-col pt-[2rem] justify-center'
+        id='s3'
+      >
+        <p
+          className='max-w-[50rem] ml-[15%]'
+          style={{
+            color: ducks[activeDuck].secondaryClr,
+          }}
+        >
+          Let's go through your code and make sure that it doesn't suck!
+        </p>
+      </section>
+
+      <section
+        className='h-[200vh]  flex items-end flex-col  justify-center'
+        id='s3'
+      >
+        <div className='flex flex-col gap-[5rem] mr-[15rem]'>
+          <p
+            className='max-w-[20rem] '
             style={{
               color: ducks[activeDuck].secondaryClr,
             }}
-            className='text-[4rem] font-bold'
           >
-            THIRD SECTION
-          </h1>
+            Explain your code, line by line
+          </p>
+
+          <p
+            className='max-w-[20rem] -translate-x-[4rem]'
+            style={{
+              color: ducks[activeDuck].secondaryClr,
+            }}
+          >
+            Get ready to start, Be steady and smart
+          </p>
+        </div>
+      </section>
+
+      <section
+        id='s6'
+        className=' flex-col flex pt-[2rem] justify-between bg-white'
+      >
+        <div
+          className='relative flex flex-col items-center justify-between p-[5rem] z-[2] h-[200vw] w-screen '
+          ref={s2Ref}
+        >
+          <p
+            style={{
+              color: ducks[activeDuck].secondaryClr,
+            }}
+          >
+            Are you stuck? Choose a duck!
+          </p>
+          <div className='flex w-full justify-between'>
+            <button
+              style={{
+                backgroundColor: ducks[activeDuck].thirdClr,
+              }}
+              className='p-4 '
+              onClick={() => {
+                setActiveDuck((prev) => prev - 1);
+              }}
+            >
+              LEFT
+            </button>
+            <button
+              style={{
+                backgroundColor: ducks[activeDuck].thirdClr,
+              }}
+              className='p-4 '
+              onClick={() => {
+                setActiveDuck((prev) => prev + 1);
+              }}
+            >
+              RIGHT
+            </button>
+          </div>
+          <p
+            style={{
+              color: ducks[activeDuck].secondaryClr,
+            }}
+          >
+            {ducks[activeDuck].name}
+          </p>
         </div>
       </section>
 
@@ -168,16 +276,12 @@ function App() {
         >
           <ellipse cx='50' cy='15' rx='50' ry='15' fill='#f87171' />
         </svg>
-        <section
-          className='h-lvh w-lvw flex  flex-col bg-[#f87171] z-[0] relative'
-          id='s4'
-        >
+        <section className='h-lvh w-lvw flex  flex-col bg-[#f87171] z-[0] relative'>
           <div className=' flex flex-col items-center'>
             <h1
               style={{
                 color: ducks[activeDuck].secondaryClr,
               }}
-              className='text-[4rem] font-bold'
             >
               LAST SECTION
             </h1>
@@ -185,10 +289,7 @@ function App() {
         </section>
       </div>
 
-      <div
-        ref={canvasRef}
-        className='opacity-0 fixed top-0 left-0 h-full w-full z-[1] border-[0.5rem] border-orange-300'
-      >
+      <div ref={canvasRef} className=' fixed top-0 left-0 h-full w-full z-[1]'>
         <Canvas>
           <Experience duck={ducks[activeDuck].path} />
         </Canvas>
