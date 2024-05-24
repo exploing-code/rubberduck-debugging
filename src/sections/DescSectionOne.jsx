@@ -1,19 +1,15 @@
 import React from 'react';
+import P from '../components/P';
 
-function DescSectionOne({ ducks, activeDuck }) {
+function DescSectionOne() {
   return (
     <section
       className='h-[200vh]  flex items-start flex-col pt-[2rem] justify-center'
       id='s3'
     >
-      <p
-        className='max-w-[30rem] ml-[15%]'
-        style={{
-          color: ducks[activeDuck].secondaryClr,
-        }}
-      >
+      <P>
         Now that you have chosen a duck it’s time to try your debugging luck!
-      </p>
+      </P>
     </section>
   );
 }

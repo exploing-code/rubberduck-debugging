@@ -1,19 +1,13 @@
 import React from 'react';
+import P from '../components/P';
 
-function DescSectionTwo({ ducks, activeDuck }) {
+function DescSectionTwo() {
   return (
     <section
       className='h-[200vh]  flex items-start flex-col pt-[2rem] justify-center'
       id='s4'
     >
-      <p
-        className='max-w-[50rem] ml-[15%]'
-        style={{
-          color: ducks[activeDuck].secondaryClr,
-        }}
-      >
-        Let's go through your code and make sure that it doesn't suck!
-      </p>
+      <P>Let's go through your code and make sure that it doesn't suck!</P>
     </section>
   );
 }

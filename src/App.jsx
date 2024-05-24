@@ -1,6 +1,6 @@
 // libraries
 import { Canvas } from '@react-three/fiber';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 // data
 import { ducks } from '../data';
@@ -17,9 +17,12 @@ import DescSectionThree from './sections/DescSectionThree';
 import AudioVisualizer from './sections/AudioVisualizer';
 import Conclusion from './sections/Conclusion';
 
+import { myContext } from './components/ContextProvider';
+
 function App() {
+  const { activeDuck, setActiveDuck } = myContext();
+
   const canvasRef = useRef();
-  const [activeDuck, setActiveDuck] = useState(0);
 
   return (
     <main
@@ -28,24 +31,16 @@ function App() {
         backgroundColor: ducks[activeDuck].primaryClr,
       }}
     >
-      <Hero ducks={ducks} activeDuck={activeDuck} />
-      <CharSelectSection
-        ducks={ducks}
-        activeDuck={activeDuck}
-        setActiveDuck={setActiveDuck}
-      />
-      <DescSectionOne ducks={ducks} activeDuck={activeDuck} />
-      <DescSectionTwo ducks={ducks} activeDuck={activeDuck} />
-      <DescSectionThree ducks={ducks} activeDuck={activeDuck} />
+      <Hero />
+      <CharSelectSection />
+      <DescSectionOne />
+      <DescSectionTwo />
+      <DescSectionThree />
       <AudioVisualizer />
       <Conclusion />
-
       <div ref={canvasRef} className='fixed top-0 left-0 h-full w-full z-[1]'>
         <Canvas>
-          <Experience
-            activeDuck={ducks[activeDuck].path}
-            size={ducks[activeDuck].size}
-          />
+          <Experience />
         </Canvas>
       </div>
     </main>

@@ -12,8 +12,14 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Experience({ activeDuck }) {
-  const model = useLoader(GLTFLoader, activeDuck);
+import { myContext } from './ContextProvider.jsx';
+import { ducks } from '../../data';
+
+export default function Experience() {
+  const { activeDuck } = myContext();
+
+  const activeDuckUrl = ducks[activeDuck].path;
+  const model = useLoader(GLTFLoader, activeDuckUrl);
   const modelRef = useRef();
 
   useGSAP(() => {

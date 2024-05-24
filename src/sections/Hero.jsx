@@ -1,6 +1,11 @@
 import React from 'react';
 
-function Hero({ ducks, activeDuck }) {
+import { ducks } from '../../data';
+import { myContext } from '../components/ContextProvider.jsx';
+
+function Hero() {
+  const { activeDuck, setActiveDuck } = myContext();
+
   return (
     <section
       className={`h-[300vh] w-[100vw] flex justify-center pt-[2rem]'

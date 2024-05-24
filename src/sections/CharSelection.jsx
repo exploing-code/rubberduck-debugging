@@ -1,22 +1,21 @@
 import React from 'react';
+import P from '../components/P';
+
+import { ducks } from '../../data';
+import { myContext } from '../components/ContextProvider.jsx';
 
 // components
 import CharSelectButton from '../components/CharSelectButton';
 
-function CharSelection({ ducks, activeDuck, setActiveDuck }) {
+function CharSelection() {
+  const { activeDuck, setActiveDuck } = myContext();
   return (
     <section
       className=' flex-col flex pt-[2rem] justify-between relative z-[1000]'
       id='s2'
     >
       <div className='relative flex flex-col items-center justify-between p-[5rem] z-[2] h-screen w-screen '>
-        <p
-          style={{
-            color: ducks[activeDuck].secondaryClr,
-          }}
-        >
-          Are you stuck? Choose a duck!
-        </p>
+        <P>Are you stuck? Choose a duck!</P>
         <div className='flex relative w-full justify-between z-[1000]'>
           <CharSelectButton
             ducks={ducks}
@@ -31,13 +30,7 @@ function CharSelection({ ducks, activeDuck, setActiveDuck }) {
             version='right'
           />
         </div>
-        <p
-          style={{
-            color: ducks[activeDuck].secondaryClr,
-          }}
-        >
-          {ducks[activeDuck].name}
-        </p>
+        <P>{ducks[activeDuck].name}</P>
       </div>
     </section>
   );
