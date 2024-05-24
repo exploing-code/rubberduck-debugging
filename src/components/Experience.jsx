@@ -1,8 +1,7 @@
-import { OrbitControls, Float } from '@react-three/drei';
-import { Perf } from 'r3f-perf';
-import { useLoader, useThree } from '@react-three/fiber';
+import { Float } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import React, { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
@@ -65,9 +64,9 @@ export default function Experience({ duck }) {
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
           trigger: '#s6',
-          start: 'top bottom',
-          end: 'bottom bottom',
+          start: 'top top',
           scrub: 1,
+          pin: true,
         },
         x: 0,
       });
@@ -76,7 +75,6 @@ export default function Experience({ duck }) {
 
   return (
     <>
-      ca
       {/* <Perf position="top-left" /> */}
       {/* <OrbitControls makeDefault /> */}
       <perspectiveCamera position={[0, 0.5, 0]}>
