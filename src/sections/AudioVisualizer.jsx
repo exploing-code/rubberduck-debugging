@@ -7,6 +7,36 @@ export default function AudioVisualizer() {
 	const duckSoundEffect2Ref = useRef(null);
 	const squareRef = document.querySelector(".square");
 
+
+	// set up audio contexts
+	const micCtx = new AudioContext();
+	const duckCtx = new AudioContext();
+	const duck2Ctx = new AudioContext();
+
+	//set up the different audio nodes that will be used
+	const sourceNode = micCtx.createMediaElementSource(audioEl);
+	const analyzerNode = micCtx.createAnalyser();
+	// connect the nodes together in a chain to the context destination
+	sourceNode.connect(analyzerNode);
+	analyzerNode.connect(micCtx.destination);
+	analyzerNode.fftSize = 256;
+
+	// Audio nodes for Duck noise 1
+	const duckSourceNode = duckCtx.createMediaElementSource(duckSoundEl);
+	const duckGainNode = duckCtx.createGain();
+	duckGainNode.gain.value = 0.3;
+	duckSourceNode.connect(duckGainNode);
+	duckGainNode.connect(duckCtx.destination);
+  
+	// Audio nodes for Duck noise 2
+	const duck2SourceNode = duck2Ctx.createMediaElementSource(duckSoundEl2);
+	const duck2GainNode = duck2Ctx.createGain();
+	duck2GainNode.gain.value = 0.2;
+	duck2SourceNode.connect(duck2GainNode);
+	duck2GainNode.connect(duck2Ctx.destination);
+
+
+
 	return (
 		<section id="s6" className=" relative bg-white h-screen flex justify-center items-center">
 
