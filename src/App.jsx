@@ -43,7 +43,7 @@ function App() {
       <div ref={canvasRef} className='fixed top-0 left-0 h-full w-full z-[1]'>
         <Canvas>
           <Experience
-            duck={ducks[activeDuck].path}
+            activeDuck={ducks[activeDuck].path}
             size={ducks[activeDuck].size}
           />
         </Canvas>

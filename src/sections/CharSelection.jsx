@@ -1,5 +1,6 @@
 import React from 'react';
 
+// components
 import CharSelectButton from '../components/CharSelectButton';
 
 function CharSelection({ ducks, activeDuck, setActiveDuck }) {

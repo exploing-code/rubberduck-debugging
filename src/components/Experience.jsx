@@ -1,15 +1,19 @@
+// three fiber
 import { Float } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
+// react
 import React, { useRef, Suspense } from 'react';
+
+// gsap
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
-
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Experience({ duck }) {
-  const model = useLoader(GLTFLoader, duck);
+export default function Experience({ activeDuck }) {
+  const model = useLoader(GLTFLoader, activeDuck);
   const modelRef = useRef();
 
   useGSAP(() => {

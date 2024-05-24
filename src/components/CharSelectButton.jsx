@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Icons
 import { GoTriangleRight } from 'react-icons/go';
 import { GoTriangleLeft } from 'react-icons/go';
 
