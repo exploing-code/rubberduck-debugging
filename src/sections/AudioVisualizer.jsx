@@ -93,7 +93,7 @@ export default function App() {
 	function handlePlay() {
 		if (audioRef.current) {
 			if (!musicStarted) {
-				audioRef.current.currentTime = 53;
+				audioRef.current.currentTime = 40;
 				setMusicStarted(true);
 			}
 			micCtx.resume().then(() => {
