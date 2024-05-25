@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ducks } from "../../data";
+import { myContext } from "../components/ContextProvider";
 
 // The music and the play/pause buttons is temporary until i learn how to get the live mic input, its implemented so that
 // you can test the visualizer and see how it works. If you check the consol you can se that the codes checks when it should run the animation.
 
 export default function App() {
+	const { activeDuck } = myContext();
 	// DOM
 	const audioRef = useRef(null);
 	const duckSoundRef = useRef(null);
@@ -85,14 +88,12 @@ export default function App() {
 		}
 	}, [duck2Ctx]);
 
-
-
 	// play eventlistener, if it starts for the first time it jumps forward 35sek
 	const [musicStarted, setMusicStarted] = useState(false);
 	function handlePlay() {
 		if (audioRef.current) {
 			if (!musicStarted) {
-				audioRef.current.currentTime = 35;
+				audioRef.current.currentTime = 53;
 				setMusicStarted(true);
 			}
 			micCtx.resume().then(() => {
@@ -108,11 +109,10 @@ export default function App() {
 	}
 
 	function runDuckSoundEffect() {
-		const duckSoundEl = duckSoundRef.current;
 		if (Math.random() > 0.5) {
-			duckSoundEl.play();
+			duckSoundRef.current.play();
 		} else {
-			duckSoundEl.play();
+			duckSoundRef.current.play();
 			setTimeout(() => {
 				duckSoundRef2.current.play();
 			}, 250);
@@ -145,7 +145,7 @@ export default function App() {
 				for (let i = 0; i < data.length; i++) {
 					sum += data[i] * data[i];
 				}
-				const volumePercent = Math.sqrt(sum / data.length) - 25;
+				const volumePercent = Math.sqrt(sum / data.length) - 20;
 				if (visualizerRef.current) {
 					visualizerRef.current.style.height = `${volumePercent}vh`;
 				}
@@ -177,16 +177,18 @@ export default function App() {
 	}, []);
 
 	return (
-		<section>
+		<section className=" relative flex items-center justify-center">
 			<audio ref={audioRef} src="../sound-effects/Dizzee Rascal Bassline Junkie.mp3"></audio>
-			<audio ref={duckSoundRef} src="../sound-effects/duck1.mp3"></audio>
-			<audio ref={duckSoundRef2} src="../sound-effects/duck2.mp3"></audio>
+			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
+			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
 
-			<button onClick={handlePlay}>Play</button>
-			<button onClick={handlePause}>Pause</button>
+			<div  className=" absolute *:bg-black *:text-yellow-200 font-modak *:uppercase *:px-4 *:rounded-[1rem] text-7xl *:m-4 *:pt-2 top-0 z-20">
+				<button onClick={handlePlay}>Play</button>
+				<button onClick={handlePause}>Pause</button>
+			</div>
 
-			<div ref={visualizerRef}></div>
-			<h1 ref={titleRef}>
+			<div ref={visualizerRef} className=" absolute bottom-0 w-full bg-yellow-200"></div>
+			<h1 ref={titleRef} style={{ color: ducks[activeDuck].secondaryClr }} className=" opacity-0 text-[30vw] leading-[25vw] z-50 pointer-events-none scale-0">
 				QUACK
 				<br />
 				QUACK
