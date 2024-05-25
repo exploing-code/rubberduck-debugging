@@ -10,15 +10,22 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: 'Courier New', Courier, monospace;
 }
+
 h1 {
   font-family: 'modak';
   color: black;
   margin: -4rem;
   padding: 0;
 }
+
 p {
   font-size: 1.5rem;
+}
+
+section {
+  height: 100vh;
 }
