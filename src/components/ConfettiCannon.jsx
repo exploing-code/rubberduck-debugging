@@ -1,19 +1,30 @@
 import React, { useRef, useEffect } from "react";
 import * as Cannon from "cannon-es";
-import { Mesh, SphereGeometry, MeshBasicMaterial } from "three";
+import { Mesh, SphereGeometry, MeshStandardMaterial } from "three";
 
 const ConfettiCannon = ({ position, rotation }) => {
   const cannonContainerRef = useRef(null);
+  const worldRef = useRef(null);
+  const confettiBodiesRef = useRef([]);
 
   useEffect(() => {
     // Create a cannon world
     const world = new Cannon.World();
     world.gravity.set(0, -9.82, 0); // Set gravity
+    worldRef.current = world;
 
-    // Create an array to store confetti bodies
-    const confettiBodies = [];
+    return () => {
+      worldRef.current = null;
+    };
+  }, []);
 
-    // Create confetti particles and their corresponding cannon bodies
+  useEffect(() => {
+    if (worldRef.current) {
+      fireCannon();
+    }
+  }, []); // Trigger fireCannon after worldRef is set
+
+  const fireCannon = () => {
     const numParticles = 100;
     const coneAngle = Math.PI / 4; // Adjust the angle of the cone as needed
 
@@ -33,21 +44,20 @@ const ConfettiCannon = ({ position, rotation }) => {
       });
       // Set initial velocity
       sphereBody.velocity.set(x, y, z);
-      world.addBody(sphereBody);
-      confettiBodies.push(sphereBody);
+      worldRef.current.addBody(sphereBody);
+      confettiBodiesRef.current.push(sphereBody);
     }
+  };
 
-    // Update physics in each frame
-    const updatePhysics = () => {
-      const timeStep = 1 / 60; // seconds
-      world.step(timeStep);
-    };
-
-    // Animation loop
+  useEffect(() => {
     const animate = () => {
-      updatePhysics();
+      if (!worldRef.current) return;
+
+      const timeStep = 1 / 60; // seconds
+      worldRef.current.step(timeStep);
+
       // Update confetti positions in React
-      confettiBodies.forEach((body, index) => {
+      confettiBodiesRef.current.forEach((body, index) => {
         const position = body.position;
         cannonContainerRef.current.children[index].position.set(
           position.x,
@@ -55,18 +65,20 @@ const ConfettiCannon = ({ position, rotation }) => {
           position.z
         );
       });
+
       requestAnimationFrame(animate);
     };
 
     animate();
 
-    // Clean up
     return () => {
-      confettiBodies.forEach((body) => {
-        world.removeBody(body);
+      if (!worldRef.current) return;
+      confettiBodiesRef.current.forEach((body) => {
+        worldRef.current.removeBody(body);
       });
+      confettiBodiesRef.current = [];
     };
-  }, [position]);
+  }, []);
 
   return (
     <mesh ref={cannonContainerRef} position={position} rotation={rotation}>
@@ -81,18 +93,12 @@ const ConfettiParticles = () => {
 
   for (let i = 0; i < 100; i++) {
     const geometry = new SphereGeometry(0.05);
-    const material = new MeshBasicMaterial({ color: 0xffffff });
-    const particle = new Mesh(geometry, material);
+    const material = new MeshStandardMaterial({ color: 0xeeeeee });
+    const particle = <mesh key={i} geometry={geometry} material={material} />;
     particles.push(particle);
   }
 
-  return (
-    <>
-      {particles.map((particle, index) => (
-        <primitive key={index} object={particle} />
-      ))}
-    </>
-  );
+  return <>{particles}</>;
 };
 
 export default ConfettiCannon;
