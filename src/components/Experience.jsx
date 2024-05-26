@@ -1,19 +1,23 @@
 // three fiber
-import { Float } from '@react-three/drei';
-import { useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Float } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 // react
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense } from "react";
 
 // gsap
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/all';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
-import { myContext } from './ContextProvider.jsx';
-import { ducks } from '../../data';
+import { myContext } from "./ContextProvider.jsx";
+import { ducks } from "../../data";
+import { OrbitControls } from "@react-three/drei";
+
+// confetti
+import ConfettiCannon from "./ConfettiCannon.jsx";
 
 export default function Experience() {
   const { activeDuck } = myContext();
@@ -26,9 +30,9 @@ export default function Experience() {
     if (model) {
       gsap.to(modelRef.current.rotation, {
         scrollTrigger: {
-          trigger: '#s1',
-          start: 'top top',
-          end: 'bottom bottom',
+          trigger: "#s1",
+          start: "top top",
+          end: "bottom bottom",
           scrub: 1,
         },
         y: modelRef.current.rotation.y + Math.PI * 2,
@@ -36,18 +40,18 @@ export default function Experience() {
       });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
-          trigger: '#s1',
-          start: 'top top',
-          endTrigger: '#s2',
-          end: 'bottom center',
+          trigger: "#s1",
+          start: "top top",
+          endTrigger: "#s2",
+          end: "bottom center",
           scrub: 1,
         },
         z: -3,
       });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
-          trigger: '#s2',
-          start: 'top top',
+          trigger: "#s2",
+          start: "top top",
           pin: true,
           scrub: 1,
         },
@@ -55,26 +59,26 @@ export default function Experience() {
 
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'bottom bottom',
+          trigger: "#s3",
+          start: "top bottom",
+          end: "bottom bottom",
           scrub: 1,
         },
         x: window.innerWidth / 500,
       });
       gsap.to(modelRef.current.rotation, {
         scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'bottom bottom',
+          trigger: "#s3",
+          start: "top bottom",
+          end: "bottom bottom",
           scrub: 1,
         },
         y: 5.5,
       });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
-          trigger: '#s6',
-          start: 'top top',
+          trigger: "#s6",
+          start: "top top",
           scrub: 1,
           pin: true,
         },
@@ -86,18 +90,19 @@ export default function Experience() {
   return (
     <>
       {/* <Perf position="top-left" /> */}
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
       <perspectiveCamera position={[0, 0.5, 0]}>
         <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
         <ambientLight intensity={1.5} />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Float speed={1} floatIntensity={-1}>
             <mesh ref={modelRef}>
-              <primitive object={model.scene} scale={1} position-y={-1} />
+              <primitive object={model.scene} scale={0} position-y={-1} />
             </mesh>
           </Float>
         </Suspense>
       </perspectiveCamera>
+      <ConfettiCannon />
     </>
   );
 }
