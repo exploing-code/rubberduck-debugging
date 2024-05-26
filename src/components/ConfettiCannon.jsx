@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import * as Cannon from "cannon-es";
 import { Mesh, SphereGeometry, MeshBasicMaterial } from "three";
 
-const ConfettiCannon = () => {
+const ConfettiCannon = ({ position, rotation }) => {
   const cannonContainerRef = useRef(null);
 
   useEffect(() => {
@@ -14,19 +14,25 @@ const ConfettiCannon = () => {
     const confettiBodies = [];
 
     // Create confetti particles and their corresponding cannon bodies
-    for (let i = 0; i < 100; i++) {
+    const numParticles = 100;
+    const coneAngle = Math.PI / 4; // Adjust the angle of the cone as needed
+
+    for (let i = 0; i < numParticles; i++) {
+      const angle = Math.random() * coneAngle - coneAngle / 2; // Random angle within the cone
+      const speed = Math.random() * 10 + 5; // Random speed
+
+      const x = Math.sin(angle) * speed;
+      const y = Math.random() * 5 + 5; // Adjust the height of the cone as needed
+      const z = Math.cos(angle) * speed;
+
       const sphereShape = new Cannon.Sphere(0.05);
       const sphereBody = new Cannon.Body({
         mass: 0.1,
-        position: new Cannon.Vec3(
-          Math.random() - 0.5,
-          Math.random() - 0.5,
-          Math.random() - 0.5
-        ),
+        position: new Cannon.Vec3(position[0], position[1], position[2]), // Start from the specified position
         shape: sphereShape,
       });
-      // Set initial velocity to shoot upwards
-      sphereBody.velocity.set(0, Math.random() * 10 + 5, 0);
+      // Set initial velocity
+      sphereBody.velocity.set(x, y, z);
       world.addBody(sphereBody);
       confettiBodies.push(sphereBody);
     }
@@ -60,10 +66,10 @@ const ConfettiCannon = () => {
         world.removeBody(body);
       });
     };
-  }, []);
+  }, [position]);
 
   return (
-    <mesh ref={cannonContainerRef}>
+    <mesh ref={cannonContainerRef} position={position} rotation={rotation}>
       {/* Render confetti particles */}
       <ConfettiParticles />
     </mesh>

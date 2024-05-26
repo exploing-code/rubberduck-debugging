@@ -102,7 +102,7 @@ export default function Experience() {
           </Float>
         </Suspense>
       </perspectiveCamera>
-      <ConfettiCannon />
+      <ConfettiCannon position={[0, 0, 0]} rotation={[0, 0, 0]} />
     </>
   );
 }
