@@ -1,6 +1,6 @@
 // libraries
 import { Canvas } from '@react-three/fiber';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 
 // data
 import { ducks } from '../data';
@@ -18,6 +18,7 @@ import AudioVisualizer from './sections/AudioVisualizer';
 import Conclusion from './sections/Conclusion';
 
 import { myContext } from './components/ContextProvider';
+import Loader from './components/Loader';
 
 function App() {
   const { activeDuck, setActiveDuck } = myContext();
@@ -26,10 +27,13 @@ function App() {
 
   return (
     <div>
-      <div
-        className={`${activeDuck === 1 ? 'fire visible' : ' hidden '}`}
-      ></div>
+      {/* <Loader initSiteLoader={false} /> */}
 
+      <div
+        className={`${
+          ducks[activeDuck].name === 'DemonDuck' ? 'fire visible' : ' hidden '
+        }`}
+      />
       <main
         className={`overflow-x-hidden transition-colors duration-500 ease-in-out`}
         style={{
