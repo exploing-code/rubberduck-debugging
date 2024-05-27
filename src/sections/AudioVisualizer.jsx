@@ -9,7 +9,7 @@ import { myContext } from "../components/ContextProvider";
 export default function App() {
 	const { activeDuck } = myContext();
 	// DOM
-	const audioRef = useRef(null);
+	const [isDuckTalking, setIsDuckTalking] = useState(false);
 	const duckSoundRef = useRef(null);
 	const duckSoundRef2 = useRef(null);
 	const visualizerRef = useRef(null);
@@ -21,18 +21,29 @@ export default function App() {
 	const [duck2Ctx, setDuck2Ctx] = useState(null);
 
 	// Nodes
-	const sourceNodeRef = useRef(null);
+	const micSourceNodeRef = useRef(null);
 	const analyzerNodeRef = useRef(null);
 	const duckSourceNodeRef = useRef(null);
 	const duckGainNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
 	const duck2GainNodeRef = useRef(null);
 
+	//
+
 	// Initialize AudioContexts only once
 	useEffect(() => {
 		if (!micCtx) {
-			const context = new (window.AudioContext || window.webkitAudioContext)();
-			setMicCtx(context);
+			navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+				const context = new AudioContext();
+				const sourceNode = context.createMediaStreamSource(stream);
+				const analyzerNode = context.createAnalyser();
+				analyzerNode.fftSize = 256;
+				sourceNode.connect(analyzerNode);
+
+				setMicCtx(context);
+				micSourceNodeRef.current = sourceNode;
+				analyzerNodeRef.current = analyzerNode;
+			});
 		}
 		if (!duckCtx) {
 			const context = new (window.AudioContext || window.webkitAudioContext)();
@@ -45,21 +56,6 @@ export default function App() {
 	}, []);
 
 	// Set up and connect the nodes only once when the audio context is loaded
-	// repeat for every sound, in this case Mic, duck1 and duck2
-	useEffect(() => {
-		if (micCtx && !sourceNodeRef.current && audioRef.current) {
-			const sourceNode = micCtx.createMediaElementSource(audioRef.current);
-			const analyzerNode = micCtx.createAnalyser();
-
-			sourceNode.connect(analyzerNode);
-			analyzerNode.connect(micCtx.destination);
-			analyzerNode.fftSize = 256;
-
-			// Mark that the Nodes is set to prevent it from running again
-			sourceNodeRef.current = sourceNode;
-			analyzerNodeRef.current = analyzerNode;
-		}
-	}, [micCtx]);
 
 	useEffect(() => {
 		if (duckCtx && !duckSourceNodeRef.current && duckSoundRef.current) {
@@ -88,26 +84,6 @@ export default function App() {
 		}
 	}, [duck2Ctx]);
 
-	// play eventlistener, if it starts for the first time it jumps forward 35sek
-	const [musicStarted, setMusicStarted] = useState(false);
-	function handlePlay() {
-		if (audioRef.current) {
-			if (!musicStarted) {
-				audioRef.current.currentTime = 40;
-				setMusicStarted(true);
-			}
-			micCtx.resume().then(() => {
-				audioRef.current.play();
-			});
-		}
-	}
-
-	function handlePause() {
-		if (audioRef.current) {
-			audioRef.current.pause();
-		}
-	}
-
 	function runDuckSoundEffect() {
 		if (Math.random() > 0.5) {
 			duckSoundRef.current.play();
@@ -129,7 +105,7 @@ export default function App() {
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
-		const volumeThreshold = 10;
+		const volumeThreshold = 20;
 		let volumeBelowThresholdStartTime = null;
 		let isVolumeBelowThreshold = false;
 		let animationRan = false;
@@ -145,13 +121,13 @@ export default function App() {
 				for (let i = 0; i < data.length; i++) {
 					sum += data[i] * data[i];
 				}
-				const volumePercent = Math.sqrt(sum / data.length) - 20;
+				const volumePercent = Math.sqrt(sum / data.length) + 10 ;
 				if (visualizerRef.current) {
 					visualizerRef.current.style.height = `${volumePercent}vh`;
 				}
 
 				// conditionally rendering animation
-				if (volumePercent < volumeThreshold && !audioRef.current.paused) {
+				if (volumePercent < volumeThreshold && isDuckTalking) {
 					if (!isVolumeBelowThreshold) {
 						isVolumeBelowThreshold = true;
 						volumeBelowThresholdStartTime = Date.now();
@@ -176,18 +152,21 @@ export default function App() {
 		update();
 	}, []);
 
+	function handleOnClick(){
+		setIsDuckTalking((prev) => !prev)
+		console.log(isDuckTalking)
+	}
+
 	return (
 		<section className=" relative flex items-center justify-center">
-			<audio ref={audioRef} src="../sound-effects/Dizzee Rascal Bassline Junkie.mp3"></audio>
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
 
-			<div  className=" absolute *:bg-black *:text-yellow-200 font-modak *:uppercase *:px-4 *:rounded-[1rem] text-7xl *:m-4 *:pt-2 top-0 z-20">
-				<button onClick={handlePlay}>Play</button>
-				<button onClick={handlePause}>Pause</button>
+			<div className=" absolute *:bg-black *:text-yellow-200 font-modak *:uppercase *:px-4 *:rounded-[1rem] text-7xl *:m-4 *:pt-2 top-0 z-20">
+				<button onClick={handleOnClick}>{isDuckTalking ? "deactivate quack quack": "Activate duck response"}</button>
 			</div>
 
-			<div ref={visualizerRef} className=" absolute bottom-0 w-full bg-yellow-200"></div>
+			<div ref={visualizerRef} className=" absolute bottom-0 w-full bg-yellow-200 transition-all duration-[0.01s]"></div>
 			<h1 ref={titleRef} style={{ color: ducks[activeDuck].secondaryClr }} className=" opacity-0 text-[30vw] leading-[25vw] z-50 pointer-events-none scale-0">
 				QUACK
 				<br />
