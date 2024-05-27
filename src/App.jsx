@@ -26,7 +26,7 @@ function App() {
 
   return (
     <main
-      className='overflow-x-hidden'
+      className='overflow-x-hidden transition-colors duration-500 ease-in-out'
       style={{
         backgroundColor: ducks[activeDuck].primaryClr,
       }}
