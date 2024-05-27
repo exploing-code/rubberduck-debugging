@@ -12,26 +12,28 @@ function CharSelection() {
   const { activeDuck } = myContext();
 
   return (
-    <section
-      className=' flex-col flex pt-[2rem] justify-between relative z-[1000]'
-      id='s2'
-    >
-      <div className='relative flex flex-col items-center justify-center z-[2] h-screen w-screen'>
-        <P style={'absolute top-[5rem]'}>Are you stuck? Choose a duck!</P>
-        <div className='flex relative w-full justify-between z-[1000]'>
-          <CharSelectButton ducks={ducks} version='left' />
-          <CharSelectButton ducks={ducks} version='right' />
+    <>
+      <section
+        className='flex-col flex pt-[2rem] justify-between relative z-[1000]'
+        id='s2'
+      >
+        <div className='relative flex flex-col items-center justify-center z-[2] h-screen w-screen'>
+          <P style={'absolute top-[5rem]'}>Are you stuck? Choose a duck!</P>
+          <div className='flex relative w-full justify-between z-[1000]'>
+            <CharSelectButton ducks={ducks} version='left' />
+            <CharSelectButton ducks={ducks} version='right' />
+          </div>
+          <h2
+            style={{
+              color: ducks[activeDuck].secondaryClr,
+            }}
+            className='text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[10rem] absolute bottom-[5rem] md:bottom-[-2rem]'
+          >
+            {ducks[activeDuck].name}
+          </h2>
         </div>
-        <h2
-          style={{
-            color: ducks[activeDuck].secondaryClr,
-          }}
-          className='text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[10rem] lg:text-[10rem] absolute bottom-[5rem] md:bottom-[-2rem]'
-        >
-          {ducks[activeDuck].name}
-        </h2>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

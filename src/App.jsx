@@ -25,25 +25,31 @@ function App() {
   const canvasRef = useRef();
 
   return (
-    <main
-      className='overflow-x-hidden transition-colors duration-500 ease-in-out'
-      style={{
-        backgroundColor: ducks[activeDuck].primaryClr,
-      }}
-    >
-      <Hero />
-      <CharSelectSection />
-      <DescSectionOne />
-      <DescSectionTwo />
-      <DescSectionThree />
-      <AudioVisualizer />
-      <Conclusion />
-      <div ref={canvasRef} className='fixed top-0 left-0 h-full w-full z-[1]'>
-        <Canvas>
-          <Experience />
-        </Canvas>
-      </div>
-    </main>
+    <div>
+      <div
+        className={`${activeDuck === 1 ? 'fire visible' : ' hidden '}`}
+      ></div>
+
+      <main
+        className={`overflow-x-hidden transition-colors duration-500 ease-in-out`}
+        style={{
+          backgroundColor: ducks[activeDuck].primaryClr,
+        }}
+      >
+        <Hero />
+        <CharSelectSection />
+        <DescSectionOne />
+        <DescSectionTwo />
+        <DescSectionThree />
+        <AudioVisualizer />
+        <Conclusion />
+        <div ref={canvasRef} className='fixed top-0 left-0 h-full w-full z-[1]'>
+          <Canvas>
+            <Experience />
+          </Canvas>
+        </div>
+      </main>
+    </div>
   );
 }
 
