@@ -140,6 +140,3 @@ function Pointer() {
     )
   );
 }
-
-// Ensure the GLTF model path is correct
-useGLTF.preload("/path/to/duck/model.gltf");
