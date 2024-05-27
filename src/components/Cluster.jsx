@@ -14,11 +14,17 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 const rfs = THREE.MathUtils.randFloatSpread;
 
 export const Cluster = () => {
-  const { activeDuck } = useContext(myContext);
+  const { activeDuck } = myContext();
 
   const activeDuckUrl = ducks[activeDuck].path;
-  console.log(activeDuckUrl);
+
+  useEffect(() => {
+    // Preload the active duck model
+    useGLTF.preload(activeDuckUrl, GLTFLoader);
+  }, [activeDuckUrl]);
+
   const model = useLoader(GLTFLoader, activeDuckUrl);
+  console.log(model);
   const modelRef = useRef();
 
   return (
