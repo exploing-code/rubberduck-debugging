@@ -29,7 +29,7 @@ export const Cluster = () => {
   const geometry =
     model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
 
-  console.log(model);
+  // console.log(model);
   const modelRef = useRef();
 
   return (

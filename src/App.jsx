@@ -46,7 +46,8 @@ function App() {
           dpr={[1, 1.5]}
           camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
         >
-          <Experience /> <Cluster />
+          {/* <Experience />  */}
+          <Cluster />
         </Canvas>
       </div>
     </main>

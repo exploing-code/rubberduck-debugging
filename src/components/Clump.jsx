@@ -1,15 +1,14 @@
 import * as THREE from "three";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Outlines } from "@react-three/drei";
-import { useConvexPolyhedron } from "@react-three/cannon";
+import { useConvexPolyhedron, useSphere } from "@react-three/cannon";
 import { useControls } from "leva";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const rfs = THREE.MathUtils.randFloatSpread;
 
 export default function Clump({
-  model,
   geometry,
   activeDuckUrl,
   mat = new THREE.Matrix4(),
@@ -20,24 +19,59 @@ export default function Clump({
     outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
   });
 
+  // State to track if the geometry is loaded
+  const [isGeometryLoaded, setIsGeometryLoaded] = useState(false);
+
   useEffect(() => {
-    // Preload the active duck model
-    useGLTF.preload(activeDuckUrl, GLTFLoader);
+    const loader = new GLTFLoader();
+    loader.load(
+      activeDuckUrl,
+      (gltf) => {
+        setIsGeometryLoaded(true);
+      },
+      undefined,
+      (error) => {
+        console.error("Error loading GLTF model:", error);
+      }
+    );
   }, [activeDuckUrl]);
 
-  const { nodes, materials } = useGLTF(activeDuckUrl); // Ensure the GLTF is preloaded
+  useEffect(() => {
+    if (isGeometryLoaded) {
+      // Proceed with other hooks that depend on geometry
+      const { nodes, materials } = useGLTF(activeDuckUrl);
 
-  const vertices = geometry.attributes.position.array;
+      // Extract vertices
+      const vertices = Array.from(geometry.attributes.position.array);
+
+      // Extract faces from the index
+      const indices = Array.from(geometry.index.array);
+      const faces = [];
+      for (let i = 0; i < indices.length; i += 3) {
+        faces.push([indices[i], indices[i + 1], indices[i + 2]]);
+      }
+
+      // Further processing...
+    }
+  }, [isGeometryLoaded]);
+
+  const { nodes, materials } = useGLTF(activeDuckUrl);
+
+  // Extract vertices
+  const vertices = Array.from(geometry.attributes.position.array);
+
+  // Extract faces from the index
+  const indices = Array.from(geometry.index.array);
   const faces = [];
-  for (let i = 0; i < geometry.index.array.length; i += 3) {
-    faces.push([
-      geometry.index.array[i],
-      geometry.index.array[i + 1],
-      geometry.index.array[i + 2],
-    ]);
+  for (let i = 0; i < indices.length; i += 3) {
+    faces.push([indices[i], indices[i + 1], indices[i + 2]]);
   }
 
-  const [ref, api] = useConvexPolyhedron(() => ({
+  // console.log("Vertices: ", vertices);
+  // console.log("Faces: ", faces);
+
+  const ref = useRef();
+  const [, api] = useConvexPolyhedron(() => ({
     mass: 1,
     angularDamping: 0.1,
     linearDamping: 0.65,
@@ -45,19 +79,29 @@ export default function Clump({
     args: [vertices, faces],
   }));
 
-  useFrame((state) => {
-    for (let i = 0; i < 40; i++) {
-      ref.current.getMatrixAt(i, mat);
-      api
-        .at(i)
-        .applyForce(
-          vec
-            .setFromMatrixPosition(mat)
-            .normalize()
-            .multiplyScalar(-40)
-            .toArray(),
-          [0, 0, 0]
-        );
+  useEffect(() => {
+    // Access api here, after it's been initialized
+    console.log("API:", api); // Log the API object
+    console.log("API properties:", Object.keys(api)); // Log the keys of the API object
+  }, [api]); // Make sure to include api in the dependency array
+
+  useFrame(() => {
+    if (ref.current) {
+      for (let i = 0; i < 40; i++) {
+        ref.current.getMatrixAt(i, mat);
+        api
+          .at(i)
+          .applyForce(
+            vec
+              .setFromMatrixPosition(mat)
+              .normalize()
+              .multiplyScalar(-40)
+              .toArray(),
+            [0, 0, 0]
+          );
+      }
+    } else {
+      console.error("ref.current is null in useFrame");
     }
   });
 
@@ -67,32 +111,27 @@ export default function Clump({
         ref.current.setMatrixAt(i, mat.identity());
       }
       ref.current.instanceMatrix.needsUpdate = true;
+    } else {
+      console.error("ref.current is null in useEffect");
     }
   }, [ref]);
 
   return (
     <instancedMesh ref={ref} args={[null, null, 40]}>
-      <primitive object={geometry} attach="geometry" />
+      <bufferGeometry attach="geometry" {...geometry} />
       <primitive object={materials.material} attach="material" />
       <Outlines thickness={outlines} />
     </instancedMesh>
   );
 }
 
-export function Pointer({ geometry }) {
-  const vertices = geometry.attributes.position.array;
-
+export function Pointer() {
   const viewport = useThree((state) => state.viewport);
-  const [ref, api] = useConvexPolyhedron(() => ({
+  const [, api] = useSphere(() => ({
     type: "Kinematic",
-    args: vertices.map((v, index) => [
-      vertices[index * 3],
-      vertices[index * 3 + 1],
-      vertices[index * 3 + 2],
-    ]),
+    args: [3],
     position: [0, 0, 0],
   }));
-
   return useFrame((state) =>
     api.position.set(
       (state.mouse.x * viewport.width) / 2,
