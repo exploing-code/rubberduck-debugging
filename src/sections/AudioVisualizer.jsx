@@ -3,13 +3,22 @@ import gsap from "gsap";
 import { ducks } from "../../data";
 import { myContext } from "../components/ContextProvider";
 
-// The music and the play/pause buttons is temporary until i learn how to get the live mic input, its implemented so that
-// you can test the visualizer and see how it works. If you check the consol you can se that the codes checks when it should run the animation.
+// navigator.mediaDevices       <— a read only property that returns a built in object,
+//                                 which provides access to connected media inputs such
+//                                 as camera, microphone and screen sharing
+//
+// getUserMedia()               <— returns a promise that resolves in a media stream object
+//                                 which contains microphone audio data
+//
+// cerateMediaStreamSource()    <— takes in raw media stream, in this case raw audio coming
+//                                 from microphone and it converts it into audio nodes.
+
+// todo - fix quack sound effect, change conditions of when it should render and refractor
 
 export default function App() {
 	const { activeDuck } = myContext();
 	// DOM
-	const [isDuckTalking, setIsDuckTalking] = useState(false);
+	const [isDuckSoundOn, setIsDuckSoundOn] = useState(true);
 	const duckSoundRef = useRef(null);
 	const duckSoundRef2 = useRef(null);
 	const visualizerRef = useRef(null);
@@ -21,91 +30,65 @@ export default function App() {
 	const [duck2Ctx, setDuck2Ctx] = useState(null);
 
 	// Nodes
-	const micSourceNodeRef = useRef(null);
 	const analyzerNodeRef = useRef(null);
 	const duckSourceNodeRef = useRef(null);
-	const duckGainNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
-	const duck2GainNodeRef = useRef(null);
 
-	//
-
-	// Initialize AudioContexts only once
+	// Initialize AudioContexts only once on mount
 	useEffect(() => {
 		if (!micCtx) {
 			navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-				const context = new AudioContext();
-				const sourceNode = context.createMediaStreamSource(stream);
-				const analyzerNode = context.createAnalyser();
+				const ctx = new AudioContext();
+
+				const sourceNode = ctx.createMediaStreamSource(stream);
+				const analyzerNode = ctx.createAnalyser();
 				analyzerNode.fftSize = 256;
 				sourceNode.connect(analyzerNode);
-
-				setMicCtx(context);
-				micSourceNodeRef.current = sourceNode;
+				
+				setMicCtx(ctx);
+				// the analyzer makes the sound readable for the computer and is later used in the update function
 				analyzerNodeRef.current = analyzerNode;
 			});
 		}
 		if (!duckCtx) {
-			const context = new (window.AudioContext || window.webkitAudioContext)();
-			setDuckCtx(context);
+			const ctx = new AudioContext();
+			setDuckCtx(ctx);
 		}
 		if (!duck2Ctx) {
-			const context = new (window.AudioContext || window.webkitAudioContext)();
-			setDuck2Ctx(context);
+			const ctx = new AudioContext();
+			setDuck2Ctx(ctx);
 		}
 	}, []);
 
 	// Set up and connect the nodes only once when the audio context is loaded
-
 	useEffect(() => {
 		if (duckCtx && !duckSourceNodeRef.current && duckSoundRef.current) {
-			const duckSoundEl = duckSoundRef.current;
-			const duckSourceNode = duckCtx.createMediaElementSource(duckSoundEl);
+			const duckSourceNode = duckCtx.createMediaElementSource(duckSoundRef.current);
 			const duckGainNode = duckCtx.createGain();
 			duckGainNode.gain.value = 0.3;
+
 			duckSourceNode.connect(duckGainNode);
 			duckGainNode.connect(duckCtx.destination);
 
 			duckSourceNodeRef.current = duckSourceNode;
-			duckGainNodeRef.current = duckGainNode;
 		}
-	}, [duckCtx]);
 
-	useEffect(() => {
 		if (duck2Ctx && !duck2SourceNodeRef.current && duckSoundRef2.current) {
 			const duck2SourceNode = duck2Ctx.createMediaElementSource(duckSoundRef2.current);
 			const duck2GainNode = duck2Ctx.createGain();
 			duck2GainNode.gain.value = 0.2;
+
 			duck2SourceNode.connect(duck2GainNode);
 			duck2GainNode.connect(duck2Ctx.destination);
 
 			duck2SourceNodeRef.current = duck2SourceNode;
-			duck2GainNodeRef.current = duck2GainNode;
 		}
-	}, [duck2Ctx]);
+	}, [duckCtx, duck2Ctx]);
 
-	function runDuckSoundEffect() {
-		if (Math.random() > 0.5) {
-			duckSoundRef.current.play();
-		} else {
-			duckSoundRef.current.play();
-			setTimeout(() => {
-				duckSoundRef2.current.play();
-			}, 250);
-		}
-	}
-
-	function runAnimation() {
-		runDuckSoundEffect();
-		var tl = gsap.timeline();
-		tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });
-		tl.to(titleRef.current, { opacity: 0, delay: 0.5, duration: 0.5 });
-		tl.to(titleRef.current, { opacity: 0, scale: 0.1 });
-	}
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
-		const volumeThreshold = 20;
+		const volumeThreshold = 30;
 		let volumeBelowThresholdStartTime = null;
 		let isVolumeBelowThreshold = false;
 		let animationRan = false;
@@ -121,23 +104,23 @@ export default function App() {
 				for (let i = 0; i < data.length; i++) {
 					sum += data[i] * data[i];
 				}
-				const volumePercent = Math.sqrt(sum / data.length) + 10 ;
+				const volumePercent = Math.sqrt(sum / data.length);
 				if (visualizerRef.current) {
 					visualizerRef.current.style.height = `${volumePercent}vh`;
 				}
 
 				// conditionally rendering animation
-				if (volumePercent < volumeThreshold && isDuckTalking) {
+				if (volumePercent < volumeThreshold) {
 					if (!isVolumeBelowThreshold) {
 						isVolumeBelowThreshold = true;
 						volumeBelowThresholdStartTime = Date.now();
-						console.log("Volume low — wait until allowed to run");
+						// console.log("Q?")
 					} else {
 						const currentTime = Date.now();
 						const timePassed = currentTime - volumeBelowThresholdStartTime;
 						if (timePassed >= awaitResponseTime && !animationRan) {
-							console.log("ANIMATE");
-							runAnimation();
+							// console.log("QUACK")
+							// runAnimation();
 							animationRan = true;
 						}
 					}
@@ -152,9 +135,33 @@ export default function App() {
 		update();
 	}, []);
 
-	function handleOnClick(){
-		setIsDuckTalking((prev) => !prev)
-		console.log(isDuckTalking)
+	// Randomize 1 or 2 quacks
+	function runDuckSoundEffect() {
+		if (duckSoundRef.current && duckSoundRef2.current) {
+			if (Math.random() > 0.5) {
+				duckSoundRef.current.play();
+			} else {
+				duckSoundRef.current.play();
+				setTimeout(() => {
+					duckSoundRef2.current.play();
+				}, 250);
+			}
+		}
+	}
+
+	// render animation with sound effect
+	function runAnimation() {
+		if (titleRef.current) {
+			runDuckSoundEffect();
+			var tl = gsap.timeline();
+			tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });
+			tl.to(titleRef.current, { opacity: 0, delay: 0.5, duration: 0.5 });
+			tl.to(titleRef.current, { opacity: 0, scale: 0.1 });
+		}
+	}
+
+	function handleOnClick() {
+		setIsDuckSoundOn((prev) => !prev);
 	}
 
 	return (
@@ -163,7 +170,7 @@ export default function App() {
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
 
 			<div className=" absolute *:bg-black *:text-yellow-200 font-modak *:uppercase *:px-4 *:rounded-[1rem] text-7xl *:m-4 *:pt-2 top-0 z-20">
-				<button onClick={handleOnClick}>{isDuckTalking ? "deactivate quack quack": "Activate duck response"}</button>
+				<button onClick={handleOnClick}>{isDuckSoundOn ? "deactivate quack quack" : "Activate duck response"}</button>
 			</div>
 
 			<div ref={visualizerRef} className=" absolute bottom-0 w-full bg-yellow-200 transition-all duration-[0.01s]"></div>
