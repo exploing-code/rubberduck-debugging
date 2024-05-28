@@ -67,7 +67,7 @@ section {
       #dcbc169c 30%,
       transparent 70%
     ),
-    radial-gradient(ellipse at bottom, transparent 30%, black 60%);
+    radial-gradient(ellipse at bottom, transparent 20%, black 70%);
   background-size: 350px 500px, 400px 650px, 100% 100%, 100% 100%;
   background-blend-mode: hard-light, color-dodge, multiply;
   background-position: 0px 0px, 0px 0px, var(--gradientPos);
