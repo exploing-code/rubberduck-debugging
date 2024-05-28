@@ -41,12 +41,13 @@ function App() {
       <Conclusion />
       <div ref={canvasRef} className="fixed top-0 left-0 h-full w-full z-[1]">
         <Canvas
+          alpha={true}
           shadows
           gl={{ antialias: false }}
           dpr={[1, 1.5]}
           camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
         >
-          {/* <Experience />  */}
+          {/* <Experience /> */}
           <Cluster />
         </Canvas>
       </div>

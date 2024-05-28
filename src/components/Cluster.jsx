@@ -35,7 +35,7 @@ export const Cluster = () => {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <color attach="background" args={["#dfdfdf"]} />
+      {/* <color attach="background" args={["#dfdfdf"]} /> */}
       <spotLight
         intensity={1}
         angle={0.2}
@@ -54,7 +54,7 @@ export const Cluster = () => {
         />
       </Physics>
       <Environment files="/adamsbridge.hdr" />
-      <EffectComposer disableNormalPass multisampling={0}>
+      {/* <EffectComposer disableNormalPass multisampling={0}>
         <N8AO
           halfRes
           color="black"
@@ -64,7 +64,7 @@ export const Cluster = () => {
           denoiseSamples={4}
         />
         <SMAA />
-      </EffectComposer>
+      </EffectComposer> */}
     </>
   );
 };
