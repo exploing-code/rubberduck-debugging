@@ -20,40 +20,46 @@ import Conclusion from './sections/Conclusion';
 import { myContext } from './components/ContextProvider';
 import Loader from './components/Loader';
 
+import { ReactLenis, useLenis } from 'lenis/react';
+
 function App() {
   const { activeDuck, setActiveDuck } = myContext();
-
   const canvasRef = useRef();
 
   return (
-    <div>
-      {/* <Loader initSiteLoader={false} /> */}
+    <ReactLenis root>
+      <div>
+        {/* <Loader initSiteLoader={false} /> */}
 
-      {/* <div
+        {/* <div
         className={`${
           ducks[activeDuck].name === 'DemonDuck' ? 'fire visible' : ' hidden '
         }`}
       /> */}
-      <main
-        className={`overflow-x-hidden transition-colors duration-500 ease-in-out`}
-        style={{
-          backgroundColor: ducks[activeDuck].primaryClr,
-        }}
-      >
-        <Hero />
-        <CharSelectSection />
-        <DescSectionOne />
-        <DescSectionTwo />
-        <DescSectionThree />
-        <AudioVisualizer />
-        <Conclusion />
-        <div ref={canvasRef} className='fixed top-0 left-0 h-full w-full z-[1]'>
-          <Canvas>
-            <Experience />
-          </Canvas>
-        </div>
-      </main>
-    </div>
+        <main
+          className={`overflow-x-hidden transition-colors duration-500 ease-in-out`}
+          style={{
+            backgroundColor: ducks[activeDuck].primaryClr,
+          }}
+        >
+          <Hero />
+          <CharSelectSection />
+          <DescSectionOne />
+          <DescSectionTwo />
+          <DescSectionThree />
+          <AudioVisualizer />
+          <Conclusion />
+          <div
+            ref={canvasRef}
+            className='fixed top-0 left-0 h-full w-full z-[1]'
+          >
+            <Canvas>
+              <Experience />
+            </Canvas>
+          </div>
+        </main>
+      </div>
+    </ReactLenis>
   );
 }
 

@@ -54,7 +54,7 @@ export default function Experience() {
           trigger: '#s2',
           start: 'top top',
           //   markers: true,
-          pin: true,
+          //   pin: true,
           scrub: 1,
         },
       });
@@ -82,7 +82,7 @@ export default function Experience() {
           trigger: '#s6',
           start: 'top top',
           scrub: 1,
-          pin: true,
+          //   pin: true,
         },
         // x: 0,
       });
