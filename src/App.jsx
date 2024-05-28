@@ -29,11 +29,11 @@ function App() {
     <div>
       {/* <Loader initSiteLoader={false} /> */}
 
-      <div
+      {/* <div
         className={`${
           ducks[activeDuck].name === 'DemonDuck' ? 'fire visible' : ' hidden '
         }`}
-      />
+      /> */}
       <main
         className={`overflow-x-hidden transition-colors duration-500 ease-in-out`}
         style={{

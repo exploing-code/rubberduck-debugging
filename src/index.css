@@ -42,8 +42,7 @@ section {
 .font-modak {
   font-family: 'modak';
 }
-:root {
-  /* the only thing needed is a grainy/noisy background image */
+/* :root {
   --glitter: url('https://assets.codepen.io/13471/silver-glitter-background.png');
 }
 
@@ -85,4 +84,4 @@ section {
   100% {
     background-position: center -500px, center -650px, 50% 100%, center center;
   }
-}
+} */
