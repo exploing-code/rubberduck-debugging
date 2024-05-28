@@ -1,22 +1,26 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+// ContextProvider.jsx
+import React, { createContext, useState } from 'react';
 
 export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
   const [activeDuck, setActiveDuck] = useState(0);
+  const [pressedButton, setPressedButton] = useState(null);
 
   const value = {
     activeDuck,
     setActiveDuck,
+    pressedButton,
+    setPressedButton,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 export const myContext = () => {
-  const context = useContext(Context);
+  const context = React.useContext(Context);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthenticationProvider');
+    throw new Error('useMyContext must be used within a ContextProvider');
   }
   return context;
 };

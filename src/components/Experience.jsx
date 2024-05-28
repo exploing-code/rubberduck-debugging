@@ -1,13 +1,14 @@
 // three fiber
 import { Float } from '@react-three/drei';
-import { useLoader } from '@react-three/fiber';
+import { useLoader, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 // react
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useEffect, useState } from 'react';
 
 // gsap
 import { gsap } from 'gsap';
+
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
@@ -16,11 +17,15 @@ import { myContext } from './ContextProvider.jsx';
 import { ducks } from '../../data';
 
 export default function Experience() {
-  const { activeDuck } = myContext();
+  const { activeDuck, setActiveDuck, pressedButton, setPressedButton } =
+    myContext();
 
-  const activeDuckUrl = ducks[activeDuck].path;
-  const model = useLoader(GLTFLoader, activeDuckUrl);
+  //   const [activeDuckUrl, setActiveDuckUrl] = useState(ducks[0].path);
+  const model = useLoader(GLTFLoader, ducks[activeDuck].path);
   const modelRef = useRef();
+
+  const { size } = useThree();
+  const modelScale = size.width > 768 ? [1, 1, 1] : [0.7, 0.7, 0.7];
 
   useGSAP(() => {
     if (model) {
@@ -32,7 +37,7 @@ export default function Experience() {
           scrub: 1,
         },
         y: modelRef.current.rotation.y + Math.PI * 2,
-        x: 6,
+        x: 6.5,
       });
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
@@ -48,6 +53,7 @@ export default function Experience() {
         scrollTrigger: {
           trigger: '#s2',
           start: 'top top',
+          //   markers: true,
           pin: true,
           scrub: 1,
         },
@@ -78,10 +84,48 @@ export default function Experience() {
           scrub: 1,
           pin: true,
         },
-        x: 0,
+        // x: 0,
       });
     }
   }, []);
+
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    // Check if pressedButton is null or undefined or if the animation is already playing
+    if (!pressedButton || isAnimating) {
+      return;
+    }
+
+    setIsAnimating(true);
+
+    const tl = gsap.timeline({
+      onComplete: () => setIsAnimating(false),
+    });
+
+    const direction = pressedButton === 'right' ? 1 : -1;
+
+    tl.to(modelRef.current.rotation, {
+      duration: 0.3,
+      y: '+=' + direction * Math.PI * 2,
+      ease: 'Power4.easeIn',
+      onComplete: () => {
+        if (pressedButton === 'right') {
+          setActiveDuck((prev) => (prev + 1) % ducks.length);
+        } else {
+          setActiveDuck((prev) => (prev - 1 < 0 ? ducks.length - 1 : prev - 1));
+        }
+
+        tl.to(modelRef.current.rotation, {
+          duration: 1,
+          y: '+=' + direction * Math.PI * 2 * 2,
+          ease: 'Power4.easeOut',
+        });
+      },
+    });
+
+    setPressedButton(null);
+  }, [pressedButton, isAnimating]);
 
   return (
     <>
@@ -92,8 +136,12 @@ export default function Experience() {
         <ambientLight intensity={1.5} />
         <Suspense fallback={<h1>Loading...</h1>}>
           <Float speed={1} floatIntensity={-1}>
-            <mesh ref={modelRef}>
-              <primitive object={model.scene} scale={1} position-y={-1} />
+            <mesh ref={modelRef} rotation-x={0.3}>
+              <primitive
+                object={model.scene}
+                scale={modelScale}
+                position-y={-1}
+              />
             </mesh>
           </Float>
         </Suspense>
