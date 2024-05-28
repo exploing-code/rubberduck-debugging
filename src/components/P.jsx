@@ -3,12 +3,12 @@ import { ducks } from '../../data';
 
 import { myContext } from './ContextProvider';
 
-function P({ children }) {
+function P({ children, style }) {
   const { activeDuck, setActiveDuck } = myContext();
 
   return (
     <p
-      className='max-w-[30rem] ml-[15%]'
+      className={`transition-colors duration-500 ease-in-out ${style}`}
       style={{
         color: ducks[activeDuck].secondaryClr,
       }}
