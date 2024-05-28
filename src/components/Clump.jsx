@@ -22,13 +22,15 @@ export default function Clump({
   vec = new THREE.Vector3(),
   ...props
 }) {
+  const texture = useTexture("/cross.jpg");
+
   const { outlines } = useControls({
     outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
   });
   const material = model.materials.material;
 
   const [ref, api] = useSphere(() => ({
-    args: [1],
+    args: [1.4],
     mass: 1,
     angularDamping: 0.1,
     linearDamping: 0.65,
@@ -53,16 +55,27 @@ export default function Clump({
     }
   });
 
+  geometry.scale(0.01, 0.01, 0.01);
+
   return (
+    // <instancedMesh
+    //   ref={ref}
+    //   castShadow
+    //   receiveShadow
+    //   args={[sphereGeometry, baubleMaterial, 40]}
+    //   material-map={texture}
+    // >
+    //   <Outlines thickness={outlines} />
+    // </instancedMesh>
+
     <instancedMesh
       ref={ref}
       castShadow
       receiveShadow
       args={[geometry, material, 40]} // Use the provided geometry prop
       // material-map={texture}
-      scale={[0.01, 0.01, 0.01]} // Scale the entire instanced mesh
     >
-      <Outlines thickness={outlines} />
+      {/* <Outlines thickness={outlines} /> */}
     </instancedMesh>
   );
 }
