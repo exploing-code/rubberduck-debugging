@@ -8,7 +8,7 @@ function P({ children }) {
 
   return (
     <p
-      className='max-w-[30rem] ml-[15%]'
+      className='max-w-[50rem] text-base'
       style={{
         color: ducks[activeDuck].secondaryClr,
       }}
