@@ -71,7 +71,7 @@ export function Pointer() {
   const viewport = useThree((state) => state.viewport);
   const [, api] = useSphere(() => ({
     type: "Kinematic",
-    args: [50],
+    args: [3],
     position: [0, 0, 0],
   }));
   return useFrame((state) =>
