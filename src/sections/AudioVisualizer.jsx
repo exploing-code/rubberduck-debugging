@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ducks } from "../../data";
-import { myContext } from "../components/ContextProvider";
-import P from "../components/P";
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ducks } from '../../data';
+import { myContext } from '../components/ContextProvider';
+import P from '../components/P';
 
 // navigator.mediaDevices       <— a read only property that returns a built in object,
 //                                 which provides access to connected media inputs such
@@ -16,7 +16,7 @@ import P from "../components/P";
 
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
-export default function App() {
+export default function AudioVisualizer() {
 	const { activeDuck } = myContext();
 	const isDuckResponding = useRef(false);
 
@@ -189,6 +189,16 @@ export default function App() {
 
 	return (
 		<section className=" relative flex items-center justify-center">
+    
+      <div className='flex gap-6'>
+        <button className='bg-yellow-400 py-4 px-6 rounded-md transition-all duration-200 hover:scale-110 hover:bg-yellow-200 z-50'>
+          NO
+        </button>
+        <button className='bg-yellow-400 py-4 px-6 rounded-md transition-all duration-200 hover:scale-110 hover:bg-yellow-200 z-50'>
+          YES
+        </button>
+      </div>
+    
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
