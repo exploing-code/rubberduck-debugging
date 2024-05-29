@@ -8,13 +8,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const rfs = THREE.MathUtils.randFloatSpread;
 
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const baubleMaterial = new THREE.MeshStandardMaterial({
-  color: "white",
-  roughness: 0,
-  envMapIntensity: 1,
-});
-
 export default function Clump({
   geometry,
   model,
@@ -24,9 +17,10 @@ export default function Clump({
 }) {
   const texture = useTexture("/cross.jpg");
 
-  const { outlines } = useControls({
-    outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
-  });
+  // const { outlines } = useControls({
+  //   outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
+  // });
+
   const material = model.materials.material;
 
   const [ref, api] = useSphere(() => ({
@@ -54,6 +48,8 @@ export default function Clump({
         );
     }
   });
+
+  console.log(model);
 
   geometry.scale(0.01, 0.01, 0.01);
 

@@ -41,7 +41,7 @@ function App() {
       <Conclusion />
       <div ref={canvasRef} className="fixed top-0 left-0 h-full w-full z-[1]">
         <Canvas
-          alpha={true}
+          alpha="true"
           shadows
           gl={{ antialias: false }}
           dpr={[1, 1.5]}
