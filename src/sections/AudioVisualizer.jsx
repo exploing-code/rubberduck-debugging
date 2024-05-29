@@ -18,10 +18,12 @@ import P from "../components/P";
 
 export default function App() {
 	const { activeDuck } = myContext();
-	// DOM
 	const isDuckResponding = useRef(false);
+
+	// DOM
 	const duckSoundRef = useRef(null);
 	const duckSoundRef2 = useRef(null);
+	const songRef = useRef(null);
 	const visualizerRef = useRef(null);
 	const titleRef = useRef(null);
 
@@ -29,11 +31,13 @@ export default function App() {
 	const [micCtx, setMicCtx] = useState(null);
 	const [duckCtx, setDuckCtx] = useState(null);
 	const [duck2Ctx, setDuck2Ctx] = useState(null);
+	const [songCtx, setSongCtx] = useState(null);
 
 	// Nodes
 	const analyzerNodeRef = useRef(null);
 	const duckSourceNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
+	const songSourceNodeRef = useRef(null);
 
 	// AudioContext must be initialized after a user gesture
 	function handleOnClick() {
@@ -84,7 +88,17 @@ export default function App() {
 
 			duck2SourceNodeRef.current = duck2SourceNode;
 		}
-	}, [duckCtx, duck2Ctx]);
+		if (songCtx && !songSourceNodeRef.current && songRef.current) {
+			const songSourceNode = songCtx.createMediaElementSource(songRef.current);
+			const songGainNode = songCtx.createGain();
+			songGainNode.gain.value = 0.3;
+
+			songSourceNode.connect(songGainNode);
+			songGainNode.connect(songCtx.destination);
+
+			songSourceNodeRef.current = songSourceNode;
+		}
+	}, [duckCtx, duck2Ctx, songCtx]);
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
@@ -164,11 +178,20 @@ export default function App() {
 	function toggleDuckResponding(e) {
 		isDuckResponding.current = e.target.checked;
 	}
+	function toggleSongPlaying(e) {
+		if (e.target.checked) {
+			songRef.current.currentTime = 32.9;
+			songRef.current.play();
+		} else {
+			songRef.current.pause();
+		}
+	}
 
 	return (
 		<section className=" relative flex items-center justify-center">
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
+			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
 
 			{/* temporary inputs to turn of response for the sake of our sanity :))) */}
 			<div className=" absolute   *:uppercase *:px-4 *:rounded-[1rem] text-xl *:m-2 *:pt-2 left-0 top-0 z-20 *:border-black *:border-[1px] *:items-center *:justify-center *:gap-4  *:flex">
@@ -181,6 +204,13 @@ export default function App() {
 						<P>activate duck response</P>
 					</label>
 					<input type="checkbox" id="checkbox" onChange={(e) => toggleDuckResponding(e)} />
+				</div>
+
+				<div>
+					<label htmlFor="partySongToggle">
+						<P>play party song</P>
+					</label>
+					<input type="checkbox" id="partySongToggle" onChange={(e) => toggleSongPlaying(e)} />
 				</div>
 			</div>
 
