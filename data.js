@@ -34,4 +34,18 @@ export const ducks = [
     secondaryClr: '#E5EC85',
     thirdClr: '#DFDDD4',
   },
+  {
+    name: 'MinecraftDuck',
+    path: './minecraftDuck/scene.gltf',
+    primaryClr: '#60AB31',
+    secondaryClr: '#2B2F3A',
+    thirdClr: '#F8CE7B',
+  },
+  {
+    name: 'GangsterDuck',
+    path: './gangsterDuck/scene.gltf',
+    primaryClr: '#60AB31',
+    secondaryClr: '#2B2F3A',
+    thirdClr: '#F8CE7B',
+  },
 ];
