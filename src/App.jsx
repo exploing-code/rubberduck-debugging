@@ -22,19 +22,19 @@ import LoadingScreen from "./components/LoadingScreenStart";
 import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
 
 function App() {
-  const { activeDuck, setActiveDuck } = myContext();
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [renderInitialLoading, setRenderInitialLoading] = useState(true);
-  const [renderS2Loading, setRenderS2Loading] = useState(false);
+  const { activeDuck, setActiveDuck } = myContext()
+  const [isLoaded, setIsLoaded] = useState(true) // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
+  const [renderInitialLoading, setRenderInitialLoading] = useState(true)
+  const [renderS2Loading, setRenderS2Loading] = useState(false)
 
   return (
     <>
-      {renderInitialLoading && (
+      {/* {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
           setRenderInitialLoading={setRenderInitialLoading}
         />
-      )}
+      )} */}
       {isLoaded && (
         <main
           className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
