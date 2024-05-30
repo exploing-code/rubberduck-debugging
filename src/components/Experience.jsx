@@ -27,124 +27,107 @@ export default function Experience() {
   const { size } = useThree();
   const modelScale = size.width > 768 ? [1, 1, 1] : [0.7, 0.7, 0.7];
 
-  // Rotation
+  // Function to create GSAP animations
+  const createAnimation = (
+    target,
+    scrollTriggerOptions,
+    animationProperties
+  ) => {
+    gsap.to(target, {
+      scrollTrigger: scrollTriggerOptions,
+      ...animationProperties,
+    });
+  };
+
+  // Function to create common scrollTrigger options
+  const createScrollTrigger = (
+    trigger,
+    start,
+    end,
+    scrub = 1,
+    pin = false,
+    endTrigger = null
+  ) => ({
+    trigger,
+    start,
+    end,
+    scrub,
+    pin,
+    endTrigger,
+  });
+
+  // Function to create GSAP timelines
+  const createTimeline = (
+    target,
+    scrollTriggerOptions,
+    animationProperties
+  ) => {
+    let timeline = gsap.timeline({
+      scrollTrigger: scrollTriggerOptions,
+    });
+
+    timeline.to(target, animationProperties);
+
+    return timeline;
+  };
+
+  // Use GSAP
   useGSAP(() => {
     if (model) {
-      // HERO
-      gsap.to(modelRef.current.rotation, {
-        scrollTrigger: {
-          trigger: '#s1',
-          endTrigger: '#s2',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-        y: modelRef.current.rotation.y + Math.PI * 2,
-        x: 6.5,
-      });
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s1',
-          start: 'top top',
-          end: 'bottom center',
-          endTrigger: '#s2',
-          scrub: 1,
-        },
-        z: -4,
-      });
+      // HERO SECTION
+      createAnimation(
+        modelRef.current.rotation,
+        createScrollTrigger('#s1', 'top top', 'bottom bottom', 1, false, '#s2'),
+        { y: modelRef.current.rotation.y + Math.PI * 2, x: 6.5 }
+      );
+      createAnimation(
+        modelRef.current.position,
+        createScrollTrigger('#s1', 'top top', 'bottom center', 1, false, '#s2'),
+        { z: -4 }
+      );
 
-      // CHAR SELECTION
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s2',
-          pin: true,
-          scrub: 1,
-        },
-      });
+      // CHARACTER SELECTION SECTION
+      createAnimation(
+        modelRef.current.position,
+        createScrollTrigger('#s2', 'top top', 'bottom center', 1, true),
+        {}
+      );
 
-      //  DESC SECTION 1 (to the right from above )
-      gsap.to(modelRef.current.position, {
-        x: 6,
-        scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 1,
-        },
-      });
+      // DESC SECTION 1
+      createAnimation(
+        modelRef.current.position,
+        createScrollTrigger('#s3', 'top bottom', 'center center', 1),
+        { x: 6 }
+      );
+      createAnimation(
+        modelRef.current.rotation,
+        createScrollTrigger('#s3', 'top bottom', 'bottom bottom', 1),
+        { x: 1.5, y: -0.5, z: 0.5 }
+      );
 
-      gsap.to(modelRef.current.rotation, {
-        x: 1.5,
-        y: -0.5,
-        z: 0.5,
-        scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
+      // DESC SECTION 2
+      createTimeline(
+        modelRef.current.position,
+        createScrollTrigger('#s4', 'top center', 'bottom bottom', 1),
+        { x: -2.5, y: -1, z: 1.2 }
+      );
+      createTimeline(
+        modelRef.current.rotation,
+        createScrollTrigger('#s4', 'top center', 'bottom bottom', 1),
+        { y: 0.8, x: 0, z: 0 }
+      );
 
-      //  DESC SECTION 2 (close left)
-      let tl2Position = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      tl2Position.to(modelRef.current.position, {
-        x: -2.5, // left/right
-        y: -1, // top/bottom
-        z: 1.2, // size
-      });
-
-      let tl2Rotation = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      tl2Rotation.to(modelRef.current.rotation, {
-        y: 0.8, // left/right
-        x: 0, // top/bottom
-        z: 0,
-      });
-
-      //  DESC SECTION 3 (Original position and rotation)
-      let tl3Position = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s5',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      tl3Position.to(modelRef.current.position, {
-        x: 0,
-        y: 0,
-        z: -1,
-      });
-
-      let tl3Rotation = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s5',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      tl3Rotation.to(modelRef.current.rotation, {
-        y: 0,
-        x: 0.2,
-      });
+      // DESC SECTION 3
+      createTimeline(
+        modelRef.current.position,
+        createScrollTrigger('#s5', 'top center', 'bottom bottom', 1),
+        { x: 0, y: 0, z: -1 }
+      );
+      createTimeline(
+        modelRef.current.rotation,
+        createScrollTrigger('#s5', 'top center', 'bottom bottom', 1),
+        { y: 0, x: 0.2 }
+      );
     }
   }, []);
 
