@@ -52,7 +52,8 @@ function App() {
           <Conclusion />
           <div className="fixed top-0 left-0 h-full w-full z-[1]">
             <Canvas>
-              <Experience />
+              {/* <Experience /> */}
+              <Cluster />
             </Canvas>
           </div>
           {renderS2Loading && (
