@@ -11,9 +11,17 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
       y: "100vh",
       duration: 2,
       ease: "power4.inOut",
+      onStart: () => {
+        document.body.style.overflow = "hidden"
+      },
       onComplete: () => {
         const s2 = document.getElementById("s2")
         s2.scrollIntoView({ behavior: "smooth" })
+
+        // Re-enable scrolling after the scrollIntoView animation has finished
+        setTimeout(() => {
+          document.body.style.overflow = "auto"
+        }, 1000) // Adjust this value as needed
       },
     })
     gsap.to(containerRef.current, {
@@ -31,8 +39,9 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
       {
         y: 0,
         ease: "elastic",
-        stagger: 0.1,
+        stagger: 0.05,
         duration: 2,
+        delay: 1,
       }
     )
   }, [])
