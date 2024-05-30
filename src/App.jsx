@@ -51,8 +51,15 @@ function App() {
           <AudioVisualizer setRenderS2Loading={setRenderS2Loading} />
           <Conclusion />
           <div className="fixed top-0 left-0 h-full w-full z-[1]">
-            <Canvas>
-              {/* <Experience /> */}
+            {/* <Canvas><Experience /></Canvas> */}
+            <Canvas
+              camera={{
+                position: [0, 25, 0], // Change the position values as needed
+                fov: 35,
+                near: 0.1,
+                far: 1000,
+              }}
+            >
               <Cluster />
             </Canvas>
           </div>
