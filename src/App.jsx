@@ -1,6 +1,6 @@
 // libraries
 import { Canvas } from "@react-three/fiber";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 
 // data
 import { ducks } from "../data";
@@ -19,41 +19,57 @@ import AudioVisualizer from "./sections/AudioVisualizer";
 import Conclusion from "./sections/Conclusion";
 
 import { myContext } from "./components/ContextProvider";
+import LoadingScreen from "./components/LoadingScreenStart";
+import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
 
 function App() {
   const { activeDuck, setActiveDuck } = myContext();
-
-  const canvasRef = useRef();
+  const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
+  const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+  const [renderS2Loading, setRenderS2Loading] = useState(false);
 
   return (
-    <main
-      className="overflow-x-hidden"
-      style={{
-        backgroundColor: ducks[activeDuck].primaryClr,
-      }}
-    >
-      <Hero />
-      <CharSelectSection />
-      <DescSectionOne />
-      <DescSectionTwo />
-      <DescSectionThree />
-      <AudioVisualizer />
-      <Conclusion />
-
-      <div ref={canvasRef} className="fixed top-0 left-0 h-full w-full z-[1]">
-        <Canvas
-          alpha="true"
-          shadows
-          gl={{ antialias: false }}
-          dpr={[1, 1.5]}
-          camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
+    <>
+      {/* {renderInitialLoading && (
+        <LoadingScreen
+          setIsLoaded={setIsLoaded}
+          setRenderInitialLoading={setRenderInitialLoading}
+        />
+      )} */}
+      {isLoaded && (
+        <main
+          className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
+          style={{
+            backgroundColor: ducks[activeDuck].primaryClr,
+          }}
         >
-          {/* <Experience /> */}
-          <Cluster />
-        </Canvas>
-      </div>
-    </main>
+          <Hero />
+          <CharSelectSection />
+          <DescSectionOne />
+          <DescSectionTwo />
+          <DescSectionThree />
+          <AudioVisualizer setRenderS2Loading={setRenderS2Loading} />
+          <Conclusion />
+          <div className="fixed top-0 left-0 h-full w-full z-[1]">
+            <Canvas>
+              <Experience />
+            </Canvas>
+          </div>
+          {renderS2Loading && (
+            <LoadingScreenCharSelect setRenderS2Loading={setRenderS2Loading} />
+          )}
+        </main>
+      )}
+    </>
   );
 }
 
 export default App;
+
+{
+  /* <div
+        className={`${
+          ducks[activeDuck].name === 'DemonDuck' ? 'fire visible' : ' hidden '
+        }`}
+      /> */
+}
