@@ -1,40 +1,42 @@
-import React from "react"
-import P from "../components/P"
+import React from "react";
+import P from "../components/P";
 
-import { ducks } from "../../data"
+import { ducks } from "../../data";
 
 // components
-import CharSelectButton from "../components/CharSelectButton"
+import CharSelectButton from "../components/CharSelectButton";
 
-import { myContext } from "../components/ContextProvider.jsx"
+import { myContext } from "../components/ContextProvider.jsx";
 
 function CharSelection() {
-  const { activeDuck } = myContext()
+	const { activeDuck } = myContext();
 
-  return (
-    <>
-      <section
-        className='flex-col flex pt-[2rem] justify-between relative z-10'
-        id='s2'
-      >
-        <div className="relative flex flex-col items-center justify-center z-[1000] h-screen w-screen">
-          <P style={"absolute top-[5rem]"}>Are you stuck? Choose a duck!</P>
-          <div className="flex relative w-full justify-between z-[1000]">
-            <CharSelectButton ducks={ducks} version="left" />
-            <CharSelectButton ducks={ducks} version="right" />
-          </div>
-          <h2
-            style={{
-              color: ducks[activeDuck].secondaryClr,
-            }}
-            className="text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[10rem] absolute bottom-[5rem] md:bottom-[-2rem]"
-          >
-            {ducks[activeDuck].name}
-          </h2>
-        </div>
-      </section>
-    </>
-  )
+	return (
+		<section id="s2" className=" flex flex-col justify-between text-center md:justify-end  z-10 py-6">
+			<div className=" flex flex-col md:flex-col-reverse ">
+				<div className=" flex items-center justify-center">
+					<span className=" hidden md:block">
+						<CharSelectButton version="left" />
+					</span>
+					<P>So if you are stuck, Choose a duck!</P>
+					<span className=" hidden md:block">
+						<CharSelectButton version="right" />
+					</span>
+				</div>
+				<h2
+					className=" uppercase text-[15vw] md:text-[10vw] leading-[9vw] m-4"
+					style={{
+						color: ducks[activeDuck].secondaryClr,
+					}}>
+					{ducks[activeDuck].name}
+				</h2>
+			</div>
+			<div className=" flex items-center justify-around  leading-[4vw] md:*:hidden ">
+				<CharSelectButton version="left" />
+				<CharSelectButton version="right" />
+			</div>
+		</section>
+	);
 }
 
-export default CharSelection
+export default CharSelection;
