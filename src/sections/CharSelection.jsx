@@ -14,8 +14,8 @@ function CharSelection() {
   return (
     <>
       <section
-        className="flex-col flex pt-[2rem] justify-between relative z-[1000]"
-        id="s2"
+        className='flex-col flex pt-[2rem] justify-between relative z-10'
+        id='s2'
       >
         <div className="relative flex flex-col items-center justify-center z-[1000] h-screen w-screen">
           <P style={"absolute top-[5rem]"}>Are you stuck? Choose a duck!</P>
