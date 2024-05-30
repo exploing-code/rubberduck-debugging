@@ -1,68 +1,40 @@
 import React from "react";
-import P from "../components/P";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
+
+import { ducks } from "../../data";
+import { myContext } from "../components/ContextProvider.jsx";
+import P from "../components/P";
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(TextPlugin);
 
 function DescSectionThree() {
-  const textRef = useRef();
+  const { activeDuck } = myContext();
+  const ref = useRef();
 
-  useEffect(() => {
-    gsap.fromTo(
-      ".text",
-      { x: -4000 },
-      {
-        scrollTrigger: {
-          trigger: "#s5",
-          start: "center center",
-          markers: true,
-          toggleActions: "restart pause resume reset",
-        },
-        x: 100,
-        rotation: 355,
-        stagger: 0.1,
-        duration: 1,
-        ease: "power2.in",
-      }
-    );
-    gsap.fromTo(
-      ".text2",
-      { y: -1000000 },
-      {
-        scrollTrigger: {
-          trigger: "#s5",
-          start: "center center",
-          markers: true,
-          toggleActions: "restart pause resume reset",
-        },
-        x: -800,
-        y: 300,
-        rotation: 370,
-        stagger: 0.1,
-        duration: 1,
-        ease: "power2.in",
-        delay: 1,
-      }
-    );
-  }, []);
+  useGSAP(() => {
+    gsap.to(".reveal", {
+      duration: 2,
+      text: "Alright, it's time. Let's start the text, Share your code and I'll do my best!",
+    });
+  });
 
   return (
     <section
-      className="h-[200vh]  flex items-end flex-col  justify-center"
+      className="h-[200vh] flex items-end flex-col  justify-center"
       id="s5"
-      ref={textRef}
+      ref={ref}
     >
-      <div className="flex flex-col gap-[5rem] mr-[15rem]">
-        <div className="text">
-          <P>Explain your code, line by line</P>
-        </div>
-        <div className="text2">
-          <P>Get ready to start, Be steady and smart</P>
-        </div>
-      </div>
+      <P
+        style={`w-[20rem] text-sm mb-5 text-[${ducks[activeDuck].secondaryClr}]`}
+      >
+        <span className="reveal"></span>
+      </P>
     </section>
   );
 }
