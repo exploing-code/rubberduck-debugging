@@ -17,14 +17,14 @@ export default function Clump({
   vec = new THREE.Vector3(),
   ...props
 }) {
-  const DUCKNUMBER = 10;
+  const DUCKNUMBER = 40;
 
   const [ref, api] = useSphere(() => ({
     args: [1.4],
     mass: 1,
     angularDamping: 0.1,
     linearDamping: 0.65,
-    position: [rfs(20), rfs(20), rfs(20)],
+    position: [rfs(20) * 3, rfs(20) + 25, rfs(20) * 3],
   }));
 
   useFrame((state) => {
@@ -60,7 +60,7 @@ export function Pointer() {
   const viewport = useThree((state) => state.viewport);
   const [, api] = useSphere(() => ({
     type: "Kinematic",
-    args: [3],
+    args: [5],
     position: [0, 0, 0],
   }));
   return useFrame((state) =>

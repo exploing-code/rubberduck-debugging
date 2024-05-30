@@ -20,7 +20,13 @@ export const Cluster = () => {
 
   const [isScaled, setIsScaled] = useState(false);
 
-  const activeDuckUrl = ducks[activeDuck].path;
+  let activeDuckUrl;
+
+  if (activeDuck === 3 || 4) {
+    activeDuckUrl = ducks[0].path;
+  } else {
+    activeDuckUrl = ducks[activeDuck].path;
+  }
 
   let geometry;
   let material;
@@ -35,7 +41,7 @@ export const Cluster = () => {
 
   console.log(model);
 
-  if (activeDuck == 0) {
+  if (activeDuck === 0 || activeDuck === 3 || activeDuck === 4) {
     geometry =
       model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
     material = model.materials.material;
@@ -43,16 +49,16 @@ export const Cluster = () => {
   } else if (activeDuck == 1) {
     geometry = model.nodes.Duckstage21_Material001_0.geometry;
     material = model.materials["Material.001"];
-    duckScalar = 0.7;
+    duckScalar = 0.6;
   } else if (activeDuck == 2) {
+    geometry = model.nodes.Ducksaw.children[0].geometry;
+    material = model.materials["Ducksaw.001"];
+    duckScalar = 0.35;
+  } else if (activeDuck == 5) {
     geometry =
-      model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry.copy();
+      model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
     material = model.materials.material;
-    duckScalar = 0.4;
-  } else if (activeDuck == 3) {
-    geometry = model.nodes.Duck.children[0].children[0].geometry;
-    material = model.materials["Material.001"];
-    duckScalar = 0.1;
+    duckScalar = 0.01;
   }
 
   function scaleGeometry() {

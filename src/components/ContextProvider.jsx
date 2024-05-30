@@ -4,14 +4,17 @@ import React, { createContext, useState } from "react";
 export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
-  const [activeDuck, setActiveDuck] = useState(3);
-  const [pressedButton, setPressedButton] = useState(null);
+  const [activeDuck, setActiveDuck] = useState(0);
+  const [pressedButton, setPressedButton] = useState(false);
+  const [partyOn, setPartyOn] = useState(false);
 
   const value = {
     activeDuck,
     setActiveDuck,
     pressedButton,
     setPressedButton,
+    partyOn,
+    setPartyOn,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
