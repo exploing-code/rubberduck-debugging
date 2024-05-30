@@ -2,10 +2,7 @@ import React from 'react';
 
 function Conclusion() {
   return (
-    <section
-      id='s7'
-      className=' flex-col flex pt-[2rem] justify-between bg-blue-400'
-    >
+    <section id='s7' className=' flex-col flex pt-[2rem] justify-between '>
       <button className='z-50 bg-orange-500 max-w-[10rem] p-2 rounded-lg text-white font-bold text-xl'>
         Click For Loader
       </button>
