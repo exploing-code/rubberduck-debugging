@@ -17,6 +17,8 @@ export default function Clump({
   vec = new THREE.Vector3(),
   ...props
 }) {
+  const DUCKNUMBER = 10;
+
   const [ref, api] = useSphere(() => ({
     args: [1.4],
     mass: 1,
@@ -26,7 +28,7 @@ export default function Clump({
   }));
 
   useFrame((state) => {
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < DUCKNUMBER; i++) {
       // Get current whereabouts of the instanced sphere
       ref.current.getMatrixAt(i, mat);
       // Normalize the position and multiply by a negative force.
@@ -49,7 +51,7 @@ export default function Clump({
       ref={ref}
       castShadow
       receiveShadow
-      args={[geometry, material, 40]}
+      args={[geometry, material, DUCKNUMBER]}
     ></instancedMesh>
   );
 }

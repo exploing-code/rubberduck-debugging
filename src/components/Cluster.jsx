@@ -22,6 +22,7 @@ export const Cluster = () => {
 
   let geometry;
   let material;
+  let duckScalar;
 
   useEffect(() => {
     // Preload the active duck model
@@ -35,20 +36,30 @@ export const Cluster = () => {
   if (activeDuck == 0) {
     geometry =
       model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
-    material = model.materials[0];
+    material = model.materials.material;
+    duckScalar = 0.01;
   } else if (activeDuck == 1) {
     geometry = model.nodes.Duckstage21_Material001_0.geometry;
-    material = model.materials[0];
+    material = model.materials["Material.001"];
+    duckScalar = 0.7;
+  } else if (activeDuck == 2) {
+    geometry = model.nodes.Ducksaw.children[0].geometry;
+    material = model.materials["Ducksaw.001"];
+    duckScalar = 0.4;
+  } else if (activeDuck == 3) {
+    geometry = model.scene;
+    material = model.materials["Ducksaw.001"];
+    duckScalar = 0.4;
   }
 
-  function scaleGeometry() {
-    geometry.scale(0.1, 0.1, 0.1);
-    setIsScaled(true);
-  }
+  // function scaleGeometry() {
+  //   geometry.scale(duckScalar, duckScalar, duckScalar);
+  //   setIsScaled(true);
+  // }
 
-  useEffect(() => {
-    scaleGeometry();
-  }, []);
+  // useEffect(() => {
+  //   scaleGeometry();
+  // }, []);
 
   // console.log(model);
   const modelRef = useRef();
