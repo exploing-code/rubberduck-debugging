@@ -18,7 +18,9 @@ export const Cluster = () => {
   // const [isScaled, setIsScaled] = useState(false);
   const { activeDuck } = myContext();
 
-  const activeDuckUrl = ducks[activeDuck].glbPath;
+  const [isScaled, setIsScaled] = useState(false);
+
+  const activeDuckUrl = ducks[activeDuck].path;
 
   let geometry;
   let material;
@@ -43,13 +45,14 @@ export const Cluster = () => {
     material = model.materials["Material.001"];
     duckScalar = 0.7;
   } else if (activeDuck == 2) {
-    model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
+    geometry =
+      model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry.copy();
     material = model.materials.material;
     duckScalar = 0.4;
   } else if (activeDuck == 3) {
-    geometry = model.scene;
-    material = model.materials["Ducksaw.001"];
-    duckScalar = 0.4;
+    geometry = model.nodes.Duck.children[0].children[0].geometry;
+    material = model.materials["Material.001"];
+    duckScalar = 0.1;
   }
 
   function scaleGeometry() {
@@ -57,11 +60,11 @@ export const Cluster = () => {
     setIsScaled(true);
   }
 
-  // useEffect(() => {
-  //   if (geometry) {
-  //     scaleGeometry();
-  //   }
-  // }, [geometry]);
+  useEffect(() => {
+    if (geometry) {
+      scaleGeometry();
+    }
+  }, [geometry]);
 
   // console.log(model);
 

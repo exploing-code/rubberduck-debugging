@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
-  const [activeDuck, setActiveDuck] = useState(2);
+  const [activeDuck, setActiveDuck] = useState(3);
   const [pressedButton, setPressedButton] = useState(null);
 
   const value = {
