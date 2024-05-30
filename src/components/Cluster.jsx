@@ -15,10 +15,10 @@ import Clump from "./Clump";
 import { Pointer } from "./Clump";
 
 export const Cluster = () => {
-  const [isScaled, setIsScaled] = useState(false);
+  // const [isScaled, setIsScaled] = useState(false);
   const { activeDuck } = myContext();
 
-  const activeDuckUrl = ducks[activeDuck].path;
+  const activeDuckUrl = ducks[activeDuck].glbPath;
 
   let geometry;
   let material;
@@ -43,8 +43,8 @@ export const Cluster = () => {
     material = model.materials["Material.001"];
     duckScalar = 0.7;
   } else if (activeDuck == 2) {
-    geometry = model.nodes.Ducksaw.children[0].geometry;
-    material = model.materials["Ducksaw.001"];
+    model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
+    material = model.materials.material;
     duckScalar = 0.4;
   } else if (activeDuck == 3) {
     geometry = model.scene;
@@ -52,17 +52,18 @@ export const Cluster = () => {
     duckScalar = 0.4;
   }
 
-  // function scaleGeometry() {
-  //   geometry.scale(duckScalar, duckScalar, duckScalar);
-  //   setIsScaled(true);
-  // }
+  function scaleGeometry() {
+    geometry.scale(duckScalar, duckScalar, duckScalar);
+    setIsScaled(true);
+  }
 
   // useEffect(() => {
-  //   scaleGeometry();
-  // }, []);
+  //   if (geometry) {
+  //     scaleGeometry();
+  //   }
+  // }, [geometry]);
 
   // console.log(model);
-  const modelRef = useRef();
 
   return (
     <>
@@ -77,7 +78,7 @@ export const Cluster = () => {
         shadow-mapSize-width={512}
         shadow-mapSize-height={512}
       />
-      $
+
       {model && geometry && isScaled ? (
         <Physics gravity={[0, 2, 0]} iterations={10}>
           <Pointer geometry={geometry} />
