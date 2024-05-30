@@ -1,10 +1,15 @@
-import React from 'react';
-import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+import React from "react";
+import { useRef } from "react";
 
-import { ducks } from '../../data';
-import { myContext } from '../components/ContextProvider.jsx';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { TextPlugin } from "gsap/TextPlugin";
+
+import { ducks } from "../../data";
+import { myContext } from "../components/ContextProvider.jsx";
+import P from "../components/P.jsx";
+
+gsap.registerPlugin(TextPlugin);
 
 function Hero() {
   const { activeDuck, setActiveDuck } = myContext();
@@ -12,68 +17,52 @@ function Hero() {
 
   useGSAP(
     () => {
-      const tl = gsap.timeline({});
-      tl.fromTo(
-        '.reveal',
-        { opacity: 0 },
-        {
-          opacity: 1,
-          ease: 'elastic',
-          stagger: 0.1,
-          duration: 1,
-        }
-      );
-      tl.fromTo(
-        '.reveal2',
-        { opacity: 0 },
-        {
-          opacity: 1,
-          ease: 'elastic',
-          stagger: 0.1,
-          duration: 1,
-        }
-      );
-      tl.resume();
+      gsap.to(".cursor", {
+        opacity: 0,
+        repeat: -1,
+        yoyo: true,
+        delay: 6,
+      });
+      gsap.to(".reveal", {
+        duration: 4,
+        delay: 6,
+        text: "Rubber duck deging (or rubberducking) is a method of debugging code by articulating a problem in spoken or written in natural language, preferebly to someone who does not understand code.",
+      });
     },
     { scope: ref }
   );
-
-  const string = 'RUBBER DUCK';
-  const string2 = 'DEBUGGING';
 
   return (
     <section
       className={`h-[300vh] w-[100vw] flex justify-center pt-[2rem]'
         `}
-      id='s1'
+      id="s1"
     >
       <div
         ref={ref}
-        className='h-screen relative flex flex-col items-center justify-between text-[14rem]'
+        className="h-screen relative flex flex-col items-center justify-between text-[14rem]"
       >
         <h1
-          className='mt-3'
+          className="mt-3"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
         >
-          {string.split('').map((item, index) => (
-            <span className='reveal' key={index}>
-              {item}
-            </span>
-          ))}
+          RUBBER DUCK
         </h1>
+        <P
+          style={`w-[25rem] text-sm absolute left-0 top-[27rem] text-[${ducks[activeDuck].secondaryClr}]`}
+        >
+          <span className="reveal"></span>
+          <span className="cursor">_</span>
+        </P>
         <h1
-          className='z-10 text-[17rem]'
+          className="z-10 text-[17rem]"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
         >
-          {string2.split('').map((item, index) => (
-            <span className='reveal2' key={index}>
-              {item}
-            </span>
-          ))}
+          DEBUGGING
         </h1>
       </div>
     </section>
