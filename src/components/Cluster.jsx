@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useLoader } from "@react-three/fiber";
 import { Environment, useGLTF } from "@react-three/drei";
 import { Physics } from "@react-three/cannon";
@@ -15,9 +15,13 @@ import Clump from "./Clump";
 import { Pointer } from "./Clump";
 
 export const Cluster = () => {
+  const [isScaled, setIsScaled] = useState(false);
   const { activeDuck } = myContext();
 
   const activeDuckUrl = ducks[activeDuck].path;
+
+  let geometry;
+  let material;
 
   useEffect(() => {
     // Preload the active duck model
@@ -26,8 +30,25 @@ export const Cluster = () => {
 
   const model = useLoader(GLTFLoader, activeDuckUrl);
 
-  const geometry =
-    model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
+  console.log(model);
+
+  if (activeDuck == 0) {
+    geometry =
+      model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
+    material = model.materials[0];
+  } else if (activeDuck == 1) {
+    geometry = model.nodes.Duckstage21_Material001_0.geometry;
+    material = model.materials[0];
+  }
+
+  function scaleGeometry() {
+    geometry.scale(0.1, 0.1, 0.1);
+    setIsScaled(true);
+  }
+
+  useEffect(() => {
+    scaleGeometry();
+  }, []);
 
   // console.log(model);
   const modelRef = useRef();
@@ -45,14 +66,19 @@ export const Cluster = () => {
         shadow-mapSize-width={512}
         shadow-mapSize-height={512}
       />
-      <Physics gravity={[0, 2, 0]} iterations={10}>
-        <Pointer geometry={geometry} />
-        <Clump
-          model={model}
-          geometry={geometry}
-          activeDuckUrl={activeDuckUrl}
-        />
-      </Physics>
+      $
+      {model && geometry && isScaled ? (
+        <Physics gravity={[0, 2, 0]} iterations={10}>
+          <Pointer geometry={geometry} />
+          <Clump
+            geometry={geometry}
+            material={material}
+            activeDuckUrl={activeDuckUrl}
+          />
+        </Physics>
+      ) : (
+        ""
+      )}
       <Environment files="/adamsbridge.hdr" />
       {/* <EffectComposer disableNormalPass multisampling={0}>
         <N8AO

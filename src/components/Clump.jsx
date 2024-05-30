@@ -1,29 +1,22 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame, useThree, useLoader } from "@react-three/fiber";
 import { useGLTF, useTexture, Outlines } from "@react-three/drei";
 import { useSphere } from "@react-three/cannon";
 import { useControls } from "leva";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { myContext } from "./ContextProvider";
+import { ducks } from "../../data";
 
 const rfs = THREE.MathUtils.randFloatSpread;
 
 export default function Clump({
   geometry,
-  model,
+  material,
   mat = new THREE.Matrix4(),
   vec = new THREE.Vector3(),
   ...props
 }) {
-  const texture = useTexture("/cross.jpg");
-  geometry.scale(0.1, 0.1, 0.1);
-
-  // const { outlines } = useControls({
-  //   outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
-  // });
-
-  const material = model.materials.material;
-
   const [ref, api] = useSphere(() => ({
     args: [1.4],
     mass: 1,
@@ -51,28 +44,13 @@ export default function Clump({
     }
   });
 
-  console.log(model);
-
   return (
-    // <instancedMesh
-    //   ref={ref}
-    //   castShadow
-    //   receiveShadow
-    //   args={[sphereGeometry, baubleMaterial, 40]}
-    //   material-map={texture}
-    // >
-    //   <Outlines thickness={outlines} />
-    // </instancedMesh>
-
     <instancedMesh
       ref={ref}
       castShadow
       receiveShadow
-      args={[geometry, material, 40]} // Use the provided geometry prop
-      // material-map={texture}
-    >
-      {/* <Outlines thickness={outlines} /> */}
-    </instancedMesh>
+      args={[geometry, material, 40]}
+    ></instancedMesh>
   );
 }
 
