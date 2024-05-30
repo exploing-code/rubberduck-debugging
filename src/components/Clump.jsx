@@ -16,6 +16,7 @@ export default function Clump({
   ...props
 }) {
   const texture = useTexture("/cross.jpg");
+  geometry.scale(0.1, 0.1, 0.1);
 
   // const { outlines } = useControls({
   //   outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 },
@@ -30,6 +31,7 @@ export default function Clump({
     linearDamping: 0.65,
     position: [rfs(20), rfs(20), rfs(20)],
   }));
+
   useFrame((state) => {
     for (let i = 0; i < 40; i++) {
       // Get current whereabouts of the instanced sphere
@@ -50,8 +52,6 @@ export default function Clump({
   });
 
   console.log(model);
-
-  geometry.scale(0.01, 0.01, 0.01);
 
   return (
     // <instancedMesh

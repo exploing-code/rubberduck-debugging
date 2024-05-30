@@ -37,7 +37,7 @@ export const Cluster = () => {
       <ambientLight intensity={0.5} />
       {/* <color attach="background" args={["#dfdfdf"]} /> */}
       <spotLight
-        intensity={1}
+        intensity={0.5}
         angle={0.2}
         penumbra={1}
         position={[30, 30, 30]}

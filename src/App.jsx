@@ -39,6 +39,7 @@ function App() {
       <DescSectionThree />
       <AudioVisualizer />
       <Conclusion />
+
       <div ref={canvasRef} className="fixed top-0 left-0 h-full w-full z-[1]">
         <Canvas
           alpha="true"
