@@ -14,7 +14,7 @@ function CharSelection() {
   return (
     <>
       <section
-        className='flex-col flex pt-[2rem] justify-between relative bg-blue-200'
+        className='flex-col flex pt-[2rem] justify-between relative z-10'
         id='s2'
       >
         <div className='relative flex flex-col items-center justify-center z-[2] h-screen w-screen'>

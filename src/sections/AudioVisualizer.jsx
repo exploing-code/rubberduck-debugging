@@ -181,7 +181,7 @@ export default function App() {
   return (
     <section
       id='s6'
-      className=' relative flex items-center justify-center bg-orange-200'
+      className=' relative flex items-center justify-center h-[100vh]'
     >
       <audio
         ref={audioRef}

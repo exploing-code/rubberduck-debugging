@@ -4,7 +4,7 @@ import P from '../components/P';
 function DescSectionOne() {
   return (
     <section
-      className='h-[100vh] flex items-start flex-col pt-[2rem] justify-center bg-red-200'
+      className='h-[100vh] flex items-start flex-col pt-[2rem] justify-center '
       id='s3'
     >
       <P>

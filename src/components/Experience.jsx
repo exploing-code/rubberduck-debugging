@@ -30,6 +30,7 @@ export default function Experience() {
   // Rotation
   useGSAP(() => {
     if (model) {
+      // HERO
       gsap.to(modelRef.current.rotation, {
         scrollTrigger: {
           trigger: '#s1',
@@ -38,96 +39,112 @@ export default function Experience() {
           end: 'bottom bottom',
           scrub: 1,
         },
-        // y: modelRef.current.rotation.y + Math.PI * 2,
-        // x: 6.5,
+        y: modelRef.current.rotation.y + Math.PI * 2,
+        x: 6.5,
       });
-      gsap.to(modelRef.current.rotation, {
-        scrollTrigger: {
-          trigger: '#s3',
-          endTrigger: '#s4',
-          start: 'top center',
-          scrub: 1,
-        },
-      });
-    }
-  }, []);
-
-  // Position
-  useGSAP(() => {
-    if (model) {
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
           trigger: '#s1',
           start: 'top top',
-          endTrigger: '#s2',
           end: 'bottom center',
+          endTrigger: '#s2',
           scrub: 1,
         },
-        z: -3,
+        z: -4,
       });
-      //   gsap.to(modelRef.current.position, {
-      //     scrollTrigger: {
-      //       trigger: '#s2',
-      //       pin: true,
-      //       scrub: 1,
-      //     },
-      //   });
-      //   gsap.to(modelRef.current.position, {
-      //     scrollTrigger: {
-      //       trigger: '#s3',
-      //       pin: true,
-      //       scrub: 1,
-      //     },
-      //   });
-      //   gsap.to(modelRef.current.position, {
-      //     scrollTrigger: {
-      //       trigger: '#s4',
-      //       pin: true,
-      //       scrub: 1,
-      //     },
-      //   });
+
+      // CHAR SELECTION
       gsap.to(modelRef.current.position, {
         scrollTrigger: {
-          trigger: '#s5',
+          trigger: '#s2',
           pin: true,
           scrub: 1,
         },
       });
-      let tl = gsap.timeline({
+
+      //  DESC SECTION 1 (to the right from above )
+      gsap.to(modelRef.current.position, {
+        x: 6,
         scrollTrigger: {
           trigger: '#s3',
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 1,
+        },
+      });
+
+      gsap.to(modelRef.current.rotation, {
+        x: 1.5,
+        y: -0.5,
+        z: 0.5,
+        scrollTrigger: {
+          trigger: '#s3',
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+      });
+
+      //  DESC SECTION 2 (close left)
+      let tl2Position = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#s4',
           start: 'top center',
           end: 'bottom bottom',
           scrub: 1,
         },
       });
 
-      tl.to(modelRef.current.position, { x: 6 }, '#s3').to(
-        modelRef.current.rotation,
-        { x: Math.PI / 2, y: -Math.PI / 4 },
-        '#s3'
-      );
-
-      let tl2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top top',
-          onEnter: () => tl2.play(),
-          onLeaveBack: () => tl3.play(),
-        },
-        paused: true,
+      tl2Position.to(modelRef.current.position, {
+        x: -2.5, // left/right
+        y: -1, // top/bottom
+        z: 1.2, // size
       });
 
-      tl2
-        .to(modelRef.current.rotation, { x: 0, y: -Math.PI / 2 }, '#s4')
-        .to(modelRef.current.rotation, { y: '0.5', x: '-0.1' }, '#s4')
-        .to(modelRef.current.position, { x: -2.5, z: 1, y: -1.5 }, '#s4');
+      let tl2Rotation = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#s4',
+          start: 'top center',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+      });
 
-      let tl3 = gsap.timeline({ paused: true });
+      tl2Rotation.to(modelRef.current.rotation, {
+        y: 0.8, // left/right
+        x: 0, // top/bottom
+        z: 0,
+      });
 
-      tl3
-        .to(modelRef.current.rotation, { x: 0, y: 0 }, '#s4')
-        .to(modelRef.current.position, { x: 0, y: 0, z: 0 }, '#s4');
+      //  DESC SECTION 3 (Original position and rotation)
+      let tl3Position = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#s5',
+          start: 'top center',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+      });
+
+      tl3Position.to(modelRef.current.position, {
+        x: 0,
+        y: 0,
+        z: -1,
+      });
+
+      let tl3Rotation = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#s5',
+          start: 'top center',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+      });
+
+      tl3Rotation.to(modelRef.current.rotation, {
+        y: 0,
+        x: 0.2,
+      });
     }
   }, []);
 
