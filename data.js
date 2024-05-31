@@ -9,9 +9,9 @@ export const ducks = [
   {
     name: 'Beelzequack',
     path: './demon_duckling/scene.gltf',
-    primaryClr: '#2E0B0B',
-    secondaryClr: '#FD6336',
-    thirdClr: '#8F0405',
+    primaryClr: '#720E06',
+    secondaryClr: '#FD5D0E',
+    thirdClr: '#2E0B0B',
   },
   {
     name: 'SawDuck',
@@ -25,7 +25,7 @@ export const ducks = [
     path: './roboduck/scene.gltf',
     primaryClr: '#D8DAEA',
     secondaryClr: '#0C95F2',
-    thirdClr: '#5A5C5E',
+    thirdClr: '#828587',
   },
   {
     name: 'quackana',

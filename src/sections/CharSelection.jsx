@@ -16,7 +16,7 @@ function CharSelection() {
 			<div className=" flex flex-col md:flex-col-reverse ">
         <div className=" w-40 h-40" 	style={{
 						backgroundColor: ducks[activeDuck].thirdClr,
-					}}>></div>
+					}}></div>
 				<div className=" flex items-center justify-center">
 					<span className=" hidden md:block">
 						<CharSelectButton version="left" />
