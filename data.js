@@ -17,7 +17,7 @@ export const ducks = [
     name: 'SawDuck',
     path: './ducksaw/scene.gltf',
     primaryClr: '#5F5B5B',
-    secondaryClr: '#FBB018',
+    secondaryClr: '#DFA03B',
     thirdClr: '#563821',
   },
   {
