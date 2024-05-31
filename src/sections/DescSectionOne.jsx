@@ -29,15 +29,15 @@ function DescSectionOne() {
       })
       tl.to(".revealSectionOne1", {
         duration: 2,
-        text: "The bug hunt can be a fickle game, Fixing one can bring another to fame,",
+        text: "The bug hunt can be a fickle game, fixing one can bring another to fame,",
       })
       tl.to(".revealSectionOne2", {
         duration: 2,
-        text: "As the codebase shifts and grows, New bugs transpire from deep below.",
+        text: "As the codebase shifts and grows, new bugs transpire from deep below.",
       })
       tl.to(".revealSectionOne3", {
         duration: 2,
-        text: "For bugs will always have their way, Still we push our code to prod anyway (wait what?)",
+        text: "For bugs will always have their way, still we push our code to prod anyway (wait what?)",
       })
     },
     { scope: refS1 }
@@ -62,7 +62,7 @@ function DescSectionOne() {
       /> */}
       <div
         ref={refS1}
-        className={`ml-10 text-[${ducks[activeDuck].secondaryClr}] text-xs md:text-sm absolute top-[20rem] left-[10rem]`}
+        className={`ml-10 text-[${ducks[activeDuck].secondaryClr}] text-sm md:text-lg absolute top-[20rem] left-[10rem]`}
       >
         <P style={`w-[20rem] mb-5 bg-amber-100`}>
           <span className={`revealSectionOne1 `}></span>

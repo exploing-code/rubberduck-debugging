@@ -1,32 +1,35 @@
-import React, { useRef } from "react";
-import P from "../components/P";
-import AudioVisualizerWave from "../components/AudioVizualizerWave";
-import { myContext } from "../components/ContextProvider";
+import React, { useRef } from "react"
+import P from "../components/P"
+import AudioVisualizerWave from "../components/AudioVizualizerWave"
+import { myContext } from "../components/ContextProvider"
 
 export default function AudioVisualizer({ setRenderS2Loading }) {
-  const songRef = useRef(null);
+  const songRef = useRef(null)
 
-  const { setPartyOn } = myContext();
+  const { setPartyOn } = myContext()
 
   function toggleSongPlaying(e) {
     if (e.target.checked) {
-      songRef.current.currentTime = 32.9;
-      songRef.current.play();
+      songRef.current.currentTime = 32.9
+      songRef.current.play()
     } else {
-      songRef.current.pause();
+      songRef.current.pause()
     }
   }
 
   function handleOnClick() {
-    console.log("click");
+    console.log("click")
   }
 
   function handleClickNo() {
-    setPartyOn(true);
+    setPartyOn(true)
   }
 
   return (
-    <section className=" w-screen relative flex items-center justify-center z-10">
+    <section
+      className=" w-screen relative flex items-center justify-center z-10 h-[100lvh]"
+      id="s6"
+    >
       <div className="flex gap-6 absolute top-0 ">
         <button
           onClick={handleClickNo}
@@ -57,5 +60,5 @@ export default function AudioVisualizer({ setRenderS2Loading }) {
       <audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
       <AudioVisualizerWave />
     </section>
-  );
+  )
 }
