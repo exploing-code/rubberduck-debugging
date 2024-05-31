@@ -18,7 +18,6 @@ import P from "../components/P";
 
 export default function AudioVisualizerWave() {
 	const { activeDuck, isAudioCtxActivated } = myContext();
-	const isDuckResponding = useRef(false);
 
 	// DOM
 	const duckSoundRef = useRef(null);
@@ -102,11 +101,11 @@ export default function AudioVisualizerWave() {
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
-		const volumeThreshold = 20;
-		let volumeBelowThresholdStartTime = null;
-		let isVolumeBelowThreshold = false;
+		const volumeThreshold = 80;
+		let volumeAboveThresholdStartTime = null;
+		let isVolumeAboveThreshold = false;
 		let animationRan = false;
-		const awaitResponseTime = 1000;
+		const awaitResponseTime = 0;
 
 		function update() {
 			if (analyzerNodeRef.current) {
@@ -125,22 +124,22 @@ export default function AudioVisualizerWave() {
 				}
 
 				// conditionally rendering animation
-				if (volumePercent < volumeThreshold) {
+				if (volumePercent > volumeThreshold) {
 					console.log("???");
-					if (!isVolumeBelowThreshold) {
-						isVolumeBelowThreshold = true;
-						volumeBelowThresholdStartTime = Date.now();
+					if (!isVolumeAboveThreshold) {
+						isVolumeAboveThreshold = true;
+						volumeAboveThresholdStartTime = Date.now();
 					} else {
 						const currentTime = Date.now();
-						const timePassed = currentTime - volumeBelowThresholdStartTime;
+						const timePassed = currentTime - volumeAboveThresholdStartTime;
 						if (timePassed >= awaitResponseTime && !animationRan) {
 							runAnimation();
 							animationRan = true;
 						}
 					}
 				} else {
-					isVolumeBelowThreshold = false;
-					volumeBelowThresholdStartTime = null;
+					isVolumeAboveThreshold = false;
+					volumeAboveThresholdStartTime = null;
 					animationRan = false;
 				}
 			}
@@ -163,35 +162,19 @@ export default function AudioVisualizerWave() {
 
 	// render animation with sound effect
 	function runAnimation() {
-		if (titleRef.current && isDuckResponding.current) {
+		if (titleRef.current) {
 			runDuckSoundEffect();
 			var tl = gsap.timeline();
 			tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });
 			tl.to(titleRef.current, { opacity: 0, delay: 0.5, duration: 0.5 });
 			tl.to(titleRef.current, { opacity: 0, scale: 0.1 });
-		} else {
-			console.log("duck sound activated: " + isDuckResponding.current);
 		}
-	}
-
-	function toggleDuckResponding(e) {
-		isDuckResponding.current = e.target.checked;
 	}
 
 	return (
 		<div className=" absolute flex w-full h-[90vh] bottom-0 items-center justify-center">
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
-
-			{/* temporary inputs to turn of response for the sake of our sanity :))) */}
-			<div className=" absolute   *:uppercase *:px-4 *:rounded-[1rem] text-xl *:m-2 left-0 top-40 z-20 *:border-black *:border-[1px] *:items-center *:justify-center *:gap-4  *:flex">
-				<div>
-					<label htmlFor="checkbox">
-						<P>activate duck response</P>
-					</label>
-					<input type="checkbox" id="checkbox" onChange={(e) => toggleDuckResponding(e)} />
-				</div>
-			</div>
 
 			<div ref={visualizerRef} style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" absolute bottom-0 w-full transition-all duration-[0.05s]"></div>
 
