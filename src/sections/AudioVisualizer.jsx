@@ -5,7 +5,6 @@ import { myContext } from "../components/ContextProvider";
 
 export default function AudioVisualizer() {
 	const songRef = useRef(null);
-	const sectionRef = useRef(null);
 	const { setPartyOn, setRenderS2Loading } = myContext();
 
 	function handleClickNo() {
@@ -18,7 +17,7 @@ export default function AudioVisualizer() {
 	}
 
 	return (
-		<section ref={sectionRef} className=" w-screen relative flex items-center justify-center z-10">
+		<section  className=" w-screen relative flex items-center justify-center z-10">
 			<div className="flex gap-6 absolute top-0 ">
 				<button onClick={handleClickNo} className="bg-yellow-400 py-4 px-6 rounded-md transition-all duration-200 hover:scale-110 hover:bg-yellow-200">
 					NO
@@ -29,7 +28,7 @@ export default function AudioVisualizer() {
 			</div>
 
 			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
-			<AudioVisualizerWave sectionRef={sectionRef} />
+			<AudioVisualizerWave />
 		</section>
 	);
 }

@@ -16,8 +16,8 @@ import P from "../components/P";
 
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
-export default function AudioVisualizerWave({ sectionRef }) {
-	const { activeDuck } = myContext();
+export default function AudioVisualizerWave() {
+	const { activeDuck, isAudioCtxActivated } = myContext();
 	const isDuckResponding = useRef(false);
 
 	// DOM
@@ -38,42 +38,34 @@ export default function AudioVisualizerWave({ sectionRef }) {
 	const duckSourceNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
 
+	// AudioContext must be initialized after a user gesture.We now have a secret workaround that the first time
 	useEffect(() => {
-		if (sectionRef.current) {
-			let isActivated = false;
-			// AudioContext must be initialized after a user gesture
-			window.addEventListener("scroll", () => {
-				const yValue = sectionRef.current.getBoundingClientRect().y;
-				if (yValue <= 0 && !isActivated) {
-					isActivated = true;
-					// Set audio contexts
-					if (!micCtx) {
-						console.log("activate");
-						navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-							const ctx = new AudioContext();
+		if (isAudioCtxActivated) {
+			if (!micCtx) {
+				console.log("activate");
+				navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+					const ctx = new AudioContext();
 
-							const sourceNode = ctx.createMediaStreamSource(stream);
-							const analyzerNode = ctx.createAnalyser();
-							analyzerNode.fftSize = 256;
-							sourceNode.connect(analyzerNode);
+					const sourceNode = ctx.createMediaStreamSource(stream);
+					const analyzerNode = ctx.createAnalyser();
+					analyzerNode.fftSize = 256;
+					sourceNode.connect(analyzerNode);
 
-							setMicCtx(ctx);
-							// the analyzer makes the sound readable for the computer and is later used in the update function
-							analyzerNodeRef.current = analyzerNode;
-						});
-					}
-					if (!duckCtx) {
-						const ctx = new AudioContext();
-						setDuckCtx(ctx);
-					}
-					if (!duck2Ctx) {
-						const ctx = new AudioContext();
-						setDuck2Ctx(ctx);
-					}
-				}
-			});
+					setMicCtx(ctx);
+					// the analyzer makes the sound readable for the computer and is later used in the update function
+					analyzerNodeRef.current = analyzerNode;
+				});
+			}
+			if (!duckCtx) {
+				const ctx = new AudioContext();
+				setDuckCtx(ctx);
+			}
+			if (!duck2Ctx) {
+				const ctx = new AudioContext();
+				setDuck2Ctx(ctx);
+			}
 		}
-	}, [sectionRef]);
+	}, [isAudioCtxActivated]);
 
 	// Set up and connect the nodes only once when the audio context is loaded
 	useEffect(() => {

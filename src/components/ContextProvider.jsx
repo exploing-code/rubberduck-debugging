@@ -8,6 +8,8 @@ export const ContextProvider = ({ children }) => {
 	const [pressedButton, setPressedButton] = useState(false);
 	const [partyOn, setPartyOn] = useState(false);
 	const [renderS2Loading, setRenderS2Loading] = useState(false);
+	const [isAudioCtxActivated, setIsAudioCtxActivated] = useState(false);
+	const [isCharSelected, setIsCharSelected] = useState(false);
 
 	const value = {
 		activeDuck,
@@ -18,6 +20,10 @@ export const ContextProvider = ({ children }) => {
 		setPartyOn,
 		renderS2Loading,
 		setRenderS2Loading,
+		isAudioCtxActivated,
+		setIsAudioCtxActivated,
+		isCharSelected,
+		setIsCharSelected,
 	};
 
 	return <Context.Provider value={value}>{children}</Context.Provider>;
