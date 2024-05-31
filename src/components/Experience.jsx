@@ -1,7 +1,8 @@
 // three fiber
-import { Float } from "@react-three/drei";
+import { Float, Environment } from "@react-three/drei";
 import { useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { EffectComposer, N8AO, SMAA } from "@react-three/postprocessing";
 
 // react
 import React, { useRef, Suspense, useEffect, useState } from "react";
@@ -216,6 +217,18 @@ export default function Experience() {
           </Float>
         </Suspense>
       </perspectiveCamera>
+      <Environment files="/adamsbridge.hdr" />
+      <EffectComposer disableNormalPass multisampling={0}>
+        <N8AO
+          halfRes
+          color="black"
+          aoRadius={2}
+          intensity={1}
+          aoSamples={6}
+          denoiseSamples={4}
+        />
+        {/* <SMAA /> */}
+      </EffectComposer>
     </>
   );
 }

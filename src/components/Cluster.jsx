@@ -101,7 +101,7 @@ export const Cluster = () => {
         ""
       )}
       <Environment files="/adamsbridge.hdr" />
-      {/* <EffectComposer disableNormalPass multisampling={0}>
+      <EffectComposer disableNormalPass multisampling={0}>
         <N8AO
           halfRes
           color="black"
@@ -110,8 +110,8 @@ export const Cluster = () => {
           aoSamples={6}
           denoiseSamples={4}
         />
-        <SMAA />
-      </EffectComposer> */}
+        {/* <SMAA /> */}
+      </EffectComposer>
     </>
   );
 };

@@ -17,7 +17,7 @@ export default function Clump({
   vec = new THREE.Vector3(),
   ...props
 }) {
-  const DUCKNUMBER = 40;
+  const DUCKNUMBER = 30;
 
   const [ref, api] = useSphere(() => ({
     args: [1.4],
