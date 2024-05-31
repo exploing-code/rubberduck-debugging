@@ -16,7 +16,7 @@ import P from "../components/P";
 
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
-export default function AudioVisualizerWave({section}) {
+export default function AudioVisualizerWave({ sectionRef }) {
 	const { activeDuck } = myContext();
 	const isDuckResponding = useRef(false);
 
@@ -39,30 +39,63 @@ export default function AudioVisualizerWave({section}) {
 	const duck2SourceNodeRef = useRef(null);
 
 	// AudioContext must be initialized after a user gesture
-	function handleOnClick() {
-		if (!micCtx) {
-			navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-				const ctx = new AudioContext();
+	useEffect(() => {
+		if (sectionRef.current) {
+			window.addEventListener("scroll", () => {
+				const yValue = sectionRef.current.getBoundingClientRect().y;
+				console.log(yValue);
+				if (yValue <= 0) {
+					if (!micCtx) {
+						navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+							const ctx = new AudioContext();
 
-				const sourceNode = ctx.createMediaStreamSource(stream);
-				const analyzerNode = ctx.createAnalyser();
-				analyzerNode.fftSize = 256;
-				sourceNode.connect(analyzerNode);
+							const sourceNode = ctx.createMediaStreamSource(stream);
+							const analyzerNode = ctx.createAnalyser();
+							analyzerNode.fftSize = 256;
+							sourceNode.connect(analyzerNode);
 
-				setMicCtx(ctx);
-				// the analyzer makes the sound readable for the computer and is later used in the update function
-				analyzerNodeRef.current = analyzerNode;
+							setMicCtx(ctx);
+							// the analyzer makes the sound readable for the computer and is later used in the update function
+							analyzerNodeRef.current = analyzerNode;
+						});
+					}
+					if (!duckCtx) {
+						const ctx = new AudioContext();
+						setDuckCtx(ctx);
+					}
+					if (!duck2Ctx) {
+						const ctx = new AudioContext();
+						setDuck2Ctx(ctx);
+					}
+				}
 			});
 		}
-		if (!duckCtx) {
-			const ctx = new AudioContext();
-			setDuckCtx(ctx);
-		}
-		if (!duck2Ctx) {
-			const ctx = new AudioContext();
-			setDuck2Ctx(ctx);
-		}
-	}
+	}, [sectionRef]);
+
+	// if (isActivated) {
+	// 	if (!micCtx) {
+	// 		navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+	// 			const ctx = new AudioContext();
+
+	// 			const sourceNode = ctx.createMediaStreamSource(stream);
+	// 			const analyzerNode = ctx.createAnalyser();
+	// 			analyzerNode.fftSize = 256;
+	// 			sourceNode.connect(analyzerNode);
+
+	// 			setMicCtx(ctx);
+	// 			// the analyzer makes the sound readable for the computer and is later used in the update function
+	// 			analyzerNodeRef.current = analyzerNode;
+	// 		});
+	// 	}
+	// 	if (!duckCtx) {
+	// 		const ctx = new AudioContext();
+	// 		setDuckCtx(ctx);
+	// 	}
+	// 	if (!duck2Ctx) {
+	// 		const ctx = new AudioContext();
+	// 		setDuck2Ctx(ctx);
+	// 	}
+	// }
 
 	// Set up and connect the nodes only once when the audio context is loaded
 	useEffect(() => {
@@ -87,15 +120,13 @@ export default function AudioVisualizerWave({section}) {
 
 			duck2SourceNodeRef.current = duck2SourceNode;
 		}
-		if (songCtx && !songSourceNodeRef.current && songRef.current) {
+		if (songCtx && songRef.current) {
 			const songSourceNode = songCtx.createMediaElementSource(songRef.current);
 			const songGainNode = songCtx.createGain();
 			songGainNode.gain.value = 0.3;
 
 			songSourceNode.connect(songGainNode);
 			songGainNode.connect(songCtx.destination);
-
-			songSourceNodeRef.current = songSourceNode;
 		}
 	}, [duckCtx, duck2Ctx, songCtx]);
 
@@ -184,10 +215,6 @@ export default function AudioVisualizerWave({section}) {
 
 			{/* temporary inputs to turn of response for the sake of our sanity :))) */}
 			<div className=" absolute   *:uppercase *:px-4 *:rounded-[1rem] text-xl *:m-2 left-0 top-40 z-20 *:border-black *:border-[1px] *:items-center *:justify-center *:gap-4  *:flex">
-				<button onClick={handleOnClick}>
-					<P>activate sound input</P>
-				</button>
-
 				<div>
 					<label htmlFor="checkbox">
 						<P>activate duck response</P>
