@@ -19,7 +19,7 @@ export default function AudioVisualizer() {
 	}
 
 	return (
-		<section className=" w-screen relative flex items-center justify-center z-10">
+		<section className=" w-screen relative flex items-center justify-center z-10 h-screen">
 			<div ref={buttonsRef} className="flex gap-6 absolute top-0 ">
 				<Button onClick={handleClickNo} text="no" />
 				<Button onClick={handleClickYes} text="yes" />

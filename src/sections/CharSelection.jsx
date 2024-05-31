@@ -12,7 +12,7 @@ function CharSelection() {
 	const sectionRef = useRef(null);
 
 	return (
-		<section id="s2" ref={sectionRef} className=" flex flex-col justify-between text-center md:justify-end  z-10 py-6 0">
+		<section id="s2" ref={sectionRef} className=" flex flex-col justify-between text-center md:justify-end  z-10 py-6 h-screen">
 			<div className=" flex flex-col md:flex-col-reverse ">
 				<div className=" flex items-center justify-center">
 					<span className=" hidden md:block">

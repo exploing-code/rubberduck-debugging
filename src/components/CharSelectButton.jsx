@@ -19,6 +19,7 @@ export default function CharSelectButton({ version, sectionRef }) {
 		function handleScroll() {
 			if (sectionRef) {
 				let yValue = sectionRef.current.getBoundingClientRect().y;
+				console.log(yValue)
 				if (yValue === 0 && !isCharSelected) {
 					document.body.style.overflow = "hidden";
 				}
