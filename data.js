@@ -2,7 +2,7 @@ export const ducks = [
   {
     name: 'RubberDuck',
     path: './rubber_duck/scene.gltf',
-    primaryClr: '#E7E55F',
+    primaryClr: '#FFFE98',
     secondaryClr: 'black',
     thirdClr: '#FB7F24',
   },
