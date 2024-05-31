@@ -23,7 +23,7 @@ export const ducks = [
   {
     name: 'Roboduck',
     path: './roboduck/scene.gltf',
-    primaryClr: '#D8DAEA',
+    primaryClr: '#E0E0E0',
     secondaryClr: '#3696B9',
     thirdClr: '#828587',
   },
