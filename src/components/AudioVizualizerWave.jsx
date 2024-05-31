@@ -38,14 +38,17 @@ export default function AudioVisualizerWave({ sectionRef }) {
 	const duckSourceNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
 
-	// AudioContext must be initialized after a user gesture
 	useEffect(() => {
 		if (sectionRef.current) {
+			let isActivated = false;
+			// AudioContext must be initialized after a user gesture
 			window.addEventListener("scroll", () => {
 				const yValue = sectionRef.current.getBoundingClientRect().y;
-				console.log(yValue);
-				if (yValue <= 0) {
+				if (yValue <= 0 && !isActivated) {
+					isActivated = true;
+					// Set audio contexts
 					if (!micCtx) {
+						console.log("activate");
 						navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 							const ctx = new AudioContext();
 
@@ -71,31 +74,6 @@ export default function AudioVisualizerWave({ sectionRef }) {
 			});
 		}
 	}, [sectionRef]);
-
-	// if (isActivated) {
-	// 	if (!micCtx) {
-	// 		navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-	// 			const ctx = new AudioContext();
-
-	// 			const sourceNode = ctx.createMediaStreamSource(stream);
-	// 			const analyzerNode = ctx.createAnalyser();
-	// 			analyzerNode.fftSize = 256;
-	// 			sourceNode.connect(analyzerNode);
-
-	// 			setMicCtx(ctx);
-	// 			// the analyzer makes the sound readable for the computer and is later used in the update function
-	// 			analyzerNodeRef.current = analyzerNode;
-	// 		});
-	// 	}
-	// 	if (!duckCtx) {
-	// 		const ctx = new AudioContext();
-	// 		setDuckCtx(ctx);
-	// 	}
-	// 	if (!duck2Ctx) {
-	// 		const ctx = new AudioContext();
-	// 		setDuck2Ctx(ctx);
-	// 	}
-	// }
 
 	// Set up and connect the nodes only once when the audio context is loaded
 	useEffect(() => {
