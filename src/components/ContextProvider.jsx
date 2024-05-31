@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
-  const [activeDuck, setActiveDuck] = useState(0);
+  const [activeDuck, setActiveDuck] = useState(1);
   const [pressedButton, setPressedButton] = useState(false);
   const [partyOn, setPartyOn] = useState(false);
 

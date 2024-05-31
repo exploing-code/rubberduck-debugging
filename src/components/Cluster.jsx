@@ -22,7 +22,7 @@ export const Cluster = () => {
 
   let activeDuckUrl;
 
-  if (activeDuck === 3 || 4) {
+  if (activeDuck === 3 || activeDuck === 4) {
     activeDuckUrl = ducks[0].path;
   } else {
     activeDuckUrl = ducks[activeDuck].path;
