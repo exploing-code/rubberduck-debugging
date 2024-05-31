@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ducks } from "../../data";
-import { myContext } from "../components/ContextProvider";
-import P from "../components/P";
+import { myContext } from "./ContextProvider";
+import P from "./P";
 
 // navigator.mediaDevices       <— a read only property that returns a built in object,
 //                                 which provides access to connected media inputs such
@@ -16,7 +16,7 @@ import P from "../components/P";
 
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
-export default function AudioVisualizerWave() {
+export default function Visualizer() {
 	const { activeDuck, isAudioCtxActivated } = myContext();
 
 	// DOM
@@ -176,9 +176,9 @@ export default function AudioVisualizerWave() {
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
 
-			<div ref={visualizerRef} style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" absolute bottom-0 w-full transition-all duration-[0.05s]"></div>
+			<div ref={visualizerRef} style={{ backgroundColor: ducks[activeDuck].thirdClr }} className=" absolute bottom-0 w-full transition-all duration-[0.05s]"></div>
 
-			<h1 ref={titleRef} style={{ color: ducks[activeDuck].secondaryClr }} className=" opacity-0 text-[30vw] leading-[25vw] z-50 pointer-events-none scale-0">
+			<h1 ref={titleRef} style={{ color: ducks[activeDuck].secondaryClr }} className=" opacity-0 text-[30vw] leading-[25vw] z-30 pointer-events-none scale-0">
 				QUACK
 				<br />
 				QUACK
