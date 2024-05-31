@@ -17,7 +17,7 @@ import P from "./P";
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
 export default function Visualizer() {
-	const { activeDuck, isAudioCtxActivated } = myContext();
+	const { activeDuck, isAudioCtxActivated, partyOn } = myContext();
 
 	// DOM
 	const duckSoundRef = useRef(null);
@@ -25,6 +25,7 @@ export default function Visualizer() {
 	const songRef = useRef(null);
 	const visualizerRef = useRef(null);
 	const titleRef = useRef(null);
+	const isPartyOnRef = useRef(null);
 
 	// For AudioContexts
 	const [micCtx, setMicCtx] = useState(null);
@@ -40,11 +41,10 @@ export default function Visualizer() {
 	// AudioContext must be initialized after a user gesture.We now have a secret workaround that the first time
 	useEffect(() => {
 		if (isAudioCtxActivated) {
-			if (!micCtx) {
-				console.log("activate");
+			if (!partyOn && !micCtx) {
+				console.log("MIC audio context and analyzer set up");
 				navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 					const ctx = new AudioContext();
-
 					const sourceNode = ctx.createMediaStreamSource(stream);
 					const analyzerNode = ctx.createAnalyser();
 					analyzerNode.fftSize = 256;
@@ -54,7 +54,18 @@ export default function Visualizer() {
 					// the analyzer makes the sound readable for the computer and is later used in the update function
 					analyzerNodeRef.current = analyzerNode;
 				});
+			} else if (partyOn && !songCtx) {
+				console.log("SONG audio context and analyzer set up");
+				const ctx = new AudioContext();
+				const sourceNode = ctx.createMediaElementSource(songRef.current);
+				const analyzerNode = ctx.createAnalyser();
+				analyzerNode.fftSize = 256;
+				sourceNode.connect(analyzerNode);
+
+				setSongCtx(ctx);
+				analyzerNodeRef.current = analyzerNode;
 			}
+
 			if (!duckCtx) {
 				const ctx = new AudioContext();
 				setDuckCtx(ctx);
@@ -64,7 +75,7 @@ export default function Visualizer() {
 				setDuck2Ctx(ctx);
 			}
 		}
-	}, [isAudioCtxActivated]);
+	}, [isAudioCtxActivated, partyOn]);
 
 	// Set up and connect the nodes only once when the audio context is loaded
 	useEffect(() => {
@@ -89,15 +100,7 @@ export default function Visualizer() {
 
 			duck2SourceNodeRef.current = duck2SourceNode;
 		}
-		if (songCtx && songRef.current) {
-			const songSourceNode = songCtx.createMediaElementSource(songRef.current);
-			const songGainNode = songCtx.createGain();
-			songGainNode.gain.value = 0.3;
-
-			songSourceNode.connect(songGainNode);
-			songGainNode.connect(songCtx.destination);
-		}
-	}, [duckCtx, duck2Ctx, songCtx]);
+	}, [duckCtx, duck2Ctx]);
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
@@ -125,14 +128,13 @@ export default function Visualizer() {
 
 				// conditionally rendering animation
 				if (volumePercent > volumeThreshold) {
-					console.log("???");
 					if (!isVolumeAboveThreshold) {
 						isVolumeAboveThreshold = true;
 						volumeAboveThresholdStartTime = Date.now();
 					} else {
 						const currentTime = Date.now();
 						const timePassed = currentTime - volumeAboveThresholdStartTime;
-						if (timePassed >= awaitResponseTime && !animationRan) {
+						if (timePassed >= awaitResponseTime && !animationRan && !isPartyOnRef.current) {
 							runAnimation();
 							animationRan = true;
 						}
@@ -146,7 +148,7 @@ export default function Visualizer() {
 			window.requestAnimationFrame(update);
 		}
 		update();
-	}, []);
+	}, [partyOn]);
 
 	// Randomize 1 or 2 quacks
 	function runDuckSoundEffect() {
@@ -162,7 +164,7 @@ export default function Visualizer() {
 
 	// render animation with sound effect
 	function runAnimation() {
-		if (titleRef.current) {
+		if (titleRef.current && !partyOn) {
 			runDuckSoundEffect();
 			var tl = gsap.timeline();
 			tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });
@@ -171,10 +173,19 @@ export default function Visualizer() {
 		}
 	}
 
+	useEffect(() => {
+		isPartyOnRef.current = partyOn;
+		if (partyOn) {
+			songRef.current.currentTime = 32.9;
+			songRef.current.play();
+		}
+	}, [partyOn]);
+
 	return (
 		<div className=" absolute flex w-full h-[90vh] bottom-0 items-center justify-center">
 			<audio ref={duckSoundRef} src="../sound-effects/duckQuack.mp3"></audio>
 			<audio ref={duckSoundRef2} src="../sound-effects/duckQuack.mp3"></audio>
+			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
 
 			<div ref={visualizerRef} style={{ backgroundColor: ducks[activeDuck].thirdClr }} className=" absolute bottom-0 w-full transition-all duration-[0.05s]"></div>
 

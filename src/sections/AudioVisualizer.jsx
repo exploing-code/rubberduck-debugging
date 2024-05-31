@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import P from "../components/P";
-import AudioVisualizerWave from "../components/Vizualizer";
+import Visualizer from "../components/Vizualizer";
 import { myContext } from "../components/ContextProvider";
 import Button from "../components/Button";
 import { gsap } from "gsap";
@@ -10,6 +10,7 @@ import { ducks } from "../../data";
 export default function AudioVisualizer() {
 	const songRef = useRef(null);
 	const textRef = useRef(null);
+	const wrapperRef = useRef(null);
 	const buttonsRef = useRef(null);
 	const sectionRef = useRef(null);
 	const { setPartyOn, setRenderS2Loading, activeDuck } = myContext();
@@ -32,8 +33,9 @@ export default function AudioVisualizer() {
 
 	function handleClickNo() {
 		setPartyOn(true);
-		songRef.current.currentTime = 32.9;
-		songRef.current.play();
+		gsap.to(wrapperRef.current, {
+			opacity: 0,
+		});
 	}
 	function handleClickYes() {
 		setRenderS2Loading(true);
@@ -50,7 +52,7 @@ export default function AudioVisualizer() {
 				},
 			});
 			tl.to(textRef.current, {
-				delay: 7,
+				delay: 0,
 				duration: 2,
 				text: `Are you still stuck because ${ducks[activeDuck].name} is giving you no luck?`,
 			});
@@ -66,7 +68,7 @@ export default function AudioVisualizer() {
 
 	return (
 		<section ref={sectionRef} className=" w-screen relative flex items-center justify-center h-screen">
-			<div className=" h-96 w-full absolute top-4 left-6 z-10 ">
+			<div ref={wrapperRef} className=" h-96 w-full absolute top-4 left-6 z-10 ">
 				<P style={" w-96 mb-6"}>
 					<span ref={textRef}></span>
 				</P>
@@ -75,9 +77,9 @@ export default function AudioVisualizer() {
 					<Button onClick={handleClickYes} text="yes" />
 				</div>
 			</div>
-
 			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
-			<AudioVisualizerWave />
+
+			<Visualizer />
 		</section>
 	);
 }
