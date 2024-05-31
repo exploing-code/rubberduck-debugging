@@ -9,13 +9,13 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { ducks } from "../../data";
 import { myContext } from "../components/ContextProvider.jsx";
 import P from "../components/P";
-import background from "../assets/background.png";
+import Background from "../components/Background.jsx";
 
 gsap.registerPlugin(TextPlugin);
 
 function DescSectionOne() {
   const { activeDuck } = myContext();
-  const ref = useRef();
+  const refS1 = useRef();
 
   useGSAP(
     () => {
@@ -33,26 +33,33 @@ function DescSectionOne() {
         text: "For bugs will always have their way, Still we push our code to prod anyway (wait what?)",
       });
     },
-    { scope: ref }
+    { scope: refS1 }
   );
 
+  const textBgColour = "[${ducks[activeDuck].primaryClr}]";
+  const textColour = "[${ducks[activeDuck].secondaryClr}]";
   return (
     <section
-      className="h-[200vh] flex items-start flex-col pt-[2rem] justify-center border border-t-2"
+      className="h-screen p-10 relative"
       id="s3"
-      style={{ backgroundImage: `url(${background})` }}
+      // style={{ backgroundImage: `url(${background})` }}
     >
-      <div ref={ref}>
-        <P
-          style={`w-[20rem] text-sm mb-5 text-[${ducks[activeDuck].secondaryClr}]`}
-        >
-          <span className="reveal1 bg-amber-200"></span>
+      <Background
+        color={ducks[activeDuck].secondaryClr}
+        width="100vw"
+        height="100vh"
+      />
+      <div
+        ref={refS1}
+        className={`ml-10 text-[${ducks[activeDuck].secondaryClr}] text-xs md:text-sm absolute top-[20rem] left-[10rem]`}
+      >
+        <P style={`w-[20rem] mb-5 bg-amber-100`}>
+          <span className={`reveal1 `}></span>
         </P>
-        <div></div>
-        <P style={`w-[20rem] text-sm mb-5 bg-amber-200`}>
-          <span className="reveal2"></span>
+        <P style={`w-[20rem] mb-5 `}>
+          <span className={`reveal2 bg-amber-100`}></span>
         </P>
-        <P style={`w-[20rem] text-sm mb-5 bg-amber-200`}>
+        <P style={`w-[20rem] mb-5 bg-amber-100`}>
           <span className="reveal3"></span>
         </P>
       </div>

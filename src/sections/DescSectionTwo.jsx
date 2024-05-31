@@ -17,7 +17,7 @@ gsap.registerPlugin(TextPlugin);
 function DescSectionTwo() {
   const { activeDuck } = myContext();
 
-  const ref = useRef();
+  const refS2 = useRef();
 
   useGSAP(() => {
     const tl = gsap.timeline({});
@@ -40,24 +40,24 @@ function DescSectionTwo() {
     });
   });
 
+  const colour = "${ducks[activeDuck].PrimaryClr}";
+
   return (
     <section
       className="h-[200vh] flex items-start flex-col pt-[2rem] justify-center"
       id="s4"
     >
-      <div ref={ref}>
+      <div ref={refS2}>
         <img src={emphasis} className="emphasis" />
-        <div style={{ backgroundImg: `url(${speechBubble})` }}>
-          <P
-            style={`w-[20rem] text-sm mb-5 text-[${ducks[activeDuck].secondaryClr}]`}
-          >
-            <span className="reveal1"></span>
-          </P>
-          <P
-            style={`w-[20rem] text-sm text-[${ducks[activeDuck].secondaryClr}]`}
-          >
-            <span className="reveal2"></span>
-          </P>
+        <div className="relative bg-amber-400">
+          <div className="w-[17rem] absolute top-[3rem]">
+            <P style={`mb-3 left-2 text-xs`}>
+              <span className={`reveal1 text-amber-200`}></span>
+            </P>
+            <P style={`text-xs`}>
+              <span className={`reveal2 text-amber-200`}></span>
+            </P>
+          </div>
         </div>
       </div>
     </section>

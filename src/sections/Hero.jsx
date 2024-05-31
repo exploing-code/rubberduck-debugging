@@ -26,7 +26,7 @@ function Hero() {
       gsap.to(".reveal", {
         duration: 4,
         delay: 6,
-        text: "Rubber duck deging (or rubberducking) is a method of debugging code by articulating a problem in spoken or written in natural language, preferebly to someone who does not understand code.",
+        text: "Rubber duck debugging (or rubberducking) is a method of debugging code by articulating a problem in spoken or written in natural language, preferebly to someone who does not understand code.",
       });
     },
     { scope: ref }
@@ -34,36 +34,36 @@ function Hero() {
 
   return (
     <section
-      className={`h-[300vh] w-[100vw] flex justify-center pt-[2rem]'
+      className={`h-[300vh] w-screen'
         `}
       id="s1"
     >
       <div
         ref={ref}
-        className="h-screen relative flex flex-col items-center justify-between text-[14rem]"
+        className="h-[100vh] py-4 bg-amber-200 relative flex flex-col items-center justify-between text-5xl md:text-[7rem] lg:text-[12rem]"
       >
         <h1
-          className="mt-3"
+          className="mt-2"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
         >
           RUBBER DUCK
         </h1>
-        <P
-          style={`w-[25rem] text-sm absolute left-0 top-[27rem] text-[${ducks[activeDuck].secondaryClr}]`}
-        >
-          <span className="reveal"></span>
-          <span className="cursor">_</span>
-        </P>
         <h1
-          className="z-10 text-[17rem]"
+          className="mb-2 z-10 text-6xl md:text-[9rem] lg:text-[15rem]"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
         >
           DEBUGGING
         </h1>
+        <P
+          style={`absolute max-w-[25rem] text-xs md:text-sm left-[1rem] md:left-[3rem] lg:left-[8rem] top-[6rem] md:top-[7rem] lg:top-[28rem] text-[${ducks[activeDuck].secondaryClr}]`}
+        >
+          <span className="reveal"></span>
+          <span className="cursor">_</span>
+        </P>
       </div>
     </section>
   );
