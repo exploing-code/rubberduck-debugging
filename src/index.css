@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'modak';
-  src: url('/fonts/Modak-Regular.ttf');
+  font-family: "modak";
+  src: url("/fonts/Modak-Regular.ttf");
   font-display: swap;
 }
 .font-modak {
-  font-family: 'modak';
+  font-family: "modak";
 }
 
 /* html {
@@ -16,14 +16,11 @@
 } */
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
-h1,h2 {
-  font-family: 'modak';
-}
-
-section {
-  height: 100vh;
+h1,
+h2 {
+  font-family: "modak";
 }
 
 /* :root {
