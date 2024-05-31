@@ -23,10 +23,11 @@ import LoadingScreen from "./components/LoadingScreenStart"
 import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect"
 
 function App() {
-  const { activeDuck, setActiveDuck, partyOn, setPartyOn } = myContext()
-  const [isLoaded, setIsLoaded] = useState(true) // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
-  const [renderInitialLoading, setRenderInitialLoading] = useState(true)
-  const [renderS2Loading, setRenderS2Loading] = useState(false)
+
+  const { activeDuck, setActiveDuck, partyOn, setPartyOn, renderS2Loading, setRenderS2Loading } = myContext();
+  const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
+  const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+
 
   return (
     <>
@@ -48,7 +49,7 @@ function App() {
           <DescSectionOne />
           <DescSectionTwo />
           <DescSectionThree />
-          <AudioVisualizer setRenderS2Loading={setRenderS2Loading} />
+          <AudioVisualizer/>
           <Conclusion />
           <div className="fixed top-0 left-0 h-full w-full z-[1]">
             {partyOn ? (
