@@ -16,7 +16,7 @@ import P from "../components/P";
 
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
-export default function AudioVisualizerWave() {
+export default function AudioVisualizerWave({section}) {
 	const { activeDuck } = myContext();
 	const isDuckResponding = useRef(false);
 
