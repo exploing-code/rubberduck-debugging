@@ -8,7 +8,8 @@ function ScrollBtn() {
   const [y, setY] = useState(0);
   const [number, setNumber] = useState(1);
 
-  const { hover, setHover } = myContext();
+  const { hover, setHover, isAudioCtxActivated, setIsAudioCtxActivated } =
+    myContext();
 
   useEffect(() => {
     const updateMouseCoordinates = (e) => {
@@ -52,6 +53,10 @@ function ScrollBtn() {
 
     if (hover === 'not-hovered') {
       window.addEventListener('click', handleClick);
+
+      if (!isAudioCtxActivated) {
+        setIsAudioCtxActivated(true);
+      }
     }
 
     return () => {
@@ -68,7 +73,7 @@ function ScrollBtn() {
 
   return (
     <div
-      className={`fixed p-[20px] z-[500] text-[3rem] curer-pointer  ${
+      className={`fixed p-[20px] z-[500] text-[3rem] curer-pointer pointer-events-none  ${
         hover === 'hovered' ? 'cursor-pointer' : 'cursor-none'
       }`}
       style={{ top: `${y - 30}px`, left: `${x - 30}px` }}

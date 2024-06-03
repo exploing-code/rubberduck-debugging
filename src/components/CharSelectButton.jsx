@@ -47,9 +47,6 @@ export default function CharSelectButton({ version, sectionRef }) {
       setIsCharSelected(true);
       document.body.style.overflow = 'auto';
     }
-    if (!isAudioCtxActivated) {
-      setIsAudioCtxActivated(true);
-    }
   }
 
   return (

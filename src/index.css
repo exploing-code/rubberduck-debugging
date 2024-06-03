@@ -29,6 +29,13 @@ section {
   height: 100vh;
 }
 
+h1,
+h2,
+h3,
+p {
+  pointer-events: none;
+}
+
 /* :root {
   --glitter: url('https://assets.codepen.io/13471/silver-glitter-background.png');
 }

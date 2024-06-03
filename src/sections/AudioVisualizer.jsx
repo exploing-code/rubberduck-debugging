@@ -63,6 +63,7 @@ export default function AudioVisualizer() {
     songRef.current.play().catch((err) => {
       console.error('Error playing song:', err);
     });
+
     gsap.to(wrapperRef.current, {
       opacity: 0,
     });
@@ -78,7 +79,7 @@ export default function AudioVisualizer() {
       id='s6'
       className=' w-screen relative flex items-center justify-center h-screen'
     >
-      <div ref={wrapperRef} className=' absolute top-4 left-6 z-10 '>
+      <div ref={wrapperRef} className={` absolute top-4 left-6 z-[500]`}>
         <P style={'mb-2 ml-4'}>
           <span ref={textRef}></span>
         </P>
@@ -91,7 +92,6 @@ export default function AudioVisualizer() {
         </div>
       </div>
       <audio ref={songRef} src='../sound-effects/Wobbly-duck.mp3'></audio>
-
       <Visualizer />
     </section>
   );
