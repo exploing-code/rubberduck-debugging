@@ -22,7 +22,7 @@ export const Cluster = () => {
 
   let activeDuckUrl;
 
-  if (activeDuck === 3 || activeDuck === 4) {
+  if (activeDuck === 3 || activeDuck === 4 || activeDuck === 5) {
     activeDuckUrl = ducks[0].path;
   } else {
     activeDuckUrl = ducks[activeDuck].path;
@@ -41,7 +41,12 @@ export const Cluster = () => {
 
   console.log(model);
 
-  if (activeDuck === 0 || activeDuck === 3 || activeDuck === 4) {
+  if (
+    activeDuck === 0 ||
+    activeDuck === 3 ||
+    activeDuck === 4 ||
+    activeDuck === 5
+  ) {
     geometry =
       model.nodes.Sketchfab_model.children[0].children[0].children[0].geometry;
     material = model.materials.material;
