@@ -33,7 +33,7 @@ export default function Experience() {
   const modelRef = useRef();
 
   const { size } = useThree();
-  const modelScale = size.width > 768 ? [1, 1, 1] : [0.7, 0.7, 0.7];
+  const modelScale = size.width > 1280 ? [1, 1, 1] : [0.7, 0.7, 0.7];
 
   // Function to create GSAP animations
   const createAnimation = (
