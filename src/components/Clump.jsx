@@ -25,6 +25,11 @@ export default function Clump({
     angularDamping: 0.1,
     linearDamping: 0.65,
     position: [rfs(20) * 3, rfs(20) + 25, rfs(20) * 3],
+    rotation: [
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+    ], // Random rotation around each axis
   }));
 
   useFrame((state) => {
