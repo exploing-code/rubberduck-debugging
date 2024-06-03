@@ -42,7 +42,6 @@ export default function Visualizer() {
 	useEffect(() => {
 		if (isAudioCtxActivated) {
 			if (!partyOn && !micCtx) {
-				console.log("MIC audio context and analyzer set up");
 				navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 					const ctx = new AudioContext();
 					const sourceNode = ctx.createMediaStreamSource(stream);
@@ -54,13 +53,18 @@ export default function Visualizer() {
 					// the analyzer makes the sound readable for the computer and is later used in the update function
 					analyzerNodeRef.current = analyzerNode;
 				});
-			} else if (partyOn && !songCtx) {
-				console.log("SONG audio context and analyzer set up");
+			}
+			if (partyOn && !songCtx) {
 				const ctx = new AudioContext();
 				const sourceNode = ctx.createMediaElementSource(songRef.current);
 				const analyzerNode = ctx.createAnalyser();
 				analyzerNode.fftSize = 256;
-				sourceNode.connect(analyzerNode);
+
+				const gainNode = ctx.createGain();
+				gainNode.gain.value = 0.2;
+
+				sourceNode.connect(gainNode);
+				gainNode.connect(analyzerNode);
 
 				setSongCtx(ctx);
 				analyzerNodeRef.current = analyzerNode;
@@ -177,7 +181,9 @@ export default function Visualizer() {
 		isPartyOnRef.current = partyOn;
 		if (partyOn) {
 			songRef.current.currentTime = 32.9;
-			songRef.current.play();
+			songRef.current.play().catch((err) => {
+				console.error("Error playing song:", err);
+			});
 		}
 	}, [partyOn]);
 
@@ -188,7 +194,6 @@ export default function Visualizer() {
 			<audio ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
 
 			<div ref={visualizerRef} style={{ backgroundColor: ducks[activeDuck].thirdClr }} className=" absolute bottom-0 w-full transition-all duration-[0.05s]"></div>
-
 			<h1 ref={titleRef} style={{ color: ducks[activeDuck].secondaryClr }} className=" opacity-0 text-[30vw] leading-[25vw] z-30 pointer-events-none scale-0">
 				QUACK
 				<br />
