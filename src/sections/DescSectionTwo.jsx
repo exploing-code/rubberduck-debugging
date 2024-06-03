@@ -42,6 +42,7 @@ function DescSectionTwo() {
 	// 	}
 	// );
 
+
 	return (
 		<section ref={refS2} id="s4">
 			<div ref={sectionRef} className="h-[100lvh] flex items-center justify-around">

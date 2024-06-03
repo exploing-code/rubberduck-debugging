@@ -1,5 +1,6 @@
-import React from "react"
-import { useRef } from "react"
+import React from 'react';
+import { useRef } from 'react';
+
 
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
@@ -11,34 +12,34 @@ import { ducks } from "../../data"
 import { myContext } from "../components/ContextProvider.jsx"
 import P from "../components/P"
 
-gsap.registerPlugin(ScrollTrigger)
-gsap.registerPlugin(TextPlugin)
+gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(TextPlugin);
 
 function DescSectionThree() {
-  const { activeDuck } = myContext()
-  const refS3 = useRef()
-  const bubbleRef3 = useRef()
-  const sectionRef3 = useRef()
+  const { activeDuck } = myContext();
+  const refS3 = useRef();
+  const bubbleRef3 = useRef();
+  const sectionRef3 = useRef();
 
-  useGSAP(() => {
-    // Opacity animation for wrapper
-    gsap.fromTo(
-      bubbleRef3.current,
-      { opacity: 0 },
-      {
-        scrollTrigger: {
-          trigger: sectionRef3.current,
-          start: "center bottom",
-          end: "bottom bottom",
-          pin: true,
-          toggleActions: "play reverse play reverse",
-          markers: true,
-        },
-        opacity: 1,
-        duration: 0.8,
-      }
-    )
-
+  //   useGSAP(() => {
+  //     // Opacity animation for wrapper
+  //     gsap.fromTo(
+  //       bubbleRef3.current,
+  //       { opacity: 0 },
+  //       {
+  //         scrollTrigger: {
+  //           trigger: sectionRef3.current,
+  //           start: 'center bottom',
+  //           end: 'bottom bottom',
+  //           pin: true,
+  //           toggleActions: 'play reverse play reverse',
+  //           markers: true,
+  //         },
+  //         opacity: 1,
+  //         duration: 0.8,
+  //       }
+  //     );
+  
   //   // Animation for speech bubble and text
   //   gsap.fromTo(
   //     bubbleRef3.current,
@@ -68,14 +69,16 @@ function DescSectionThree() {
   //   })
   })
 
+
   // const textColor = "[${ducks[activeDuck].secondaryClr}]"
 
   return (
     <section
       ref={refS3}
-      className="h-[200vh] flex items-start flex-col justify-start"
-      id="s5"
+      className='h-[100vh] flex items-start flex-col justify-start'
+      id='s5'
     >
+
       <div ref={sectionRef3} >
       <SpeechBubble
 						direction="left"
@@ -85,7 +88,7 @@ function DescSectionThree() {
 					/>
         </div>
     </section>
-  )
+  );
 }
 
-export default DescSectionThree
+export default DescSectionThree;
