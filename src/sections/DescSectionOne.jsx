@@ -37,9 +37,9 @@ function DescSectionOne() {
 				text: "For bugs will always have their way, still we push our code to prod anyway",
 			});
 			tl.to(".revealScratch", {
-        delay: 1,
+				delay: 3,
 				duration: 0.5,
-				width: 310,
+				width: "80%",
 			});
 			tl.to(".revealSectionOne4", {
 				duration: 0.5,
@@ -52,13 +52,15 @@ function DescSectionOne() {
 	return (
 		<section
 			ref={refS1}
-			className="h-screen"
+			className="h-screen  "
 			id="s3"
 			style={{
 				backgroundImage: `url(${backgroundOrange})`,
 				backgroundSize: "cover",
+				backgroundPosition: "80% 0%",
 			}}>
-			<div style={{ backgroundColor: ducks[activeDuck].primaryClr }} className="absolute h-[15em] left-[10vw] bottom-[100px] *:py-2 pl-2 *:w-full w-[24em]">
+			{/* <img src={backgroundOrange} className={"absolute h-screen w-screen object-fill"}  /> */}
+			<div style={{ backgroundColor: ducks[activeDuck].primaryClr }} className="absolute h-[12em] w-[18em] sm:h-[14.5em] sm:w-[24em] left-[10vw] bottom-[100px] *:py-2 pl-2 *:w-full ">
 				<P>
 					<span className="revealSectionOne1"></span>
 				</P>
@@ -67,7 +69,7 @@ function DescSectionOne() {
 				</P>
 				<P style={"relative"}>
 					<span className="revealSectionOne3 relative"></span>
-					<div style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" revealScratch absolute w-0 h-[1px] bottom-5 right-4"></div>
+					<div style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" revealScratch absolute w-0 h-[1px] bottom-4 sm:bottom-5 right-4"></div>
 				</P>
 				<P>
 					<span className="revealSectionOne4"></span>

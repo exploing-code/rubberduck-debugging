@@ -32,7 +32,7 @@ export const ducks = [
     path: './banana_duck/scene.gltf',
     primaryClr: '#63472D',
     secondaryClr: '#AAD629',
-    thirdClr: '#FFB820',
+    thirdClr: '#D0910B',
   },
   {
     name: 'Minequack',
