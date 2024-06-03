@@ -21,6 +21,7 @@ import { myContext } from './components/ContextProvider';
 import LoadingScreen from './components/LoadingScreenStart';
 import LoadingScreenCharSelect from './components/LoadingScreenCharSelect';
 
+
 function App() {
   const {
     activeDuck,
@@ -54,11 +55,17 @@ function App() {
           <DescSectionTwo />
           <DescSectionThree />
           <AudioVisualizer />
+
           <div className='fixed top-0 left-0 h-full w-full z-[1]'>
+
             {partyOn ? (
               ''
             ) : (
-              <Canvas>
+              <Canvas
+                camera={{
+                  fov: 35,
+                }}
+              >
                 <Experience />
               </Canvas>
             )}
