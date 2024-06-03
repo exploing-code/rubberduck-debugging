@@ -20,7 +20,7 @@ import AudioVisualizer from './sections/AudioVisualizer';
 import { myContext } from './components/ContextProvider';
 import LoadingScreen from './components/LoadingScreenStart';
 import LoadingScreenCharSelect from './components/LoadingScreenCharSelect';
-
+import ScrollBtn from './components/ScrollBtn';
 
 function App() {
   const {
@@ -36,6 +36,7 @@ function App() {
 
   return (
     <>
+      <ScrollBtn />
       {/* {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
@@ -57,7 +58,6 @@ function App() {
           <AudioVisualizer />
 
           <div className='fixed top-0 left-0 h-full w-full z-[1]'>
-
             {partyOn ? (
               ''
             ) : (

@@ -1,38 +1,47 @@
 // ContextProvider.jsx
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from 'react';
 
 export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
-	const [activeDuck, setActiveDuck] = useState(0);
-	const [pressedButton, setPressedButton] = useState(false);
-	const [partyOn, setPartyOn] = useState(false);
-	const [renderS2Loading, setRenderS2Loading] = useState(false);
-	const [isAudioCtxActivated, setIsAudioCtxActivated] = useState(false);
-	const [isCharSelected, setIsCharSelected] = useState(false);
+  const [activeDuck, setActiveDuck] = useState(0);
+  const [pressedButton, setPressedButton] = useState(false);
+  const [partyOn, setPartyOn] = useState(false);
+  const [renderS2Loading, setRenderS2Loading] = useState(false);
+  const [isAudioCtxActivated, setIsAudioCtxActivated] = useState(false);
+  const [isCharSelected, setIsCharSelected] = useState(false);
 
-	const value = {
-		activeDuck,
-		setActiveDuck,
-		pressedButton,
-		setPressedButton,
-		partyOn,
-		setPartyOn,
-		renderS2Loading,
-		setRenderS2Loading,
-		isAudioCtxActivated,
-		setIsAudioCtxActivated,
-		isCharSelected,
-		setIsCharSelected,
-	};
+  // for removing window event listener for scroll
+  const [hover, setHover] = useState('not-hovered');
 
-	return <Context.Provider value={value}>{children}</Context.Provider>;
+  useEffect(() => {
+    console.log('hover', hover);
+  }, [hover]);
+
+  const value = {
+    activeDuck,
+    setActiveDuck,
+    pressedButton,
+    setPressedButton,
+    partyOn,
+    setPartyOn,
+    renderS2Loading,
+    setRenderS2Loading,
+    isAudioCtxActivated,
+    setIsAudioCtxActivated,
+    isCharSelected,
+    setIsCharSelected,
+    hover,
+    setHover,
+  };
+
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 export const myContext = () => {
-	const context = React.useContext(Context);
-	if (!context) {
-		throw new Error("useMyContext must be used within a ContextProvider");
-	}
-	return context;
+  const context = React.useContext(Context);
+  if (!context) {
+    throw new Error('useMyContext must be used within a ContextProvider');
+  }
+  return context;
 };
