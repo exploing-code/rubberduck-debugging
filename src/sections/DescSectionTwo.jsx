@@ -5,7 +5,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 
 import P from "../components/P";
 import emphasis from "../assets/emphasis.svg";
-import SpeechBubbleSVG from "../components/SpeeachBubbleSVG.jsx";
+import SpeechBubble from "../components/SpeeachBubble.jsx";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -87,26 +87,18 @@ function DescSectionTwo() {
 
 	return (
 		<section ref={refS2} id="s4">
-			<div ref={sectionRef} className="h-[100lvh]">
+			<div ref={sectionRef} className="h-[100lvh] flex items-center justify-center">
 				<div>
 					<img src={emphasis} />
 				</div>
 
-				<div ref={bubbleRef} className={"relative flex items-center justify-center bg-blue-300 w-96 h-96"}>
-					<SpeechBubbleSVG
+				<div ref={bubbleRef} className={"relative flex items-center  w-96"}>
+					<SpeechBubble
 						direction="right"
 						textReveal1="So now that you have chosen a duck it's time to try your debugging luck!"
-						textReveal2={"Let's go through your code and make sure that it doesn't suck!"}
+						textReveal2="Let's go through your code and make sure that it doesn't suck!"
 						sectionRef={refS2}
 					/>
-					<div className=" absolute">
-						<P style={`mb-3 left-2 `}>
-							<span className={`revealSectionTwo1`}></span>
-						</P>
-						<P>
-							<span className={`revealSectionTwo2`}></span>
-						</P>
-					</div>
 				</div>
 			</div>
 		</section>

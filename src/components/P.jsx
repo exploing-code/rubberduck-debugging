@@ -8,7 +8,7 @@ function P({ children, style }) {
 
   return (
     <p
-      className={`transition-colors duration-500 ease-in-out ${style}`}
+      className={`transition-colors duration-500 ease-in-out ${style} text-sm`}
       style={{
         color: ducks[activeDuck].secondaryClr,
       }}
