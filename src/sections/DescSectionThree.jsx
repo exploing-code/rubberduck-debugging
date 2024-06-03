@@ -76,7 +76,7 @@ function DescSectionThree() {
       className="h-[200vh] flex items-start flex-col justify-start"
       id="s5"
     >
-      <div ref={sectionRef3} className="w-full relative h-full">
+      <div ref={sectionRef3} >
       <SpeechBubble
 						direction="left"
 						textReveal1="Alright, it's time. Let's start the test, "
