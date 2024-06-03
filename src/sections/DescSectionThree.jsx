@@ -78,7 +78,7 @@ function DescSectionThree() {
     >
       <div ref={sectionRef3} className="w-full relative h-full">
       <SpeechBubble
-						direction="right"
+						direction="left"
 						textReveal1="Alright, it's time. Let's start the test, "
 						textReveal2="share your code and I'll do my best!"
 						sectionRef={refS3}

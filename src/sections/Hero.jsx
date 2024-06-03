@@ -8,7 +8,6 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { ducks } from "../../data";
 import { myContext } from "../components/ContextProvider.jsx";
 import P from "../components/P.jsx";
-import SpeechBubbleSVG from "../components/SpeeachBubbleSVG";
 
 gsap.registerPlugin(TextPlugin);
 
