@@ -1,31 +1,33 @@
 // libraries
-import { Canvas } from "@react-three/fiber";
-import React, { useContext, useRef, useState, useEffect } from "react";
+import { Canvas } from "@react-three/fiber"
+import React, { useContext, useRef, useState, useEffect } from "react"
 
 // data
-import { ducks } from "../data";
+import { ducks } from "../data"
 
 // components
-import Experience from "./components/Experience";
-import { Cluster } from "./components/Cluster";
+import Experience from "./components/Experience"
+import { Cluster } from "./components/Cluster"
 
 // sections
-import Hero from "./sections/Hero";
-import CharSelectSection from "./sections/CharSelection";
-import DescSectionOne from "./sections/DescSectionOne";
-import DescSectionTwo from "./sections/DescSectionTwo";
-import DescSectionThree from "./sections/DescSectionThree";
-import AudioVisualizer from "./sections/AudioVisualizer";
-import Conclusion from "./sections/Conclusion";
+import Hero from "./sections/Hero"
+import CharSelectSection from "./sections/CharSelection"
+import DescSectionOne from "./sections/DescSectionOne"
+import DescSectionTwo from "./sections/DescSectionTwo"
+import DescSectionThree from "./sections/DescSectionThree"
+import AudioVisualizer from "./sections/AudioVisualizer"
+import Conclusion from "./sections/Conclusion"
 
-import { myContext } from "./components/ContextProvider";
-import LoadingScreen from "./components/LoadingScreenStart";
-import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
+import { myContext } from "./components/ContextProvider"
+import LoadingScreen from "./components/LoadingScreenStart"
+import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect"
 
 function App() {
+
   const { activeDuck, setActiveDuck, partyOn, setPartyOn, renderS2Loading, setRenderS2Loading } = myContext();
   const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+
 
   return (
     <>
@@ -78,10 +80,10 @@ function App() {
         </main>
       )}
     </>
-  );
+  )
 }
 
-export default App;
+export default App
 
 {
   /* <div

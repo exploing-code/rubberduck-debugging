@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import P from "../components/P";
 
-import { ducks } from "../../data";
+
+import { ducks } from "../../data"
 
 // components
+
 import CharSelectButton from "../components/CharSelectButton";
 import { myContext } from "../components/ContextProvider.jsx";
 
@@ -39,4 +41,4 @@ function CharSelection() {
 	);
 }
 
-export default CharSelection;
+export default CharSelection
