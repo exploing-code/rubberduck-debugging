@@ -39,10 +39,10 @@ function Hero() {
     >
       <div
         ref={ref}
-        className="h-[100vh] py-4 bg-amber-200 relative flex flex-col items-center sm:justify-between md:text-[7rem] lg:text-[12rem]"
+        className="h-[100vh] py-4  relative flex flex-col items-center sm:justify-between md:text-[7rem] lg:text-[12rem]"
       >
         <h1
-          className="w-[90vw] text-[13.5vw] text-center"
+          className="mt-[-4%] text-[15vw] text-center"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
@@ -50,7 +50,7 @@ function Hero() {
           RUBBER DUCK
         </h1>
         <h1
-          className="mt-[-5%] sm:mt-[5%] z-10 w-[90vw] text-[16vw] text-center"
+          className="mt-[-5%] sm:mt-[8%] z-10 text-[18vw] text-center"
           style={{
             color: ducks[activeDuck].secondaryClr,
           }}
@@ -58,7 +58,7 @@ function Hero() {
           DEBUGGING
         </h1>
         <P
-          style={`absolute max-w-[25rem] m-[5%] sm:m-0 text-xs md:text-sm left-[5%] sm:left-[8%]  top-[20%]  lg:top-[30%] lg:translate-y-[-50%] text-[${ducks[activeDuck].secondaryClr}]`}
+          style={`absolute max-w-[25rem] m-[5%] sm:m-0 text-xs md:text-sm left-[5%] sm:left-[8%]  top-[20%]  lg:top-[35%] lg:translate-y-[-50%] text-[${ducks[activeDuck].secondaryClr}] text-start  h-[7em] w-full`}
         >
           <span className="revealHero "></span>
           <span className="cursor">_</span>
