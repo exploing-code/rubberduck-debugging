@@ -11,9 +11,11 @@
   font-family: 'modak';
 }
 
-/* html {
+html {
   scroll-behavior: smooth;
-} */
+  overflow: hidden;
+  cursor: none;
+}
 
 body {
   font-family: 'Courier New', Courier, monospace;
