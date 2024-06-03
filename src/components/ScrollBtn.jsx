@@ -40,7 +40,7 @@ function ScrollBtn() {
 
       if (y > windowHeight / 2) {
         setNumber((prevNumber) =>
-          prevNumber < 5 ? prevNumber + 1 : prevNumber
+          prevNumber < 6 ? prevNumber + 1 : prevNumber
         );
       }
       if (y < windowHeight / 2) {

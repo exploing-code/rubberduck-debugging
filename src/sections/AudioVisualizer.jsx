@@ -75,6 +75,7 @@ export default function AudioVisualizer() {
   return (
     <section
       ref={sectionRef}
+      id='s6'
       className=' w-screen relative flex items-center justify-center h-screen'
     >
       <div ref={wrapperRef} className=' absolute top-4 left-6 z-10 '>
