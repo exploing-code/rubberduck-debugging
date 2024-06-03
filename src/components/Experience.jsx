@@ -217,7 +217,7 @@ export default function Experience() {
               <primitive
                 object={model.scene}
                 scale={modelScale}
-                position-y={-1}
+                position-y={size.width > 768 ? -1 : -2}
               />
             </mesh>
           </Float>
