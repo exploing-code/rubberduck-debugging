@@ -8,7 +8,8 @@ import { useGSAP } from '@gsap/react';
 import { ducks } from '../../data';
 
 export default function AudioVisualizer() {
-  const { setPartyOn, setRenderS2Loading, activeDuck } = myContext();
+  const { setPartyOn, setRenderS2Loading, activeDuc, setActiveSectionNumb } =
+    myContext();
   const songRef = useRef(null);
   const textRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -70,7 +71,11 @@ export default function AudioVisualizer() {
   }
   function handleClickYes() {
     setRenderS2Loading(true);
-    document.body.style.overflow = 'auto';
+    // document.body.style.overflow = 'auto';
+
+    setTimeout(() => {
+      setActiveSectionNumb(2);
+    }, 1500);
   }
 
   return (

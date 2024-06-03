@@ -1,15 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
+import { ducks } from '../../data';
 import { myContext } from '../components/ContextProvider.jsx';
 
+import { TbArrowBigDownFilled } from 'react-icons/tb';
+import { TbArrowBigUpFilled } from 'react-icons/tb';
+
 function ScrollBtn() {
-  const [arrow, setArrow] = useState('🔼');
+  const [arrow, setArrow] = useState(<TbArrowBigUpFilled />);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [number, setNumber] = useState(1);
 
-  const { hover, setHover, isAudioCtxActivated, setIsAudioCtxActivated } =
-    myContext();
+  const iconRef = useRef(null);
+
+  const iconWidth = iconRef.current?.offsetWidth;
+  const iconHeight = iconRef.current?.offsetHeight;
+
+  const {
+    hover,
+    setHover,
+    isAudioCtxActivated,
+    setIsAudioCtxActivated,
+    activeDuck,
+    activeSectionNumb,
+    setActiveSectionNumb,
+  } = myContext();
 
   useEffect(() => {
     const updateMouseCoordinates = (e) => {
@@ -21,10 +36,10 @@ function ScrollBtn() {
       const windowHeight = window.innerHeight;
 
       if (y > windowHeight / 2) {
-        setArrow('🔽');
+        setArrow(<TbArrowBigDownFilled />);
       }
       if (y < windowHeight / 2) {
-        setArrow('🔼');
+        setArrow(<TbArrowBigUpFilled />);
       }
     };
 
@@ -40,12 +55,12 @@ function ScrollBtn() {
       const windowHeight = window.innerHeight;
 
       if (y > windowHeight / 2) {
-        setNumber((prevNumber) =>
+        setActiveSectionNumb((prevNumber) =>
           prevNumber < 6 ? prevNumber + 1 : prevNumber
         );
       }
       if (y < windowHeight / 2) {
-        setNumber((prevNumber) =>
+        setActiveSectionNumb((prevNumber) =>
           prevNumber > 1 ? prevNumber - 1 : prevNumber
         );
       }
@@ -65,18 +80,23 @@ function ScrollBtn() {
   }, [y]);
 
   useEffect(() => {
-    const section = document.getElementById('s' + number);
+    const section = document.getElementById('s' + activeSectionNumb);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [number]);
+  }, [activeSectionNumb]);
 
   return (
     <div
-      className={`fixed p-[20px] z-[500] text-[3rem] curer-pointer pointer-events-none  ${
+      ref={iconRef}
+      className={`fixed p-[20px] z-[500] text-[6rem] curer-pointer pointer-events-none ${
         hover === 'hovered' ? 'cursor-pointer' : 'cursor-none'
       }`}
-      style={{ top: `${y - 30}px`, left: `${x - 30}px` }}
+      style={{
+        top: `${y - iconHeight / 2}px`,
+        left: `${x - iconWidth / 2}px`,
+        color: ducks[activeDuck].secondaryClr,
+      }}
     >
       {hover === 'hovered' ? '' : arrow}
     </div>

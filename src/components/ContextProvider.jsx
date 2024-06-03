@@ -13,6 +13,7 @@ export const ContextProvider = ({ children }) => {
 
   // for removing window event listener for scroll
   const [hover, setHover] = useState('not-hovered');
+  const [activeSectionNumb, setActiveSectionNumb] = useState(1);
 
   useEffect(() => {
     console.log('hover', hover);
@@ -33,6 +34,8 @@ export const ContextProvider = ({ children }) => {
     setIsCharSelected,
     hover,
     setHover,
+    activeSectionNumb,
+    setActiveSectionNumb,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
