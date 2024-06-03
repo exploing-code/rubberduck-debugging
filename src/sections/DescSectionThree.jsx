@@ -67,7 +67,7 @@ function DescSectionThree() {
   //     duration: 2,
   //     text: "Alright, it's time. Let's start the text, share your code and I'll do my best!",
   //   })
-  })
+  // })
 
 
   // const textColor = "[${ducks[activeDuck].secondaryClr}]"
