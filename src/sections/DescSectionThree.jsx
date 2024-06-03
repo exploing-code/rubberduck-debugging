@@ -9,7 +9,6 @@ import { TextPlugin } from "gsap/TextPlugin"
 import { ducks } from "../../data"
 import { myContext } from "../components/ContextProvider.jsx"
 import P from "../components/P"
-import speechBubble from "../assets/speechBubble.svg"
 
 gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(TextPlugin)
@@ -80,7 +79,6 @@ function DescSectionThree() {
         <div
           ref={bubbleRef3}
           style={{
-            backgroundImage: `url(${speechBubble}`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
           }}
