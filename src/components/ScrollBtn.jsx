@@ -68,7 +68,7 @@ function ScrollBtn() {
 
   return (
     <div
-      className={`fixed p-[20px] z-10 text-[3rem] curer-pointer ${
+      className={`fixed p-[20px] z-[500] text-[3rem] curer-pointer  ${
         hover === 'hovered' ? 'cursor-pointer' : 'cursor-none'
       }`}
       style={{ top: `${y - 30}px`, left: `${x - 30}px` }}

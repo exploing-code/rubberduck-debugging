@@ -16,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 import { myContext } from './ContextProvider.jsx';
 import { ducks } from '../../data';
+import { pow } from 'three/examples/jsm/nodes/Nodes.js';
 
 // ducks.forEach((duck) => useGLTF.preload(duck.path));
 
@@ -50,7 +51,6 @@ export default function Experience() {
           start: 'top top',
           end: 'bottom bottom',
           scrub: 1,
-          pin: false,
           endTrigger: '#s2',
         },
         y: modelRef.current.rotation.y + Math.PI * 2,
@@ -63,7 +63,6 @@ export default function Experience() {
           start: 'top top',
           end: 'bottom center',
           scrub: 1,
-          pin: false,
           endTrigger: '#s2',
         },
         z: -4,
@@ -77,7 +76,6 @@ export default function Experience() {
           start: 'top top',
           end: 'bottom center',
           scrub: 1,
-          pin: true,
         },
       });
 
@@ -88,7 +86,6 @@ export default function Experience() {
           start: 'top top',
           end: 'center center',
           scrub: 1,
-          pin: true,
           endTrigger: '#s4',
         },
       });
@@ -99,7 +96,6 @@ export default function Experience() {
           start: 'top bottom',
           end: 'center center',
           scrub: 1,
-          pin: false,
           endTrigger: 's4',
         },
         x: smallWindow // SM
@@ -130,7 +126,6 @@ export default function Experience() {
           start: 'top top',
           end: 'center center',
           scrub: 1,
-          pin: true,
           endTrigger: '#s5',
         },
       });
@@ -156,7 +151,6 @@ export default function Experience() {
           start: 'top center',
           end: 'bottom bottom',
           scrub: 1,
-          //   duration: 4,
         },
       });
 
@@ -174,7 +168,6 @@ export default function Experience() {
           start: 'top top',
           end: 'bottom bottom',
           scrub: 1,
-          pin: true,
           endTrigger: '#s6',
         },
       });

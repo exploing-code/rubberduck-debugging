@@ -56,7 +56,7 @@ export default function CharSelectButton({ version, sectionRef }) {
     <button
       onMouseEnter={() => setHover('hovered')}
       onMouseLeave={() => setHover('not-hovered')}
-      className='p-4'
+      className='p-4 relative z-[1000]'
       onClick={handleOnClick}
     >
       <Icon
