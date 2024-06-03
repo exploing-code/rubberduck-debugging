@@ -17,14 +17,12 @@ gsap.registerPlugin(ScrollTrigger);
 import { myContext } from './ContextProvider.jsx';
 import { ducks } from '../../data';
 
-
 // ducks.forEach((duck) => useGLTF.preload(duck.path));
 
 export default function Experience() {
   ducks.forEach((duck) => {
     useGLTF.preload(duck.path);
-    // console.log(`Preloaded model at path: ${duck.path}`);
-
+    console.log(`Preloaded model at path: ${duck.path}`);
   });
 
   const { activeDuck, setActiveDuck, pressedButton, setPressedButton } =
@@ -35,7 +33,9 @@ export default function Experience() {
   const modelRef = useRef();
 
   const { size } = useThree();
+  const modelScale = size.width > 768 ? [1, 1, 1] : [0.7, 0.7, 0.7];
 
+  // Function to create GSAP animations
   let windowSize = window.innerWidth;
   let smallWindow = windowSize < 600;
   let mediumWindow = windowSize >= 600 && windowSize < 900;
@@ -157,7 +157,6 @@ export default function Experience() {
           start: 'top center',
           end: 'bottom bottom',
           scrub: 1,
-          //   duration: 4,
         },
       });
 
@@ -165,7 +164,6 @@ export default function Experience() {
         y: smallWindow ? 0.5 : mediumWindow ? 0.5 : largeWindow ? 0.6 : 0.8,
         x: 0,
         z: 0,
-        scrub: 1,
       });
 
       // DESC SECTION 3
@@ -201,7 +199,6 @@ export default function Experience() {
       });
 
       timeline.to(modelRef.current.rotation, { y: 0, x: 0.2 });
-
     }
   }, []);
 
@@ -220,7 +217,6 @@ export default function Experience() {
 
     const direction = pressedButton === 'right' ? 1 : -1;
 
-
     tl.to(modelRef.current.rotation, {
       duration: 0.3,
       y: '+=' + direction * Math.PI * 2,
@@ -236,7 +232,6 @@ export default function Experience() {
           duration: 1,
           y: '+=' + direction * Math.PI * 2 * 2,
           ease: 'Power4.easeOut',
-
         });
         modelRef.current.rotation.set(0, 0, 0);
       },
@@ -247,7 +242,9 @@ export default function Experience() {
 
   return (
     <>
-      <perspectiveCamera position={[0, 0.5, 0]}>
+      {/* <Perf position="top-left" /> */}
+      {/* <OrbitControls makeDefault /> */}
+      <perspectiveCamera position={[0, 0.5, -5]} rotation={[0, 0, 0]}>
         <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
         <ambientLight intensity={1.5} />
         <Suspense fallback={null}>
@@ -256,7 +253,7 @@ export default function Experience() {
               <primitive
                 object={model.scene}
                 scale={modelScale}
-                position-y={size.width > 768 ? -1 : -2}
+                position-y={-1}
               />
             </mesh>
           </Float>
@@ -272,6 +269,7 @@ export default function Experience() {
           aoSamples={6}
           denoiseSamples={4}
         />
+        {/* <SMAA /> */}
       </EffectComposer>
     </>
   );
