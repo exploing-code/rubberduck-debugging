@@ -95,7 +95,7 @@ function ScrollBtn() {
     <div
       ref={iconRef}
       className={`fixed p-[20px] z-[500] text-[6rem] curer-pointer pointer-events-none ${
-        hover === 'hovered' ? 'cursor-pointer' : 'cursor-none'
+        hover === 'hovered' ? 'cursor-pointer hidden' : 'cursor-none'
       }`}
       style={{
         top: `${y - iconHeight / 2}px`,
