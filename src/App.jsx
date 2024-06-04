@@ -38,12 +38,12 @@ function App() {
   return (
     <div className={`${partyOn ? "" : "cursor-none"}`}>
       {partyOn ? "" : <ScrollBtn />}
-      {/* {renderInitialLoading && (
+      {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
           setRenderInitialLoading={setRenderInitialLoading}
         />
-      )} */}
+      )}
       {isLoaded && (
         <main
           className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
