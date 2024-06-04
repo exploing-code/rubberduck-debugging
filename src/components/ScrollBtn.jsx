@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
-import { ducks } from '../../data';
-import { myContext } from '../components/ContextProvider.jsx';
+import { ducks } from "../../data";
+import { myContext } from "../components/ContextProvider.jsx";
 
-import { TbArrowBigDownFilled } from 'react-icons/tb';
-import { TbArrowBigUpFilled } from 'react-icons/tb';
+import { TbArrowBigDownFilled } from "react-icons/tb";
+import { TbArrowBigUpFilled } from "react-icons/tb";
 
 function ScrollBtn() {
   const [arrow, setArrow] = useState(<TbArrowBigUpFilled />);
@@ -24,6 +24,8 @@ function ScrollBtn() {
     activeDuck,
     activeSectionNumb,
     setActiveSectionNumb,
+    hasClicked,
+    setHasClicked,
   } = myContext();
 
   useEffect(() => {
@@ -43,10 +45,10 @@ function ScrollBtn() {
       }
     };
 
-    window.addEventListener('mousemove', updateMouseCoordinates);
+    window.addEventListener("mousemove", updateMouseCoordinates);
 
     return () => {
-      window.removeEventListener('mousemove', updateMouseCoordinates);
+      window.removeEventListener("mousemove", updateMouseCoordinates);
     };
   }, []);
 
@@ -55,6 +57,10 @@ function ScrollBtn() {
 
     const handleClick = () => {
       const windowHeight = window.innerHeight;
+
+      if (!hasClicked) {
+        setHasClicked(true);
+      }
 
       if (activeSectionNumb === 1) {
         setActiveSectionNumb((prevNumber) =>
@@ -75,19 +81,23 @@ function ScrollBtn() {
       }
     };
 
-    if (hover === 'not-hovered') {
-      window.addEventListener('click', handleClick);
+    if (hover === "not-hovered") {
+      window.addEventListener("click", handleClick);
     }
 
     return () => {
-      window.removeEventListener('click', handleClick);
+      window.removeEventListener("click", handleClick);
     };
   }, [y]);
 
   useEffect(() => {
-    const section = document.getElementById('s' + activeSectionNumb);
+    // if (hasClicked) {
+    //   return;
+    // }
+
+    const section = document.getElementById("s" + activeSectionNumb);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeSectionNumb]);
 
@@ -95,7 +105,7 @@ function ScrollBtn() {
     <div
       ref={iconRef}
       className={`fixed p-[20px] z-[500] text-[6rem] curer-pointer pointer-events-none ${
-        hover === 'hovered' ? 'cursor-pointer' : 'cursor-none'
+        hover === "hovered" ? "cursor-pointer" : "cursor-none"
       }`}
       style={{
         top: `${y - iconHeight / 2}px`,
@@ -107,8 +117,8 @@ function ScrollBtn() {
         <TbArrowBigUpFilled />
       ) : activeSectionNumb === 1 ? (
         <TbArrowBigDownFilled />
-      ) : hover === 'hovered' ? (
-        ''
+      ) : hover === "hovered" ? (
+        ""
       ) : (
         arrow
       )}

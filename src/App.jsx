@@ -32,9 +32,21 @@ function App() {
     setPartyOn,
     renderS2Loading,
     setRenderS2Loading,
+    setActiveSectionNumb,
   } = myContext();
   const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+
+  useEffect(() => {
+    // Scroll to the top of the page
+    setActiveSectionNumb(1);
+    window.scrollTo(0, 0);
+
+    // Alternatively, if you have a ref to the Hero section:
+    // if (heroRef.current) {
+    //   heroRef.current.scrollIntoView({ behavior: 'smooth' });
+    // }
+  }, []);
 
   return (
     <div className={`${partyOn ? "" : "cursor-none"}`}>
