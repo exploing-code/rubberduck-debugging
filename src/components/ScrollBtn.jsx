@@ -51,7 +51,7 @@ function ScrollBtn() {
   }, []);
 
   useEffect(() => {
-    console.log('activeSectionNumb', activeSectionNumb);
+    // console.log('activeSectionNumb', activeSectionNumb);
 
     const handleClick = () => {
       const windowHeight = window.innerHeight;

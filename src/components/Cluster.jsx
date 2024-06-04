@@ -1,18 +1,18 @@
-import * as THREE from "three";
-import React, { useRef, useEffect, useState } from "react";
-import { useLoader } from "@react-three/fiber";
-import { Environment, useGLTF } from "@react-three/drei";
-import { Physics } from "@react-three/cannon";
-import { EffectComposer, N8AO, SMAA } from "@react-three/postprocessing";
-import {} from "leva";
+import * as THREE from 'three';
+import React, { useRef, useEffect, useState } from 'react';
+import { useLoader } from '@react-three/fiber';
+import { Environment, useGLTF } from '@react-three/drei';
+import { Physics } from '@react-three/cannon';
+import { EffectComposer, N8AO, SMAA } from '@react-three/postprocessing';
+import {} from 'leva';
 
 // Model and Context
-import { myContext } from "./ContextProvider";
-import { ducks } from "../../data";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { myContext } from './ContextProvider';
+import { ducks } from '../../data';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import Clump from "./Clump";
-import { Pointer } from "./Clump";
+import Clump from './Clump';
+import { Pointer } from './Clump';
 
 export const Cluster = () => {
   // const [isScaled, setIsScaled] = useState(false);
@@ -39,8 +39,6 @@ export const Cluster = () => {
 
   const model = useLoader(GLTFLoader, activeDuckUrl);
 
-  console.log(model);
-
   if (
     activeDuck === 0 ||
     activeDuck === 3 ||
@@ -53,11 +51,11 @@ export const Cluster = () => {
     duckScalar = 0.01;
   } else if (activeDuck == 1) {
     geometry = model.nodes.Duckstage21_Material001_0.geometry;
-    material = model.materials["Material.001"];
+    material = model.materials['Material.001'];
     duckScalar = 0.6;
   } else if (activeDuck == 2) {
     geometry = model.nodes.Ducksaw.children[0].geometry;
-    material = model.materials["Ducksaw.001"];
+    material = model.materials['Ducksaw.001'];
     duckScalar = 0.35;
   } else if (activeDuck == 5) {
     geometry =
@@ -76,8 +74,6 @@ export const Cluster = () => {
       scaleGeometry();
     }
   }, [geometry]);
-
-  // console.log(model);
 
   return (
     <>
@@ -103,13 +99,13 @@ export const Cluster = () => {
           />
         </Physics>
       ) : (
-        ""
+        ''
       )}
-      <Environment files="/adamsbridge.hdr" />
+      <Environment files='/adamsbridge.hdr' />
       <EffectComposer disableNormalPass multisampling={0}>
         <N8AO
           halfRes
-          color="black"
+          color='black'
           aoRadius={2}
           intensity={1}
           aoSamples={6}
