@@ -17,29 +17,18 @@ function Title({ text, size, zIndex }) {
 			style={{
 				color: ducks[activeDuck].secondaryClr,
 				textShadow: `
-                    0.1vw 0.1vw 0 ${ducks[activeDuck].primaryClr},
-                    0.2vw 0.2vw 0 ${ducks[activeDuck].primaryClr},
-                    0.3vw 0.3vw 0 ${ducks[activeDuck].primaryClr},
-                    0.4vw 0.4vw 0 ${ducks[activeDuck].primaryClr},
-                    0.5vw 0.5vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.2vw -0.2vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.3vw -0.3vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.4vw -0.5vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.1vw 0.1vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.2vw 0.2vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.3vw 0.3vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.4vw 0.4vw 0 ${ducks[activeDuck].primaryClr},
-                    -0.4vw 0.5vw 0 ${ducks[activeDuck].primaryClr},
-                    0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
-                    0.2vw -0.2vw 0 ${ducks[activeDuck].primaryClr},
-                    0.3vw -0.3vw 0 ${ducks[activeDuck].primaryClr},
-                    0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
-                    0.5vw -0.5vw 0 ${ducks[activeDuck].primaryClr}`,
+					0.4vw 0.4vw ${ducks[activeDuck].primaryClr},
+					0.5vw 0 ${ducks[activeDuck].primaryClr}, 
+					0.4vw -0.4vw ${ducks[activeDuck].primaryClr},
+					0 -0.5vw ${ducks[activeDuck].primaryClr},
+					-0.4vw -0.4vw ${ducks[activeDuck].primaryClr}, 
+					-0.5vw 0 ${ducks[activeDuck].primaryClr},
+				   -0.4vw 0.4vw ${ducks[activeDuck].primaryClr}, 
+				   0.5vw -0.2vw ${ducks[activeDuck].primaryClr}, 
+				   0 0.5vw ${ducks[activeDuck].primaryClr}`,
 				fontSize: `${size}vw`,
 			}}
-			className={`text-current `}>
+			className={`text-current stroke-white `}>
 			{text.split("").map((char, index) => (
 				<span key={index} style={{ zIndex: maxIndex - index, position: "relative" }}>
 					{char}
