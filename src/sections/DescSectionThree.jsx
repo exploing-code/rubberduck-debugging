@@ -54,7 +54,7 @@ function DescSectionThree() {
         bottom: 0,
       }
     );
-  }, [refS3, micRef]);
+  }, [refS3, micRef, isMicOn]);
 
   return (
     <section
@@ -66,15 +66,14 @@ function DescSectionThree() {
         <>
           <button
             onClick={handleOnClick}
-
             onMouseEnter={() => setHover('hovered')}
             onMouseLeave={() => setHover('not-hovered')}
             ref={micRef}
-            className={` ${
+            className={`${
               activeSectionNumb <= 5 ? 'absolute' : 'fixed'
-            }  left-[7vw] ${
+            } ${
               isMicOn ? 'bottom-0' : 'bottom-[-50%] '
-            }  w-20 sm:w-40 z-[100]  `}
+            }  w-20 sm:w-40 z-[100] left-[7vw]  `}
           >
             <MicIcon isOn={isMicOn} />
           </button>
