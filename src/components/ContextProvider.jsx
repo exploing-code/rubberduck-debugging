@@ -15,10 +15,6 @@ export const ContextProvider = ({ children }) => {
   const [hover, setHover] = useState('not-hovered');
   const [activeSectionNumb, setActiveSectionNumb] = useState(1);
 
-  useEffect(() => {
-    console.log('hover', hover);
-  }, [hover]);
-
   const value = {
     activeDuck,
     setActiveDuck,
