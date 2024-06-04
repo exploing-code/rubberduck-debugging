@@ -19,7 +19,6 @@ import AudioVisualizer from "./sections/AudioVisualizer";
 
 import { myContext } from "./components/ContextProvider";
 import LoadingScreen from "./components/LoadingScreenStart";
-import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
 import ScrollBtn from "./components/ScrollBtn";
 
 import gsap from "gsap";
@@ -87,9 +86,6 @@ function App() {
             )}
             {partyOn ? <PartyComponent /> : ""}
           </div>
-          {renderS2Loading && (
-            <LoadingScreenCharSelect setRenderS2Loading={setRenderS2Loading} />
-          )}
         </main>
       )}
     </div>
