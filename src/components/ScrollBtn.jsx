@@ -51,15 +51,24 @@ function ScrollBtn() {
   }, []);
 
   useEffect(() => {
+    console.log('activeSectionNumb', activeSectionNumb);
+
     const handleClick = () => {
       const windowHeight = window.innerHeight;
 
-      if (y > windowHeight / 2) {
+      if (activeSectionNumb === 1) {
         setActiveSectionNumb((prevNumber) =>
-          prevNumber < 6 ? prevNumber + 1 : prevNumber
+          prevNumber < 5 ? prevNumber + 1 : prevNumber
         );
-      }
-      if (y < windowHeight / 2) {
+      } else if (activeSectionNumb === 5) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber > 1 ? prevNumber - 1 : prevNumber
+        );
+      } else if (y > windowHeight / 2) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber < 5 ? prevNumber + 1 : prevNumber
+        );
+      } else if (y < windowHeight / 2) {
         setActiveSectionNumb((prevNumber) =>
           prevNumber > 1 ? prevNumber - 1 : prevNumber
         );
@@ -94,7 +103,15 @@ function ScrollBtn() {
         color: ducks[activeDuck].secondaryClr,
       }}
     >
-      {hover === 'hovered' ? '' : arrow}
+      {activeSectionNumb === 5 ? (
+        <TbArrowBigUpFilled />
+      ) : activeSectionNumb === 1 ? (
+        <TbArrowBigDownFilled />
+      ) : hover === 'hovered' ? (
+        ''
+      ) : (
+        arrow
+      )}
     </div>
   );
 }

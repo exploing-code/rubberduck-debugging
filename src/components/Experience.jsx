@@ -98,8 +98,8 @@ export default function Experience() {
             scrub: 1,
             endTrigger: 's4',
           },
-          x: small ? 1 : medium ? 3 : 5,
-          y: small ? 0.5 : 0.5,
+          x: small ? 1 : medium ? 3 : 4,
+          y: 0.5,
         });
 
         gsap.to(modelRef.current.rotation, {
@@ -135,9 +135,9 @@ export default function Experience() {
         });
 
         timeline.to(modelRef.current.position, {
-          x: small ? -1 : medium ? -1 : -1,
-          y: small ? -1 : medium ? -1 : -1,
-          z: small ? 3 : medium ? 2 : 3,
+          x: -1,
+          y: -1,
+          z: 3,
         });
 
         timeline = gsap.timeline({
@@ -150,7 +150,7 @@ export default function Experience() {
         });
 
         timeline.to(modelRef.current.rotation, {
-          y: small ? 0.5 : medium ? 0.5 : 0.5,
+          y: 0.5,
           x: 0,
           z: 0,
           scrub: 1,
@@ -176,11 +176,47 @@ export default function Experience() {
           },
         });
 
-        timeline.to(modelRef.current.position, { x: 0, y: 0, z: -1 });
+        timeline.to(modelRef.current.position, {
+          x: small ? 1.7 : 1.5,
+          y: small ? 0.6 : -1.2,
+          z: small ? 1 : 4,
+        });
 
         timeline = gsap.timeline({
           scrollTrigger: {
             trigger: '#s5',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
+
+        timeline.to(modelRef.current.rotation, { y: 5.5, x: -0.3 });
+
+        // DESC SECTION 3
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s6',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
+
+        timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s6',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
+
+        timeline.to(modelRef.current.position, { x: 0, y: -0, z: -1 });
+
+        timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s6',
             start: 'top bottom',
             end: 'bottom bottom',
             scrub: 1,
