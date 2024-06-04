@@ -98,8 +98,9 @@ export default function Experience() {
             scrub: 1,
             endTrigger: 's4',
           },
-          x: small ? 1 : medium ? 3 : 4,
+          x: small ? 0 : medium ? 0 : 4,
           y: 0.5,
+          z: -7,
         });
 
         gsap.to(modelRef.current.rotation, {
@@ -178,7 +179,7 @@ export default function Experience() {
 
         timeline.to(modelRef.current.position, {
           x: small ? 1.7 : 1.5,
-          y: small ? 0.6 : -1.2,
+          y: small ? 0.6 : medium ? -0.2 : -1.2,
           z: small ? 1 : 4,
         });
 

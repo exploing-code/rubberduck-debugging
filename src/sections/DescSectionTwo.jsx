@@ -17,7 +17,7 @@ function DescSectionTwo() {
         ref={sectionRef}
         className='h-[100lvh] flex items-center lg:items-start justify-around'
       >
-        <div className='translate-y-[1rem] sm:translate-y-0 lg:translate-y-[6rem] lg:translate-x-[4rem]'>
+        <div className='translate-y-[2rem] sm:-translate-y-[10rem] lg:translate-y-[6rem] lg:translate-x-[4rem]'>
           <img
             // style={{ fill: ducks[activeDuck].secondaryClr }}
             className={`rotate-[20deg] sm:rotate-[12deg]  lg:-rotate-12`}
@@ -28,7 +28,7 @@ function DescSectionTwo() {
         <div
           ref={bubbleRef}
           className={
-            'relative flex items-center w-96 -translate-y-[10rem] lg:translate-y-0'
+            'relative flex items-center w-96 -translate-y-[10rem] sm:translate-x-[4rem] lg:translate-y-0'
           }
         >
           <SpeechBubble
