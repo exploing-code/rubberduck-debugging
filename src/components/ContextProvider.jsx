@@ -33,6 +33,8 @@ export const ContextProvider = ({ children }) => {
     setHover,
     activeSectionNumb,
     setActiveSectionNumb,
+    hasClicked,
+    setHasClicked,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
