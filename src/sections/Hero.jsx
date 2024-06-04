@@ -61,7 +61,7 @@ export default function Hero() {
 			});
 			gsap.to(".revealHero", {
 				duration: 4,
-				delay: 0,
+				delay: 7,
 				text: "Rubber duck debugging (or rubberducking) is a method of debugging code by articulating a problem in spoken or written in natural language, preferebly to someone who does not understand code (a.k.a talk to a rubber duck).",
 			});
 		},
