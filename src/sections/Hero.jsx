@@ -37,8 +37,9 @@ function Title({ text, size, zIndex }) {
           0.3vw -0.3vw 0 ${ducks[activeDuck].primaryClr},
           0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
           0.5vw -0.5vw 0 ${ducks[activeDuck].primaryClr}`,
+				fontSize: `${size}vw`,
 			}}
-			className={`text-[${size}vw] text-current `}>
+			className={`text-current `}>
 			{text.split("").map((char, index) => (
 				<span key={index} style={{ zIndex: maxIndex - index, position: "relative" }}>
 					{char}
