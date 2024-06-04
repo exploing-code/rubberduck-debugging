@@ -21,7 +21,8 @@ export default function MicIcon({ isOn }) {
 				xml:space="preserve"
 				width="100%"
 				height="100%"
-				fill={ducks[activeDuck].secondaryClr}>
+				fill={ducks[activeDuck].secondaryClr}
+				className= {isOn ? "opacity-100" : "opacity-60" }>
 				<g>
 					<path d="M39.87536,66.49539V66.5H18.00849v-0.00461c0-2.44387,1.98115-4.42502,4.42501-4.42502h13.01684   C37.89421,62.07037,39.87536,64.05152,39.87536,66.49539z" />
 					<path d="M31.96408,30.68119v23.10226h-6.05061V30.75385c0.87181,0.59151,1.90965,0.9133,2.96826,0.9133   C30.00256,31.66715,31.07156,31.32465,31.96408,30.68119z" />
