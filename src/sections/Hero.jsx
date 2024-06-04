@@ -17,18 +17,26 @@ function Title({ text, size, zIndex }) {
 			style={{
 				color: ducks[activeDuck].secondaryClr,
 				textShadow: `
-          -0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
-          0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
-          -0.1vw 0.1vw 0 ${ducks[activeDuck].primaryClr},
           0.1vw 0.1vw 0 ${ducks[activeDuck].primaryClr},
-          -0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
-          0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
-          -0.4vw 0.4vw 0 ${ducks[activeDuck].primaryClr},
+          0.2vw 0.2vw 0 ${ducks[activeDuck].primaryClr},
+          0.3vw 0.3vw 0 ${ducks[activeDuck].primaryClr},
+          0.4vw 0.4vw 0 ${ducks[activeDuck].primaryClr},
           0.5vw 0.5vw 0 ${ducks[activeDuck].primaryClr},
-          -0.5vw -0.5vw 0 ${ducks[activeDuck].primaryClr},
-          0.5vw -0.5vw 0 ${ducks[activeDuck].primaryClr},
-          -0.5vw 0.5vw 0 ${ducks[activeDuck].primaryClr},
-          0.5vw 0.5vw 0 ${ducks[activeDuck].primaryClr}`,
+          -0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
+          -0.2vw -0.2vw 0 ${ducks[activeDuck].primaryClr},
+          -0.3vw -0.3vw 0 ${ducks[activeDuck].primaryClr},
+          -0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
+          -0.4vw -0.5vw 0 ${ducks[activeDuck].primaryClr},
+          -0.1vw 0.1vw 0 ${ducks[activeDuck].primaryClr},
+          -0.2vw 0.2vw 0 ${ducks[activeDuck].primaryClr},
+          -0.3vw 0.3vw 0 ${ducks[activeDuck].primaryClr},
+          -0.4vw 0.4vw 0 ${ducks[activeDuck].primaryClr},
+          -0.4vw 0.5vw 0 ${ducks[activeDuck].primaryClr},
+          0.1vw -0.1vw 0 ${ducks[activeDuck].primaryClr},
+          0.2vw -0.2vw 0 ${ducks[activeDuck].primaryClr},
+          0.3vw -0.3vw 0 ${ducks[activeDuck].primaryClr},
+          0.4vw -0.4vw 0 ${ducks[activeDuck].primaryClr},
+          0.5vw -0.5vw 0 ${ducks[activeDuck].primaryClr}`,
 			}}
 			className={`text-[${size}vw] text-current `}>
 			{text.split("").map((char, index) => (
@@ -42,7 +50,6 @@ function Title({ text, size, zIndex }) {
 
 export default function Hero() {
 	const ref = useRef();
-
 
 	useGSAP(
 		() => {
@@ -62,15 +69,17 @@ export default function Hero() {
 
 	return (
 		<section className={`h-[300vh] w-screen`} id="s1">
-			<div ref={ref} className="h-[100vh] py-4 relative flex flex-col items-center sm:justify-between [&>h1]:tracking-tight [&>h1]:leading-[15vw] [&>h1]:uppercase ">
-        <Title text="rubber duck" size="16" zIndex={0} />
-				<div className=" h-full w-full px-[4%] -mt-3">
-					<P style={` max-w-[25rem]  h-[7em] w-full`}>
-						<span className="revealHero "></span>
-						<span className="cursor">_</span>
-					</P>
-				</div>
+			<div ref={ref} className="h-[100vh] py-4 relative flex flex-col text-center [&>h1]:tracking-tight [&>h1]:leading-[15vw] [&>h1]:uppercase ">
+				<Title text="rubber duck" size="16" zIndex={0} />
+				<P style={` max-w-[30rem]  h-full w-full hidden sm:block text-left px-10 -mt-6`}>
+					<span className="revealHero "></span>
+					<span className="cursor">_</span>
+				</P>
 				<Title text="debugging" size="19" zIndex={30} />
+				<P style={` max-w-[25rem] w-72  sm:hidden text-left p-4`}>
+					<span className="revealHero "></span>
+					<span className="cursor">_</span>
+				</P>
 			</div>
 		</section>
 	);
