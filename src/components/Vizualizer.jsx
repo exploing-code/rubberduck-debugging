@@ -41,7 +41,7 @@ export default function Visualizer() {
 
 	// Only allow duck to respond when user is in the right section
 	useEffect(() => {
-		isDuckResponding.current = activeSectionNumb === 6 ? true : false;
+		isDuckResponding.current = activeSectionNumb === 6;
 	}, [activeSectionNumb]);
 
 	// AudioContext must be initialized after a user gesture.We now have a secret workaround that the first time
