@@ -59,6 +59,7 @@ export default function AudioVisualizer() {
     setInterval(() => {
       if (songRef.current.paused && continueInterval) {
         setRenderLoadingNO(true);
+        // window.location.reload();
         setTimeout(() => {
           setPartyOn(false);
           setActiveSectionNumb(1);
