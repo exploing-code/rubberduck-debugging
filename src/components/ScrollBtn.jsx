@@ -98,7 +98,6 @@ function ScrollBtn() {
     const section = document.getElementById("s" + activeSectionNumb);
     if (section && triggerOnceScrollBtn) {
       gsap.to(window, { duration: 0, scrollTo: section });
-      console.log("In ScrollBtn: " + activeSectionNumb);
     }
   }, [activeSectionNumb]);
 

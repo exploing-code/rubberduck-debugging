@@ -1,18 +1,27 @@
+// libraries
 import { Canvas } from "@react-three/fiber";
 import React, { useContext, useRef, useState, useEffect } from "react";
+
+// data
 import { ducks } from "../data";
+
+// components
 import Experience from "./components/Experience";
 import { Cluster } from "./components/Cluster";
+
+// sections
 import Hero from "./sections/Hero";
 import CharSelectSection from "./sections/CharSelection";
 import DescSectionOne from "./sections/DescSectionOne";
 import DescSectionTwo from "./sections/DescSectionTwo";
 import DescSectionThree from "./sections/DescSectionThree";
 import AudioVisualizer from "./sections/AudioVisualizer";
+
 import { myContext } from "./components/ContextProvider";
 import LoadingScreen from "./components/LoadingScreenStart";
 import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
 import ScrollBtn from "./components/ScrollBtn";
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
@@ -37,16 +46,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
-  const [triggerOnce, setTriggerOnce] = useState(false);
-
   useGSAP(() => {
-    if (!triggerOnce) {
-      setTimeout(() => {
-        setTriggerOnceScrollBtn(true);
-        gsap.to(window, { duration: 0, scrollTo: 0 });
-        setTriggerOnce(true);
-      }, 1000);
-    }
+    setTimeout(() => {
+      setTriggerOnceScrollBtn(true);
+      gsap.to(window, { duration: 0, scrollTo: 0 });
+    }, 1000);
   }, []);
 
   return (
