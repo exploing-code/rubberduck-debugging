@@ -1,26 +1,28 @@
 // libraries
-import { Canvas } from '@react-three/fiber';
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import { Canvas } from "@react-three/fiber";
+import React, { useContext, useRef, useState, useEffect } from "react";
 
 // data
-import { ducks } from '../data';
+import { ducks } from "../data";
 
 // components
-import Experience from './components/Experience';
-import { Cluster } from './components/Cluster';
+import Experience from "./components/Experience";
+import { Cluster } from "./components/Cluster";
 
 // sections
-import Hero from './sections/Hero';
-import CharSelectSection from './sections/CharSelection';
-import DescSectionOne from './sections/DescSectionOne';
-import DescSectionTwo from './sections/DescSectionTwo';
-import DescSectionThree from './sections/DescSectionThree';
-import AudioVisualizer from './sections/AudioVisualizer';
+import Hero from "./sections/Hero";
+import CharSelectSection from "./sections/CharSelection";
+import DescSectionOne from "./sections/DescSectionOne";
+import DescSectionTwo from "./sections/DescSectionTwo";
+import DescSectionThree from "./sections/DescSectionThree";
+import AudioVisualizer from "./sections/AudioVisualizer";
 
-import { myContext } from './components/ContextProvider';
-import LoadingScreen from './components/LoadingScreenStart';
-import LoadingScreenCharSelect from './components/LoadingScreenCharSelect';
-import ScrollBtn from './components/ScrollBtn';
+import { myContext } from "./components/ContextProvider";
+import LoadingScreen from "./components/LoadingScreenStart";
+import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
+import ScrollBtn from "./components/ScrollBtn";
+
+import QuackText from "./components/QuackText";
 
 function App() {
   const {
@@ -35,8 +37,8 @@ function App() {
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
   return (
-    <>
-      <ScrollBtn />
+    <div className={`${partyOn ? "" : "cursor-none"}`}>
+      {partyOn ? "" : <ScrollBtn />}
       {/* {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
@@ -57,9 +59,9 @@ function App() {
           <DescSectionThree />
           <AudioVisualizer />
 
-          <div className='fixed top-0 left-0 h-full w-full z-[1]'>
+          <div className="fixed top-0 left-0 h-full w-full z-[1]">
             {partyOn ? (
-              ''
+              ""
             ) : (
               <Canvas
                 camera={{
@@ -70,18 +72,22 @@ function App() {
               </Canvas>
             )}
             {partyOn ? (
-              <Canvas
-                camera={{
-                  position: [0, 25, 0], // Change the position values as needed
-                  fov: 35,
-                  near: 0.1,
-                  far: 1000,
-                }}
-              >
-                <Cluster />
-              </Canvas>
+              <>
+                <QuackText />
+                <Canvas
+                  className="z-50"
+                  camera={{
+                    position: [0, 25, 0], // Change the position values as needed
+                    fov: 35,
+                    near: 0.1,
+                    far: 1000,
+                  }}
+                >
+                  <Cluster />
+                </Canvas>
+              </>
             ) : (
-              ''
+              ""
             )}
           </div>
           {renderS2Loading && (
@@ -89,7 +95,7 @@ function App() {
           )}
         </main>
       )}
-    </>
+    </div>
   );
 }
 
