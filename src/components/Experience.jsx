@@ -34,166 +34,162 @@ export default function Experience() {
   const modelRef = useRef();
 
   const { size } = useThree();
-  const modelScale = size.width > 768 ? [1, 1, 1] : [0.7, 0.7, 0.7];
+  const modelScale = size.width > 1024 ? [1, 1, 1] : [0.7, 0.7, 0.7];
 
-  let windowSize = window.innerWidth;
-  let smallWindow = windowSize < 600;
-  let mediumWindow = windowSize >= 600 && windowSize < 900;
-  let largeWindow = windowSize >= 900;
-
-  // Use GSAP
   useGSAP(() => {
-    if (model) {
-      // HERO SECTION
-      gsap.to(modelRef.current.rotation, {
-        scrollTrigger: {
-          trigger: '#s1',
-          start: 'top top',
-          end: 'bottom bottom',
+    const mm = gsap.matchMedia();
+    mm.add(
+      {
+        small: '(max-width: 600px)',
+        medium: '(max-width: 900px)',
+        large: '(min-width: 900px)',
+      },
+      (ctx) => {
+        const { small, medium, large } = ctx.conditions;
+        gsap.to(modelRef.current.rotation, {
+          scrollTrigger: {
+            trigger: '#s1',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            endTrigger: '#s2',
+          },
+          y: modelRef.current.rotation.y + Math.PI * 2,
+          x: 6.5,
+        });
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s1',
+            start: 'top top',
+            end: 'bottom center',
+            scrub: 1,
+            endTrigger: '#s2',
+          },
+          z: -4,
+          y: small ? 1.5 : medium ? 1.5 : 1.5,
+        });
+
+        // CHARACTER SELECTION SECTION
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s2',
+            start: 'top top',
+            end: 'bottom center',
+            scrub: 1,
+          },
+        });
+
+        // DESC SECTION 1
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s3',
+            start: 'top top',
+            end: 'center center',
+            scrub: 1,
+            endTrigger: '#s4',
+          },
+        });
+
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s3',
+            start: 'top bottom',
+            end: 'center center',
+            scrub: 1,
+            endTrigger: 's4',
+          },
+          x: small ? 1 : medium ? 3 : 5,
+          y: small ? 0.5 : 0.5,
+        });
+
+        gsap.to(modelRef.current.rotation, {
+          scrollTrigger: {
+            trigger: '#s3',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+          x: small ? 1.5 : 1.5,
+          y: -0.5,
+          z: small ? 0 : 0,
+        });
+
+        // DESC SECTION 2
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s4',
+            start: 'top top',
+            end: 'center center',
+            scrub: 1,
+            endTrigger: '#s5',
+          },
+        });
+
+        let timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s4',
+            start: 'top center',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
+
+        timeline.to(modelRef.current.position, {
+          x: small ? -1 : medium ? -1 : -1,
+          y: small ? -1 : medium ? -1 : -1,
+          z: small ? 3 : medium ? 2 : 3,
+        });
+
+        timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s4',
+            start: 'top center',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
+
+        timeline.to(modelRef.current.rotation, {
+          y: small ? 0.5 : medium ? 0.5 : 0.5,
+          x: 0,
+          z: 0,
           scrub: 1,
-          endTrigger: '#s2',
-        },
-        y: modelRef.current.rotation.y + Math.PI * 2,
-        x: 6.5,
-      });
+        });
 
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s1',
-          start: 'top top',
-          end: 'bottom center',
-          scrub: 1,
-          endTrigger: '#s2',
-        },
-        z: -4,
-        y: mediumWindow ? 1.5 : largeWindow ? 1.5 : 0,
-      });
+        // DESC SECTION 3
+        gsap.to(modelRef.current.position, {
+          scrollTrigger: {
+            trigger: '#s5',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            endTrigger: '#s6',
+          },
+        });
 
-      // CHARACTER SELECTION SECTION
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s2',
-          start: 'top top',
-          end: 'bottom center',
-          scrub: 1,
-        },
-      });
+        timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s5',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
 
-      // DESC SECTION 1
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s3',
-          start: 'top top',
-          end: 'center center',
-          scrub: 1,
-          endTrigger: '#s4',
-        },
-      });
+        timeline.to(modelRef.current.position, { x: 0, y: 0, z: -1 });
 
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 1,
-          endTrigger: 's4',
-        },
-        x: smallWindow // SM
-          ? windowSize / 300
-          : mediumWindow // MD
-          ? windowSize / 400
-          : largeWindow //LG
-          ? windowSize / 300
-          : windowSize / 200,
-      });
+        timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#s5',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1,
+          },
+        });
 
-      gsap.to(modelRef.current.rotation, {
-        scrollTrigger: {
-          trigger: '#s3',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-        x: 1.5,
-        y: -0.5,
-        z: smallWindow ? 0 : 0.5,
-      });
-
-      // DESC SECTION 2
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top top',
-          end: 'center center',
-          scrub: 1,
-          endTrigger: '#s5',
-        },
-      });
-
-      let timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      timeline.to(modelRef.current.position, {
-        x: smallWindow ? -1.5 : mediumWindow ? -1 : largeWindow ? -2.4 : -2.5,
-        y: smallWindow ? -0.8 : mediumWindow ? -0.9 : largeWindow ? -0.95 : -1,
-        z: smallWindow ? 0.5 : mediumWindow ? 1 : largeWindow ? 0.5 : 1.2,
-      });
-
-      timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s4',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      timeline.to(modelRef.current.rotation, {
-        y: smallWindow ? 0.5 : mediumWindow ? 0.5 : largeWindow ? 0.6 : 0.8,
-        x: 0,
-        z: 0,
-        scrub: 1,
-      });
-
-      // DESC SECTION 3
-      gsap.to(modelRef.current.position, {
-        scrollTrigger: {
-          trigger: '#s5',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-          endTrigger: '#s6',
-        },
-      });
-
-      timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s5',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      timeline.to(modelRef.current.position, { x: 0, y: 0, z: -1 });
-
-      timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#s5',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      });
-
-      timeline.to(modelRef.current.rotation, { y: 0, x: 0.2 });
-    }
+        timeline.to(modelRef.current.rotation, { y: 0, x: 0.2 });
+      }
+    );
   }, []);
 
   const [isAnimating, setIsAnimating] = useState(false);
@@ -240,15 +236,15 @@ export default function Experience() {
         <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
         <ambientLight intensity={1.5} />
         <Suspense fallback={null}>
-          <Float speed={1} floatIntensity={-1}>
-            <mesh ref={modelRef} rotation-x={0.3}>
-              <primitive
-                object={model.scene}
-                scale={modelScale}
-                position-y={size.width > 768 ? -1 : -2}
-              />
-            </mesh>
-          </Float>
+          {/* <Float speed={1} floatIntensity={-0.5}> */}
+          <mesh ref={modelRef} rotation-x={0.3}>
+            <primitive
+              object={model.scene}
+              scale={modelScale}
+              position-y={size.width > 768 ? -1 : -2}
+            />
+          </mesh>
+          {/* </Float> */}
         </Suspense>
       </perspectiveCamera>
       <Environment files='/adamsbridge.hdr' />
