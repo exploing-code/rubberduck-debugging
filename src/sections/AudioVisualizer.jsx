@@ -67,10 +67,12 @@ export default function AudioVisualizer() {
 			}
 		}, 1000);
 	}
-
+	
 	function handleClickYes() {
-		setActiveSectionNumb(2);
 		setRenderLoadingYES(true);
+		setTimeout(() => {
+			setActiveSectionNumb(2);
+		}, 1500);
 	}
 
 	return (
