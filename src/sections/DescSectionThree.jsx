@@ -20,7 +20,11 @@ function DescSectionThree() {
 
 	return (
 		<section ref={refS3} id="s5" className="h-[100vh] flex items-start flex-col justify-start relative">
-			<button onClick={handleOnClick} className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} left-[7vw] bottom-0 w-40 h-40 z-50`}>
+			<button
+				onClick={handleOnClick}
+				onMouseEnter={() => setHover("hovered")}
+				onMouseLeave={() => setHover("not-hovered")}
+				className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} left-[7vw] bottom-0 w-40 h-40 z-50`}>
 				{isMicOn ? <MicIcon isOn={true} /> : <MicIcon isOn={false} />}
 			</button>
 
