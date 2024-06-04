@@ -13,6 +13,12 @@ function DescSectionThree() {
 	const micRef = useRef(null);
 	const [isMicOn, setIsMicOn] = useState(false);
 
+	useEffect(() => {
+		if (activeSectionNumb < 5) {
+			setIsMicOn(false);
+		}
+	}, [activeSectionNumb]);
+
 	function handleOnClick() {
 		setIsMicOn(true);
 		setActiveSectionNumb(6);
@@ -21,9 +27,6 @@ function DescSectionThree() {
 			setIsAudioCtxActivated(true);
 		}
 	}
-	useEffect(() => {
-		console.log(hover);
-	}, [hover]);
 
 	useGSAP(() => {
 		// Generate unique class names
@@ -54,8 +57,8 @@ function DescSectionThree() {
 						onMouseEnter={() => setHover("hovered")}
 						onMouseLeave={() => setHover("not-hovered")}
 						ref={micRef}
-						className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"}  left-[7vw] bottom-[-50%] w-20 sm:w-40 z-[100]  `}>
-						{isMicOn ? <MicIcon isOn={true} /> : <MicIcon isOn={false} />}
+						className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"}  left-[7vw] ${isMicOn ? "bottom-0" : "bottom-[-50%] "}  w-20 sm:w-40 z-[100]  `}>
+						<MicIcon isOn={isMicOn} />
 					</button>
 				</>
 			)}

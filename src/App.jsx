@@ -19,7 +19,6 @@ import AudioVisualizer from "./sections/AudioVisualizer";
 
 import { myContext } from "./components/ContextProvider";
 import LoadingScreen from "./components/LoadingScreenStart";
-import LoadingScreenCharSelect from "./components/LoadingScreenCharSelect";
 import ScrollBtn from "./components/ScrollBtn";
 
 import QuackText from "./components/QuackText";
@@ -90,9 +89,6 @@ function App() {
               ""
             )}
           </div>
-          {renderS2Loading && (
-            <LoadingScreenCharSelect setRenderS2Loading={setRenderS2Loading} />
-          )}
         </main>
       )}
     </div>
