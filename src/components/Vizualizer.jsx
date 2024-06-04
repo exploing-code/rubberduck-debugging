@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ducks } from "../../data";
-import { myContext } from "./ContextProvider";
-import P from "./P";
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ducks } from '../../data';
+import { myContext } from './ContextProvider';
+import P from './P';
 
 // navigator.mediaDevices       <— a read only property that returns a built in object,
 //                                 which provides access to connected media inputs such
@@ -209,4 +209,5 @@ export default function Visualizer() {
 			</h1>
 		</div>
 	);
+
 }

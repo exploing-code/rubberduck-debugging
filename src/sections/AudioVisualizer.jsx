@@ -43,7 +43,6 @@ export default function AudioVisualizer() {
 
   function handleClickNo() {
     setPartyOn(true);
-    songRef.current.currentTime = 32.9;
     songRef.current.play().catch((err) => {
       console.error('Error playing song:', err);
     });
