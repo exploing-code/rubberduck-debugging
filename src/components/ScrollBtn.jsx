@@ -7,6 +7,7 @@ import { TbArrowBigDownFilled } from "react-icons/tb";
 import { TbArrowBigUpFilled } from "react-icons/tb";
 
 function ScrollBtn() {
+
 	const [arrow, setArrow] = useState(<TbArrowBigUpFilled />);
 	const [x, setX] = useState(0);
 	const [y, setY] = useState(0);

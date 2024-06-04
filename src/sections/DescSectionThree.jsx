@@ -21,6 +21,7 @@ function DescSectionThree() {
   const micRef = useRef(null);
   const [isMicOn, setIsMicOn] = useState(false);
 
+
   useEffect(() => {
     if (activeSectionNumb < 5) {
       setIsMicOn(false);
@@ -65,6 +66,7 @@ function DescSectionThree() {
         <>
           <button
             onClick={handleOnClick}
+
             onMouseEnter={() => setHover('hovered')}
             onMouseLeave={() => setHover('not-hovered')}
             ref={micRef}
@@ -79,6 +81,7 @@ function DescSectionThree() {
         </>
       )}
       <div
+
         className='-translate-x-10 sm:translate-x-0 lg:translate-x-[10rem]'
         ref={sectionRef3}
       >

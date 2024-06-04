@@ -1,5 +1,5 @@
 // ContextProvider.jsx
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from "react";
 
 export const Context = createContext(null);
 
@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }) => {
   const [isCharSelected, setIsCharSelected] = useState(false);
 
   // for removing window event listener for scroll
-  const [hover, setHover] = useState('not-hovered');
+  const [hover, setHover] = useState("not-hovered");
   const [activeSectionNumb, setActiveSectionNumb] = useState(1);
 
   const value = {
@@ -40,7 +40,7 @@ export const ContextProvider = ({ children }) => {
 export const myContext = () => {
   const context = React.useContext(Context);
   if (!context) {
-    throw new Error('useMyContext must be used within a ContextProvider');
+    throw new Error("useMyContext must be used within a ContextProvider");
   }
   return context;
 };

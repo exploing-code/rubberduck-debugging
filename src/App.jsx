@@ -21,7 +21,13 @@ import { myContext } from "./components/ContextProvider";
 import LoadingScreen from "./components/LoadingScreenStart";
 import ScrollBtn from "./components/ScrollBtn";
 
-import QuackText from "./components/QuackText";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+
+import PartyComponent from "./components/PartyComponent";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 function App() {
   const {
@@ -31,9 +37,17 @@ function App() {
     setPartyOn,
     renderS2Loading,
     setRenderS2Loading,
+    activeSectionNumb,
+    setActiveSectionNumb,
   } = myContext();
   const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+
+  useGSAP(() => {
+    setTimeout(() => {
+      gsap.to(window, { duration: 0, scrollTo: 0 });
+    }, 1000);
+  }, []);
 
   return (
     <div className={`${partyOn ? "" : "cursor-none"}`}>
@@ -70,24 +84,7 @@ function App() {
                 <Experience />
               </Canvas>
             )}
-            {partyOn ? (
-              <>
-                <QuackText />
-                <Canvas
-                  className="z-50"
-                  camera={{
-                    position: [0, 25, 0], // Change the position values as needed
-                    fov: 35,
-                    near: 0.1,
-                    far: 1000,
-                  }}
-                >
-                  <Cluster />
-                </Canvas>
-              </>
-            ) : (
-              ""
-            )}
+            {partyOn ? <PartyComponent /> : ""}
           </div>
         </main>
       )}
@@ -96,11 +93,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <div
-        className={`${
-          ducks[activeDuck].name === 'DemonDuck' ? 'fire visible' : ' hidden '
-        }`}
-      /> */
-}
