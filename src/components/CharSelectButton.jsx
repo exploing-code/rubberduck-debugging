@@ -10,11 +10,8 @@ export default function CharSelectButton({ version, sectionRef }) {
   const {
     activeDuck,
     setPressedButton,
-    setIsAudioCtxActivated,
-    isAudioCtxActivated,
     setIsCharSelected,
     isCharSelected,
-    hover,
     setHover,
   } = myContext();
 

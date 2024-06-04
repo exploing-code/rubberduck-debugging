@@ -77,10 +77,6 @@ function ScrollBtn() {
 
     if (hover === 'not-hovered') {
       window.addEventListener('click', handleClick);
-
-      if (!isAudioCtxActivated) {
-        setIsAudioCtxActivated(true);
-      }
     }
 
     return () => {
