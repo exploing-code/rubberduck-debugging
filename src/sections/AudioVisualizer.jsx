@@ -66,7 +66,7 @@ export default function AudioVisualizer() {
       id='s6'
       className=' w-screen relative flex items-center justify-center h-screen'
     >
-      <div ref={wrapperRef} className={` absolute top-4 left-6 z-[500]`}>
+      <div ref={wrapperRef} className={` absolute top-4 right-6 z-[500]`}>
         <P style={'mb-2 ml-4'}>
           <span ref={textRef}></span>
         </P>

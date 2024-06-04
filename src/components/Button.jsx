@@ -2,7 +2,7 @@ import React from 'react';
 import { ducks } from '../../data';
 import { myContext } from './ContextProvider';
 
-export default function button(props) {
+export default function Button(props) {
   const { activeDuck, setHover } = myContext();
 
   return (

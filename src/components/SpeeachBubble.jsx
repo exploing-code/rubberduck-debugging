@@ -74,11 +74,10 @@ export default function SpeechBubble({
           direction === 'left' ? 'sm:ml-8 mt-3 ' : 'sm:-mt-4 '
         } -mt-8 text-center sm:text-left sm:mt-6 `}
       >
-        <P color={activeDuck === 1 || activeDuck === 2 ? 'third' : 'primary'}>
+        <P color={activeDuck === 1 || activeDuck === 2 ? 'third' : 'primary'} style={"h-20"}>
           <span className={uniqueClass1}></span>
         </P>
-        <br />
-        <P color={activeDuck === 1 || activeDuck === 2 ? 'third' : 'primary'}>
+        <P color={activeDuck === 1 || activeDuck === 2 ? 'third' : 'primary'} style={"h-20"}>
           <span className={uniqueClass2}></span>
         </P>
       </div>
