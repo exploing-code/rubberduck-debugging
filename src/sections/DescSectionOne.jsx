@@ -5,7 +5,6 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { ducks } from "../../data";
 import { myContext } from "../components/ContextProvider.jsx";
 import P from "../components/P";
-import backgroundOrange from "../assets/background-orange.png";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -37,7 +36,7 @@ function DescSectionOne() {
 			tl.to(".revealScratch", {
 				delay: 3,
 				duration: 0.5,
-				width: "80%",
+				width: "76%",
 			});
 			tl.to(".p4", {
 				duration: 0.5,
@@ -49,31 +48,31 @@ function DescSectionOne() {
 
 	return (
 		<section
-			ref={refS1}
 			className="h-screen relative"
+			ref={refS1}
 			id="s3"
 			style={{
-				backgroundImage: `url(${backgroundOrange})`,
+				backgroundImage: `url(${ducks[activeDuck].waterImg})`,
 				backgroundSize: "cover",
 				backgroundPosition: "80% 0%",
 			}}>
 			{/* <img src={backgroundOrange} className={"absolute h-screen w-screen object-fill"}  /> */}
 			<div
 				style={{ backgroundColor: ducks[activeDuck].primaryClr }}
-				className="absolute h-[12em] w-[18em] sm:h-[14.5em] sm:w-[24em] left-[10vw] bottom-[100px] *:py-2 pl-2 *:w-full z-20 ">
-				<P>
+				className="absolute h-[12em] w-[18em] sm:h-[13.2em] sm:w-[22em] left-[7vw] bottom-[103px] *:py-2 pl-2 *:w-full ">
+				<P color={"secondary"}>
 					<span className="p1"></span>
 				</P>
-				<P style={"mr-8"}>
+				<P color={"secondary"} style={"mr-8"}>
 					<span className="p2"></span>
 				</P>
 				<div className="relative">
-					<P>
+					<P color={"secondary"}>
 						<span className="p3 relative"></span>
 					</P>
-					<div style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" revealScratch absolute w-0 h-[1px] bottom-4 sm:bottom-5 right-4"></div>
+					<div style={{ backgroundColor: ducks[activeDuck].secondaryClr }} className=" revealScratch absolute w-0 h-[1px] bottom-4 sm:bottom-4 right-4 sm:right-8"></div>
 				</div>
-				<P>
+				<P color={"secondary"}>
 					<span className="p4"></span>
 				</P>
 			</div>
