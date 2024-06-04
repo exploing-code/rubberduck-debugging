@@ -4,10 +4,15 @@ import { useGSAP } from "@gsap/react";
 import { ducks } from "../../data";
 import { myContext } from "./ContextProvider";
 
-export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
+export default function LoadingScreenToSection({ sectionId, text }) {
 	const containerRef = useRef();
 	const title = useRef();
-	const { activeDuck } = myContext();
+	const { activeDuck, setActiveSectionNumb } = myContext();
+	const titleString = text;
+
+	setTimeout(() => {
+		setActiveSectionNumb(Number(sectionId.slice(-1)));
+	}, 1500);
 
 	useGSAP(() => {
 		gsap.from(containerRef.current, {
@@ -18,8 +23,8 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
 				document.body.style.overflow = "hidden";
 			},
 			onComplete: () => {
-				const s2 = document.getElementById("s2");
-				s2.scrollIntoView({ behavior: "smooth" });
+				const section = document.getElementById(sectionId);
+				section.scrollIntoView({ behavior: "smooth" });
 
 				// Re-enable scrolling after the scrollIntoView animation has finished
 				setTimeout(() => {
@@ -32,9 +37,6 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
 			duration: 2,
 			delay: 3,
 			ease: "power4.inOut",
-			onComplete: () => {
-				setRenderS2Loading(false);
-			},
 		});
 		gsap.fromTo(
 			title.current.children,
@@ -49,8 +51,6 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
 		);
 	}, []);
 
-	const titleString = "CHOOSE ANOTHER DUCK";
-
 	return (
 		<div className=" h-[100vh] w-full z-[1000] fixed top-0 left-0 flex justify-center items-center" ref={containerRef} style={{ backgroundColor: ducks[activeDuck].secondaryClr }}>
 			<h1 className="m-0 text-[#FBD652] lg:text-[5rem] flex" ref={title} style={{ color: ducks[activeDuck].primaryClr }}>
@@ -58,7 +58,7 @@ export default function LoadingScreenCharSelect({ setRenderS2Loading }) {
 					.replace(/ /g, "\u00a0")
 					.split("")
 					.map((item, index) => (
-						<span className="reveal relative" key={index}>
+						<span className="reveal relative uppercase" key={index}>
 							{item}
 						</span>
 					))}

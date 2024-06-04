@@ -18,9 +18,6 @@ function ScrollBtn() {
 
   const {
     hover,
-    setHover,
-    isAudioCtxActivated,
-    setIsAudioCtxActivated,
     activeDuck,
     activeSectionNumb,
     setActiveSectionNumb,

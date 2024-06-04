@@ -6,14 +6,20 @@ import Button from "../components/Button";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ducks } from "../../data";
+import LoadingScreenToSection from "../components/LoadingScreenToSection";
 
 export default function AudioVisualizer() {
-	const { setPartyOn, setRenderS2Loading, activeDuc, setActiveSectionNumb } = myContext();
+	const { setPartyOn } = myContext();
+	const [renderLoadingYES, setRenderLoadingYES] = useState(false);
+	const [renderLoadingNO, setRenderLoadingNO] = useState(false);
+
+	// DOM
 	const songRef = useRef(null);
 	const textRef = useRef(null);
-	const wrapperRef = useRef(null);
+	const buttonTitleWrapperRef = useRef(null);
 	const buttonsRef = useRef(null);
 	const sectionRef = useRef(null);
+	
 
 	// Text and buttons enter
 	useGSAP(
@@ -46,28 +52,28 @@ export default function AudioVisualizer() {
 			console.error("Error playing song:", err);
 		});
 
-		gsap.to(wrapperRef.current, {
+		gsap.to(buttonTitleWrapperRef.current, {
 			opacity: 0,
 		});
 
-    setInterval(() => {
-			console.log(songRef.current.paused)
+		let test = true;
+		setInterval(() => {
+			if (songRef.current.paused && test) {
+				setRenderLoadingNO(true);
+				setTimeout(() => {
+					setPartyOn(false);
+				}, 1500);
+			}
 		}, 1000);
 	}
+
 	function handleClickYes() {
-		setRenderS2Loading(true);
-		// document.body.style.overflow = 'auto';
-
-		setTimeout(() => {
-			setActiveSectionNumb(2);
-		}, 1500);
+		setRenderLoadingYES(true);
 	}
-
-
 
 	return (
 		<section ref={sectionRef} id="s6" className=" w-screen relative flex items-center justify-center h-screen">
-			<div ref={wrapperRef} className={` absolute top-4 right-6 z-[500]`}>
+			<div ref={buttonTitleWrapperRef} className={` absolute top-4 right-6 z-[500]`}>
 				<P style={"mb-2 ml-4"}>
 					<span ref={textRef}></span>
 				</P>
@@ -78,6 +84,8 @@ export default function AudioVisualizer() {
 			</div>
 			<audio id="myAudio" ref={songRef} src="../sound-effects/Wobbly-duck.mp3"></audio>
 			<Visualizer />
+			{renderLoadingYES ? <LoadingScreenToSection sectionId="s2" text="Try another duck!" /> : null}
+			{renderLoadingNO ? <LoadingScreenToSection sectionId="s1" text="Party's over" /> : null}
 		</section>
 	);
 }

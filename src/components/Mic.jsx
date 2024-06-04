@@ -10,8 +10,8 @@ export default function MicIcon({ isOn }) {
 	return (
 		<div className=" flex items-center  relative">
 			<FaPowerOff
-				style={{ border: "solid 3px" + ducks[activeDuck].primaryClr, backgroundColor: ducks[activeDuck].primaryClr, color: ducks[activeDuck].secondaryClr }}
-				className={`${isOn ? "opacity-0" : "opacity-100" } transition-all hover:scale-110 duration-200 rounded-full text-7xl absolute left-1 bottom-12`}
+				style={{ color: ducks[activeDuck].secondaryClr }}
+				className={`${isOn ? "opacity-0" : "opacity-100" } transition-all hover:scale-110 duration-200 z-20 rounded-full text-7xl absolute left-1 bottom-12`}
 			/>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
