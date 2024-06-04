@@ -50,7 +50,7 @@ function DescSectionThree() {
         <SpeechBubble
           direction='left'
           textReveal1='First, turn the mic on!'
-          textReveal2="Then it's time to start the test, share your code and I'll do my best! "
+          textReveal2="Then it's time to start the test, explain your code and I'll do my best! "
           sectionRef={refS3}
         />
       </div>

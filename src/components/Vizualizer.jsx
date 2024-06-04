@@ -114,11 +114,11 @@ export default function Visualizer() {
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
-		const volumeThreshold = 70;
+		const volumeThreshold = 40;
 		let volumeAboveThresholdStartTime = null;
 		let isVolumeAboveThreshold = false;
 		let animationRan = false;
-		const awaitResponseTime = 200;
+		const awaitResponseTime = 1000;
 
 		function update() {
 			if (analyzerNodeRef.current) {
@@ -137,7 +137,8 @@ export default function Visualizer() {
 				}
 
 				// conditionally rendering animation
-				if (volumePercent > volumeThreshold) {
+				if (volumePercent < volumeThreshold) {
+					console.log("??");
 					if (!isVolumeAboveThreshold) {
 						isVolumeAboveThreshold = true;
 						volumeAboveThresholdStartTime = Date.now();
@@ -145,6 +146,7 @@ export default function Visualizer() {
 						const currentTime = Date.now();
 						const timePassed = currentTime - volumeAboveThresholdStartTime;
 						if (timePassed >= awaitResponseTime && !animationRan && !isPartyOnRef.current) {
+							console.log("run");
 							runAnimation();
 							animationRan = true;
 						}
