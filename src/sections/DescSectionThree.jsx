@@ -43,7 +43,6 @@ function DescSectionThree() {
           trigger: refS3.current,
           start: "center center",
           end: "bottom bottom",
-          // markers: true,
         },
         duration: 1,
         delay: 3,
