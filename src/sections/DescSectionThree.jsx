@@ -4,7 +4,7 @@ import { myContext } from "../components/ContextProvider.jsx";
 import MicIcon from "../components/Mic";
 
 function DescSectionThree() {
-	const { setHover, setActiveSectionNumb, isAudioCtxActivated, setIsAudioCtxActivated, activeSectionNumb } = myContext();
+	const { setHover, setActiveSectionNumb, isAudioCtxActivated, setIsAudioCtxActivated, activeSectionNumb, partyOn } = myContext();
 	const refS3 = useRef();
 	const sectionRef3 = useRef();
 	const [isMicOn, setIsMicOn] = useState(false);
@@ -20,13 +20,15 @@ function DescSectionThree() {
 
 	return (
 		<section ref={refS3} id="s5" className="h-[100vh] flex items-start flex-col justify-start relative">
-			<button
-				onClick={handleOnClick}
-				onMouseEnter={() => setHover("hovered")}
-				onMouseLeave={() => setHover("not-hovered")}
-				className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} left-[7vw] bottom-0 w-40 h-40 z-50`}>
-				{isMicOn ? <MicIcon isOn={true} /> : <MicIcon isOn={false} />}
-			</button>
+			{partyOn ? null : (
+				<button
+					onClick={handleOnClick}
+					onMouseEnter={() => setHover("hovered")}
+					onMouseLeave={() => setHover("not-hovered")}
+					className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"}  left-[7vw] bottom-12 sm:bottom-0 w-20 sm:w-40 z-50`}>
+					{isMicOn ? <MicIcon isOn={true} /> : <MicIcon isOn={false} />}
+				</button>
+			)}
 
 			<div ref={sectionRef3}>
 				<SpeechBubble
