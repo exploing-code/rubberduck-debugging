@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import SpeechBubble from "../components/SpeeachBubble";
 import { myContext } from "../components/ContextProvider.jsx";
-import MicOn from "../assets/mic/MicOn.svg";
-import MicOff from "../assets/mic/MicOff.svg";
+import MicIcon from "../components/Mic";
 
 function DescSectionThree() {
 	const { setHover, setActiveSectionNumb, isAudioCtxActivated, setIsAudioCtxActivated, activeSectionNumb } = myContext();
@@ -22,11 +21,7 @@ function DescSectionThree() {
 	return (
 		<section ref={refS3} id="s5" className="h-[100vh] flex items-start flex-col justify-start relative">
 			<button onClick={handleOnClick} className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} left-[7vw] bottom-0 w-40 h-40 z-50`}>
-				{isMicOn ? (
-					<img src={MicOn} alt="" onMouseLeave={() => setHover("not-hovered")} />
-				) : (
-					<img src={MicOff} alt="" style={{ fill: "blue" }} onMouseEnter={() => setHover("hovered")} onMouseLeave={() => setHover("not-hovered")} />
-				)}
+				{isMicOn ? <MicIcon isOn={true} /> : <MicIcon isOn={false} />}
 			</button>
 
 			<div ref={sectionRef3}>
