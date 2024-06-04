@@ -17,7 +17,7 @@ import P from "./P";
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
 export default function Visualizer() {
-	const { activeDuck, isAudioCtxActivated, partyOn } = myContext();
+	const { activeDuck, isAudioCtxActivated, partyOn, activeSectionNumb  } = myContext();
 
 	// DOM
 	const duckSoundRef = useRef(null);
@@ -168,7 +168,7 @@ export default function Visualizer() {
 
 	// render animation with sound effect
 	function runAnimation() {
-		if (titleRef.current && !partyOn) {
+		if (titleRef.current && !partyOn && activeSectionNumb === 6) {
 			runDuckSoundEffect();
 			var tl = gsap.timeline();
 			tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });
