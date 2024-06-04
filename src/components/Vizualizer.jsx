@@ -188,7 +188,6 @@ export default function Visualizer() {
 	useEffect(() => {
 		isPartyOnRef.current = partyOn;
 		if (partyOn) {
-			songRef.current.currentTime = 32.9;
 			songRef.current.play().catch((err) => {
 				console.error("Error playing song:", err);
 			});
