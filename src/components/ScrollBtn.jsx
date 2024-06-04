@@ -6,12 +6,6 @@ import { myContext } from "../components/ContextProvider.jsx";
 import { TbArrowBigDownFilled } from "react-icons/tb";
 import { TbArrowBigUpFilled } from "react-icons/tb";
 
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
-
-gsap.registerPlugin(ScrollToPlugin);
-
 function ScrollBtn() {
   const [arrow, setArrow] = useState(<TbArrowBigUpFilled />);
   const [x, setX] = useState(0);
@@ -22,17 +16,8 @@ function ScrollBtn() {
   const iconWidth = iconRef.current?.offsetWidth;
   const iconHeight = iconRef.current?.offsetHeight;
 
-  const {
-    hover,
-    setHover,
-    isAudioCtxActivated,
-    setIsAudioCtxActivated,
-    activeDuck,
-    activeSectionNumb,
-    setActiveSectionNumb,
-    triggerOnceScrollBtn,
-    setTriggerOnceScrollBtn,
-  } = myContext();
+  const { hover, activeDuck, activeSectionNumb, setActiveSectionNumb } =
+    myContext();
 
   useEffect(() => {
     const updateMouseCoordinates = (e) => {
@@ -62,26 +47,24 @@ function ScrollBtn() {
     // console.log('activeSectionNumb', activeSectionNumb);
 
     const handleClick = () => {
-      if (triggerOnceScrollBtn) {
-        const windowHeight = window.innerHeight;
+      const windowHeight = window.innerHeight;
 
-        if (activeSectionNumb === 1) {
-          setActiveSectionNumb((prevNumber) =>
-            prevNumber < 5 ? prevNumber + 1 : prevNumber
-          );
-        } else if (activeSectionNumb === 5) {
-          setActiveSectionNumb((prevNumber) =>
-            prevNumber > 1 ? prevNumber - 1 : prevNumber
-          );
-        } else if (y > windowHeight / 2) {
-          setActiveSectionNumb((prevNumber) =>
-            prevNumber < 5 ? prevNumber + 1 : prevNumber
-          );
-        } else if (y < windowHeight / 2) {
-          setActiveSectionNumb((prevNumber) =>
-            prevNumber > 1 ? prevNumber - 1 : prevNumber
-          );
-        }
+      if (activeSectionNumb === 1) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber < 5 ? prevNumber + 1 : prevNumber
+        );
+      } else if (activeSectionNumb === 5) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber > 1 ? prevNumber - 1 : prevNumber
+        );
+      } else if (y > windowHeight / 2) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber < 5 ? prevNumber + 1 : prevNumber
+        );
+      } else if (y < windowHeight / 2) {
+        setActiveSectionNumb((prevNumber) =>
+          prevNumber > 1 ? prevNumber - 1 : prevNumber
+        );
       }
     };
 
@@ -94,10 +77,10 @@ function ScrollBtn() {
     };
   }, [y]);
 
-  useGSAP(() => {
+  useEffect(() => {
     const section = document.getElementById("s" + activeSectionNumb);
-    if (section && triggerOnceScrollBtn) {
-      gsap.to(window, { duration: 0, scrollTo: section });
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeSectionNumb]);
 

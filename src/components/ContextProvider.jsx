@@ -11,9 +11,6 @@ export const ContextProvider = ({ children }) => {
   const [isAudioCtxActivated, setIsAudioCtxActivated] = useState(false);
   const [isCharSelected, setIsCharSelected] = useState(false);
 
-  const [triggeredOnce, setTriggeredOnce] = useState(false);
-  const [triggerOnceScrollBtn, setTriggerOnceScrollBtn] = useState(false);
-
   // for removing window event listener for scroll
   const [hover, setHover] = useState("not-hovered");
   const [activeSectionNumb, setActiveSectionNumb] = useState(1);
@@ -35,10 +32,6 @@ export const ContextProvider = ({ children }) => {
     setHover,
     activeSectionNumb,
     setActiveSectionNumb,
-    triggeredOnce,
-    setTriggeredOnce,
-    triggerOnceScrollBtn,
-    setTriggerOnceScrollBtn,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

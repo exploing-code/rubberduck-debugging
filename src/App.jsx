@@ -40,15 +40,12 @@ function App() {
     setRenderS2Loading,
     activeSectionNumb,
     setActiveSectionNumb,
-    triggerOnceScrollBtn,
-    setTriggerOnceScrollBtn,
   } = myContext();
   const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
   useGSAP(() => {
     setTimeout(() => {
-      setTriggerOnceScrollBtn(true);
       gsap.to(window, { duration: 0, scrollTo: 0 });
     }, 1000);
   }, []);
