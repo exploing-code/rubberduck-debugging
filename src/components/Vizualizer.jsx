@@ -118,7 +118,7 @@ export default function Visualizer() {
 		let volumeAboveThresholdStartTime = null;
 		let isVolumeAboveThreshold = false;
 		let animationRan = false;
-		const awaitResponseTime = 0;
+		const awaitResponseTime = 200;
 
 		function update() {
 			if (analyzerNodeRef.current) {

@@ -16,23 +16,6 @@ export default function AudioVisualizer() {
   const buttonsRef = useRef(null);
   const sectionRef = useRef(null);
 
-  // disable scroll when entering the section
-  //   useEffect(() => {
-  //     function handleScroll() {
-  //       if (sectionRef) {
-  //         let yValue = sectionRef.current.getBoundingClientRect().y;
-  //         if (yValue === 0) {
-  //           document.body.style.overflow = 'hidden';
-  //         }
-  //       }
-  //     }
-
-  //     window.addEventListener('scroll', handleScroll);
-  //     return () => {
-  //       window.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }, [sectionRef]);
-
   // Text and buttons enter
   useGSAP(
     () => {
