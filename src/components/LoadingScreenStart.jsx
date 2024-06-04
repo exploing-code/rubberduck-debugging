@@ -43,7 +43,7 @@ export default function LoadingScreen({
       className='bg-black h-[100vh] w-full z-[1000] fixed top-0 left-0 flex justify-center items-center'
       ref={containerRef}
     >
-      <h1 className='m-0 text-[#FBD652] lg:text-[20rem]'>{count}%</h1>
+      <h1 className='m-0 text-[#FFEC43] lg:text-[20rem]'>{count}%</h1>
     </div>
   );
 }

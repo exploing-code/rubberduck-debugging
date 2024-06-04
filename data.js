@@ -11,7 +11,7 @@ export const ducks = [
 	{
 		name: "RubberDuck",
 		path: "./rubber_duck/scene.gltf",
-		primaryClr: "#FFFE98",
+		primaryClr: "#FFEC43",
 		secondaryClr: "black",
 		thirdClr: "#37ADE0",
 		waterImg: blueWater,
