@@ -37,8 +37,8 @@ function App() {
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
   return (
-    <>
-      <ScrollBtn />
+    <div className={`${partyOn ? "" : "cursor-none"}`}>
+      {partyOn ? "" : <ScrollBtn />}
       {/* {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
@@ -95,7 +95,7 @@ function App() {
           )}
         </main>
       )}
-    </>
+    </div>
   );
 }
 
