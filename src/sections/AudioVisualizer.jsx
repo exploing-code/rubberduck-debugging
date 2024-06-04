@@ -9,7 +9,7 @@ import { ducks } from "../../data";
 import LoadingScreenToSection from "../components/LoadingScreenToSection";
 
 export default function AudioVisualizer() {
-	const { setPartyOn } = myContext();
+	const { setPartyOn, setActiveSectionNumb } = myContext();
 	const [renderLoadingYES, setRenderLoadingYES] = useState(false);
 	const [renderLoadingNO, setRenderLoadingNO] = useState(false);
 
@@ -19,7 +19,6 @@ export default function AudioVisualizer() {
 	const buttonTitleWrapperRef = useRef(null);
 	const buttonsRef = useRef(null);
 	const sectionRef = useRef(null);
-	
 
 	// Text and buttons enter
 	useGSAP(
@@ -56,18 +55,21 @@ export default function AudioVisualizer() {
 			opacity: 0,
 		});
 
-		let test = true;
+		let continueInterval = true;
 		setInterval(() => {
-			if (songRef.current.paused && test) {
+			if (songRef.current.paused && continueInterval) {
 				setRenderLoadingNO(true);
 				setTimeout(() => {
 					setPartyOn(false);
+					setActiveSectionNumb(1);
 				}, 1500);
+				continueInterval = false;
 			}
 		}, 1000);
 	}
 
 	function handleClickYes() {
+		setActiveSectionNumb(2);
 		setRenderLoadingYES(true);
 	}
 

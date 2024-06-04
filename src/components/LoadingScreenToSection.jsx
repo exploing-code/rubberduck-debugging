@@ -7,12 +7,10 @@ import { myContext } from "./ContextProvider";
 export default function LoadingScreenToSection({ sectionId, text }) {
 	const containerRef = useRef();
 	const title = useRef();
-	const { activeDuck, setActiveSectionNumb } = myContext();
+	const { activeDuck } = myContext();
 	const titleString = text;
 
-	setTimeout(() => {
-		setActiveSectionNumb(Number(sectionId.slice(-1)));
-	}, 1500);
+
 
 	useGSAP(() => {
 		gsap.from(containerRef.current, {
