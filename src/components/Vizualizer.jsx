@@ -17,7 +17,7 @@ import P from "./P";
 // todo - fix quack sound effect, change conditions of when it should render and refractor
 
 export default function Visualizer() {
-	const { activeDuck, isAudioCtxActivated, partyOn, activeSectionNumb  } = myContext();
+	const { activeDuck, isAudioCtxActivated, partyOn, activeSectionNumb } = myContext();
 
 	// DOM
 	const duckSoundRef = useRef(null);
@@ -26,6 +26,7 @@ export default function Visualizer() {
 	const visualizerRef = useRef(null);
 	const titleRef = useRef(null);
 	const isPartyOnRef = useRef(null);
+	const isDuckResponding = useRef(false);
 
 	// For AudioContexts
 	const [micCtx, setMicCtx] = useState(null);
@@ -37,6 +38,11 @@ export default function Visualizer() {
 	const analyzerNodeRef = useRef(null);
 	const duckSourceNodeRef = useRef(null);
 	const duck2SourceNodeRef = useRef(null);
+
+	// Only allow duck to respond when user is in the right section
+	useEffect(() => {
+		isDuckResponding.current = activeSectionNumb === 6 ? true : false;
+	}, [activeSectionNumb]);
 
 	// AudioContext must be initialized after a user gesture.We now have a secret workaround that the first time
 	useEffect(() => {
@@ -108,7 +114,7 @@ export default function Visualizer() {
 
 	// Set animation frame with flags to check if the Text and sound effect should run
 	useEffect(() => {
-		const volumeThreshold = 80;
+		const volumeThreshold = 70;
 		let volumeAboveThresholdStartTime = null;
 		let isVolumeAboveThreshold = false;
 		let animationRan = false;
@@ -168,7 +174,7 @@ export default function Visualizer() {
 
 	// render animation with sound effect
 	function runAnimation() {
-		if (titleRef.current && !partyOn && activeSectionNumb === 6) {
+		if (titleRef.current && !partyOn && isDuckResponding.current) {
 			runDuckSoundEffect();
 			var tl = gsap.timeline();
 			tl.to(titleRef.current, { opacity: 1, scale: 1, duration: 0.2 });

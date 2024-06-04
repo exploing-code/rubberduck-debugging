@@ -9,8 +9,8 @@ function DescSectionThree() {
 
 
 	function handleOnClick() {
-		console.log("click");
-		setActiveSectionNumb((prev) => prev + 1);
+		setActiveSectionNumb(6);
+
 		if (!isAudioCtxActivated) {
 			setIsAudioCtxActivated(true);
 		}
@@ -24,13 +24,16 @@ function DescSectionThree() {
 				onClick={handleOnClick}
 				onMouseEnter={() => setHover("hovered")}
 				onMouseLeave={() => setHover("not-hovered")}
-				className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} right-0 bottom-0 bg-red-400 w-20 h-20 z-50`}></button>
+				className={` ${activeSectionNumb <= 5 ? "absolute" : "fixed"} left-[7vw] bottom-0 bg-red-400 w-20 h-20 z-50`}>
+
+
+        </button>
 
 			<div ref={sectionRef3}>
 				<SpeechBubble 
           direction="left" 
-          textReveal1="Alright, it's time. Let's start the test, " 
-          textReveal2="share your code and I'll do my best!" 
+          textReveal1="First, turn the mic on!" 
+          textReveal2="Then it's time to start the test, share your code and I'll do my best! " 
           sectionRef={refS3} />
 			</div>
 		</section>
