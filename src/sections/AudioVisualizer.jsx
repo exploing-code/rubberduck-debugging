@@ -9,7 +9,7 @@ import { ducks } from '../../data';
 import LoadingScreenToSection from '../components/LoadingScreenToSection';
 
 export default function AudioVisualizer() {
-  const { setPartyOn, setActiveSectionNumb } = myContext();
+  const { setPartyOn, setActiveSectionNumb, partyOn } = myContext();
   const [renderLoadingYES, setRenderLoadingYES] = useState(false);
   const [renderLoadingNO, setRenderLoadingNO] = useState(false);
 
@@ -50,11 +50,7 @@ export default function AudioVisualizer() {
     songRef.current.play().catch((err) => {
       console.error('Error playing song:', err);
     });
-
-    gsap.to(buttonTitleWrapperRef.current, {
-      opacity: 0,
-    });
-
+    
     let continueInterval = true;
     setInterval(() => {
       if (songRef.current.paused && continueInterval) {
@@ -63,6 +59,9 @@ export default function AudioVisualizer() {
         setTimeout(() => {
           setPartyOn(false);
           setActiveSectionNumb(1);
+          setTimeout(() => {
+            setRenderLoadingNo(false);
+          }, 3000);
         }, 1500);
         continueInterval = false;
       }
@@ -86,8 +85,7 @@ export default function AudioVisualizer() {
       className=' w-screen relative flex items-center justify-center h-screen'
     >
       <div
-        ref={buttonTitleWrapperRef}
-        className={` absolute top-4 right-6 z-[500]`}
+        className={` absolute top-4 right-6 z-[500] transition-opacity duration-200 ${ partyOn ? " opacity-0" : "opacity-100"}`}
       >
         <P style={'mb-2 ml-4'}>
           <span ref={textRef}></span>
