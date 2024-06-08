@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { ducks } from "../../data";
 import { myContext } from "./ContextProvider.jsx";
 
-
 function Cursor() {
 	const { hover, activeDuck, activeSectionNumb, setActiveSectionNumb, partyOn } = myContext();
 	const [mouseCoord, setMouseCoord] = useState({ x: -100, y: -500 });
@@ -11,7 +10,6 @@ function Cursor() {
 	const iconRef = useRef(null);
 	const iconWidth = iconRef.current?.offsetWidth;
 	const iconHeight = iconRef.current?.offsetHeight;
-
 
 	useEffect(() => {
 		const updateMouseCoordinates = (e) => {
@@ -24,7 +22,6 @@ function Cursor() {
 		};
 	}, []);
 
-	
 	useEffect(() => {
 		const halfWindowHeight = window.innerHeight / 2;
 
@@ -62,7 +59,7 @@ function Cursor() {
 	return (
 		<div
 			ref={iconRef}
-			className={`fixed p-[20px] z-[500] pointer-events-none  flex items-center justify-center *:transition-colors *:duration-200`}
+			className={`fixed z-[500] pointer-events-none  flex items-center justify-center *:transition-colors *:duration-200 w-20 h-24 `}
 			style={{
 				top: `${mouseCoord.y - iconHeight / 2}px`,
 				left: `${mouseCoord.x - iconWidth / 2}px`,
@@ -87,7 +84,6 @@ function Cursor() {
 					/>
 				</svg>
 			)}
-			{/* {activeSectionNumb === 5 ? <TbArrowBigUpFilled /> : activeSectionNumb === 1 ? <TbArrowBigDownFilled /> : hover === true ? "" : arrow} */}
 		</div>
 	);
 }
