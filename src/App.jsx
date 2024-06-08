@@ -19,7 +19,7 @@ import AudioVisualizer from "./sections/AudioVisualizer";
 
 import { myContext } from "./components/ContextProvider";
 import LoadingScreen from "./components/LoadingScreenStart";
-import ScrollBtn from "./components/ScrollBtn";
+import Cursor from "./components/Cursor";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -30,66 +30,50 @@ import PartyComponent from "./components/PartyComponent";
 gsap.registerPlugin(ScrollToPlugin);
 
 function App() {
-  const {
-    activeDuck,
-    setActiveDuck,
-    partyOn,
-    setPartyOn,
-    renderS2Loading,
-    setRenderS2Loading,
-    activeSectionNumb,
-    setActiveSectionNumb,
-  } = myContext();
-  const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
-  const [renderInitialLoading, setRenderInitialLoading] = useState(true);
+	const { activeDuck, setActiveDuck, partyOn, setPartyOn, renderS2Loading, setRenderS2Loading, activeSectionNumb, setActiveSectionNumb } = myContext();
+	const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
+	const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
-  useGSAP(() => {
-    setTimeout(() => {
-      gsap.to(window, { duration: 0, scrollTo: 0 });
-    }, 1000);
-  }, []);
+	useGSAP(() => {
+		setTimeout(() => {
+			gsap.to(window, { duration: 0, scrollTo: 0 });
+		}, 1000);
+	}, []);
 
-  return (
-    <div className={`${partyOn ? "" : "cursor-none"}`}>
-      {partyOn ? "" : <ScrollBtn />}
-      {renderInitialLoading && (
-        <LoadingScreen
-          setIsLoaded={setIsLoaded}
-          setRenderInitialLoading={setRenderInitialLoading}
-        />
-      )}
-      {isLoaded && (
-        <main
-          className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
-          style={{
-            backgroundColor: ducks[activeDuck].primaryClr,
-          }}
-        >
-          <Hero />
-          <CharSelectSection />
-          <DescSectionOne />
-          <DescSectionTwo />
-          <DescSectionThree />
-          <AudioVisualizer />
+	return (
+		<div className={`${partyOn ? "" : "cursor-none"}`}>
+			<Cursor />
+			{/* {renderInitialLoading && <LoadingScreen setIsLoaded={setIsLoaded} setRenderInitialLoading={setRenderInitialLoading} />} */}
+			{isLoaded && (
+				<main
+					className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
+					style={{
+						backgroundColor: ducks[activeDuck].primaryClr,
+					}}>
+					<Hero />
+					<CharSelectSection />
+					<DescSectionOne />
+					<DescSectionTwo />
+					<DescSectionThree />
+					<AudioVisualizer />
 
-          <div className="fixed top-0 left-0 h-full w-full z-[1]">
-            {partyOn ? (
-              ""
-            ) : (
-              <Canvas
-                camera={{
-                  fov: 35,
-                }}
-              >
-                <Experience />
-              </Canvas>
-            )}
-            {partyOn ? <PartyComponent /> : ""}
-          </div>
-        </main>
-      )}
-    </div>
-  );
+					<div className="fixed top-0 left-0 h-full w-full z-[1]">
+						{partyOn ? (
+							""
+						) : (
+							<Canvas
+								camera={{
+									fov: 35,
+								}}>
+								<Experience />
+							</Canvas>
+						)}
+						{partyOn ? <PartyComponent /> : ""}
+					</div>
+				</main>
+			)}
+		</div>
+	);
 }
 
 export default App;

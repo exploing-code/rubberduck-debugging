@@ -31,7 +31,7 @@ export default function AudioVisualizer() {
         },
       });
       tl.to(textRef.current, {
-        delay: 7,
+        delay: 10,
         duration: 2,
         text: `Are you still stuck?`,
       });
@@ -85,7 +85,7 @@ export default function AudioVisualizer() {
       className=' w-screen relative flex items-center justify-center h-screen'
     >
       <div
-        className={` absolute top-4 right-6 z-[500] transition-opacity duration-200 ${ partyOn ? " opacity-0" : "opacity-100"}`}
+        className={` absolute top-4 right-6 z-[50] transition-opacity duration-200 ${ partyOn ? " opacity-0" : "opacity-100"}`}
       >
         <P style={'mb-2 ml-4'}>
           <span ref={textRef}></span>
