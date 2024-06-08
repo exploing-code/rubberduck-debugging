@@ -41,7 +41,7 @@ function App() {
 	}, []);
 
 	return (
-		<div className={`${partyOn ? "" : "cursor-none"}`}>
+		<div className={` cursor-none`}>
 			<Cursor />
 			{/* {renderInitialLoading && <LoadingScreen setIsLoaded={setIsLoaded} setRenderInitialLoading={setRenderInitialLoading} />} */}
 			{isLoaded && (

@@ -1,32 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import { ducks } from "../../data";
 import { myContext } from "./ContextProvider.jsx";
 
-import { TbArrowBigDownFilled } from "react-icons/tb";
-import { TbArrowBigUpFilled } from "react-icons/tb";
-import { div } from "three/examples/jsm/nodes/Nodes";
 
 function Cursor() {
 	const { hover, activeDuck, activeSectionNumb, setActiveSectionNumb, partyOn } = myContext();
 	const [mouseCoord, setMouseCoord] = useState({ x: -100, y: -500 });
-	const [isCursorUpperHalf, setIsCursorUpperHalf] = useState(false);
+	const [isCursorPointingUp, setIsCursorPointingUp] = useState(false);
 
 	const iconRef = useRef(null);
 	const iconWidth = iconRef.current?.offsetWidth;
 	const iconHeight = iconRef.current?.offsetHeight;
 
+
 	useEffect(() => {
 		const updateMouseCoordinates = (e) => {
 			setMouseCoord({ x: e.clientX, y: e.clientY });
-
-			let y = e.clientY;
-			const windowHeight = window.innerHeight;
-			if (y > windowHeight / 2) {
-				setIsCursorUpperHalf(true);
-			} else {
-				setIsCursorUpperHalf(false);
-			}
 		};
 
 		window.addEventListener("mousemove", updateMouseCoordinates);
@@ -35,28 +24,32 @@ function Cursor() {
 		};
 	}, []);
 
+	
 	useEffect(() => {
-		const handleClick = () => {
-			const windowHeight = window.innerHeight;
+		const halfWindowHeight = window.innerHeight / 2;
 
-			if (activeSectionNumb === 1) {
-				setActiveSectionNumb((prevNumber) => (prevNumber < 5 ? prevNumber + 1 : prevNumber));
-			} else if (activeSectionNumb === 5) {
-				setActiveSectionNumb((prevNumber) => (prevNumber > 1 ? prevNumber - 1 : prevNumber));
-			} else if (mouseCoord.y > windowHeight / 2) {
-				setActiveSectionNumb((prevNumber) => (prevNumber < 5 ? prevNumber + 1 : prevNumber));
-			} else if (mouseCoord.y < windowHeight / 2) {
-				setActiveSectionNumb((prevNumber) => (prevNumber > 1 ? prevNumber - 1 : prevNumber));
+		if (activeSectionNumb === 1) {
+			setIsCursorPointingUp(false);
+		} else if (activeSectionNumb === 5) {
+			setIsCursorPointingUp(true);
+		} else {
+			setIsCursorPointingUp(mouseCoord.y < halfWindowHeight ? true : false);
+		}
+
+		const handleClick = () => {
+			if (isCursorPointingUp) {
+				setActiveSectionNumb((prevNumber) => prevNumber - 1);
+			} else {
+				setActiveSectionNumb((prevNumber) => prevNumber + 1);
 			}
 		};
 
 		if (hover === false) {
 			window.addEventListener("click", handleClick);
+			return () => {
+				window.removeEventListener("click", handleClick);
+			};
 		}
-
-		return () => {
-			window.removeEventListener("click", handleClick);
-		};
 	}, [mouseCoord.y]);
 
 	useEffect(() => {
@@ -74,17 +67,16 @@ function Cursor() {
 				top: `${mouseCoord.y - iconHeight / 2}px`,
 				left: `${mouseCoord.x - iconWidth / 2}px`,
 				color: ducks[activeDuck].secondaryClr,
-				transform: isCursorUpperHalf ? "scaleY(1)" : "scaleY(-1)",
+				transform: isCursorPointingUp ? "scaleY(-1)" : "scaleY(1)",
 			}}>
-			{hover || partyOn ? (
+			{hover || partyOn || activeSectionNumb === 6 ? (
 				<div
 					style={{
 						backgroundColor: ducks[activeDuck].secondaryClr,
-						border: `solid 6px ${ducks[activeDuck].primaryClr}`,
+						border: `solid 4px ${ducks[activeDuck].primaryClr}`,
 					}}
-					className=" w-10 h-10 rounded-full">
-					hello
-				</div>
+					className=" w-6 h-6 rounded-full"
+				/>
 			) : (
 				<svg width="73" height="84" viewBox="0 0 73 84" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
