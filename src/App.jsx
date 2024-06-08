@@ -52,12 +52,12 @@ function App() {
   return (
     <div className={`${partyOn ? "" : "cursor-none"}`}>
       {partyOn ? "" : <ScrollBtn />}
-      {renderInitialLoading && (
+      {/* {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
           setRenderInitialLoading={setRenderInitialLoading}
         />
-      )}
+      )} */}
       {isLoaded && (
         <main
           className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
@@ -72,7 +72,7 @@ function App() {
           <DescSectionThree />
           <AudioVisualizer />
 
-          <div className="fixed top-0 left-0 h-full w-full z-[1]">
+          <div className="fixed top-0 left-0 h-full w-full z-[10]">
             {partyOn ? (
               ""
             ) : (

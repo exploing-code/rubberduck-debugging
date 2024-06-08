@@ -30,7 +30,7 @@ function Title({ text, size, zIndex }) {
 			}}
 			className={`text-current stroke-white `}>
 			{text.split("").map((char, index) => (
-				<span key={index} style={{ zIndex: maxIndex - index, position: "relative" }}>
+				<span key={index} style={{ zIndex: maxIndex - index , position: "relative" }}>
 					{char}
 				</span>
 			))}
