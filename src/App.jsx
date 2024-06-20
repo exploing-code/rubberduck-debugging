@@ -1,31 +1,31 @@
 // libraries
-import { Canvas } from "@react-three/fiber";
-import React, { useContext, useRef, useState, useEffect } from "react";
+import { Canvas } from '@react-three/fiber';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 
 // data
-import { ducks } from "../data";
+import { ducks } from '../data';
 
 // components
-import Experience from "./components/Experience";
-import { Cluster } from "./components/Cluster";
+import Experience from './components/Experience';
+import { Cluster } from './components/Cluster';
 
 // sections
-import Hero from "./sections/Hero";
-import CharSelectSection from "./sections/CharSelection";
-import DescSectionOne from "./sections/DescSectionOne";
-import DescSectionTwo from "./sections/DescSectionTwo";
-import DescSectionThree from "./sections/DescSectionThree";
-import AudioVisualizer from "./sections/AudioVisualizer";
+import Hero from './sections/Hero';
+import CharSelectSection from './sections/CharSelection';
+import DescSectionOne from './sections/DescSectionOne';
+import DescSectionTwo from './sections/DescSectionTwo';
+import DescSectionThree from './sections/DescSectionThree';
+import AudioVisualizer from './sections/AudioVisualizer';
 
-import { myContext } from "./components/ContextProvider";
-import LoadingScreen from "./components/LoadingScreenStart";
-import ScrollBtn from "./components/ScrollBtn";
+import { myContext } from './components/ContextProvider';
+import LoadingScreen from './components/LoadingScreenStart';
+import ScrollBtn from './components/ScrollBtn';
 
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 
-import PartyComponent from "./components/PartyComponent";
+import PartyComponent from './components/PartyComponent';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -40,7 +40,7 @@ function App() {
     activeSectionNumb,
     setActiveSectionNumb,
   } = myContext();
-  const [isLoaded, setIsLoaded] = useState(true); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
+  const [isLoaded, setIsLoaded] = useState(false); // TRUE FOR DEVELOPMENT - FALSE FOR PRODUCTION
   const [renderInitialLoading, setRenderInitialLoading] = useState(true);
 
   useGSAP(() => {
@@ -50,14 +50,14 @@ function App() {
   }, []);
 
   return (
-    <div className={`${partyOn ? "" : "cursor-none"}`}>
-      {partyOn ? "" : <ScrollBtn />}
-      {/* {renderInitialLoading && (
+    <div className={`${partyOn ? '' : 'cursor-none'}`}>
+      {partyOn ? '' : <ScrollBtn />}
+      {renderInitialLoading && (
         <LoadingScreen
           setIsLoaded={setIsLoaded}
           setRenderInitialLoading={setRenderInitialLoading}
         />
-      )} */}
+      )}
       {isLoaded && (
         <main
           className={`overflow-x-hidden transition-colors duration-500 ease-in-out relative`}
@@ -72,9 +72,9 @@ function App() {
           <DescSectionThree />
           <AudioVisualizer />
 
-          <div className="fixed top-0 left-0 h-full w-full z-[10]">
+          <div className='fixed top-0 left-0 h-full w-full z-[10]'>
             {partyOn ? (
-              ""
+              ''
             ) : (
               <Canvas
                 camera={{
@@ -84,7 +84,7 @@ function App() {
                 <Experience />
               </Canvas>
             )}
-            {partyOn ? <PartyComponent /> : ""}
+            {partyOn ? <PartyComponent /> : ''}
           </div>
         </main>
       )}
